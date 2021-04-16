@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/web-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Header.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +35,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1618465561856</updated>
-      <workItem from="1618465573114" duration="39000" />
+      <workItem from="1618465573114" duration="212000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
 </project>

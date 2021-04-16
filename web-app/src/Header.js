@@ -6,7 +6,7 @@ function Header() {
     <div className="App">
     	<div className="container backgroundHeader">
 			<div className="row">
-				<div className="col-md-12">>
+				<div className="col-md-12">
 				</div>
   			</div>
 		</div>
