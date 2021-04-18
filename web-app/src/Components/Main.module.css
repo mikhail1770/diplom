@@ -1,0 +1,8 @@
+.active{
+    color: red;
+}
+
+.nav{
+    margin: 20px;
+    min-height: 50px;
+}
