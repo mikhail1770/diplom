@@ -20,23 +20,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="-">
-      <change afterPath="$PROJECT_DIR$/web-app/src/Components/App.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Header.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Main.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-app/src/Components/MyDocuments.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Navigation.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc_1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Footer/Footer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Nav/Main.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/4.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Header" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Navigation.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Nav/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Main.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/MyDocuments.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/MyDocuments/MyDocuments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Navigation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Navigation.module.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +64,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/web-app/src/Components" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Header" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Documents" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Nav" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Footer" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\MyDocuments" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components" />
     </key>
@@ -82,7 +88,7 @@
       <workItem from="1618465573114" duration="212000" />
       <workItem from="1618563851370" duration="9425000" />
       <workItem from="1618651035436" duration="9248000" />
-      <workItem from="1618712212226" duration="922000" />
+      <workItem from="1618712212226" duration="17975000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618563930188</created>
@@ -91,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618563930188</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="-">
+      <created>1618713485321</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618713485321</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

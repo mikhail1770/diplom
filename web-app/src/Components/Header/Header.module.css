@@ -1,0 +1,11 @@
+.background {
+    background-image: url("1.jpg");
+    height: 40vh;
+}
+.header{
+    background-color: #39393991;
+    min-height: 60px;
+    margin: 0px;
+    color: white;
+    padding: 15px 20px;
+}
