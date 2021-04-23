@@ -1,6 +1,4 @@
-
-
-.nav{
+.nav {
     padding: 20px;
     min-height: 50px;
     background-color: #393939e0;
@@ -8,13 +6,18 @@
     margin-bottom: 50px;
 }
 
-.nav a{
+.nav a {
     color: white;
 }
-.nav a:hover{
+
+.nav a.activeLink{
+    color: #00f3ff !important;
+}
+
+
+.nav a:hover {
     color: white;
     text-decoration-line: none;
 }
-.active{
-    color: #00f3ff !important;
-}
+
+

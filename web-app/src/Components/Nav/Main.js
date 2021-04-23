@@ -8,12 +8,7 @@ function Main() {
     return (
         <div>
             <div className={`${s.nav} row`}>
-                <div className="col-md-2">
-                    <NavLink to='/navigation' activeClassName={s.active}>Новый документ</NavLink>
-                </div>
-                <div className="col-md-10">
-                    <NavLink exact to='/' activeClassName={s.active}>Мои документы</NavLink>
-                </div>
+
             </div>
         </div>
     );
