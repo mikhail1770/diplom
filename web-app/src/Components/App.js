@@ -3,25 +3,24 @@ import './../App.css';
 import Header from './Header/Header.js';
 import Main from './Nav/Main.js';
 import Navigation from './NewDocuments/Navigation.js';
-import s from './App.module.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import MyDocuments from "./MyDocuments/MyDocuments";
 import Footer from "./Footer/Footer.js";
-//import Doc1_1 from "./Documents/Doc1_1/Doc1_1";
-//import Doc1_2 from "./Documents/Doc1_2";
-//import Doc1_3 from "./Documents/Doc1_3";
-//import Doc2_1 from "./Documents/Doc2_1";
-import Doc2_2 from "./Documents/Doc2_2";
-import Doc2_3 from "./Documents/Doc2_3";
-import Doc2_4 from "./Documents/Doc2_4";
-import Doc2_5 from "./Documents/Doc2_5";
-import Doc2_6 from "./Documents/Doc2_6";
-import Doc2_7 from "./Documents/Doc2_7";
-import Doc2_8 from "./Documents/Doc2_8";
-import Doc3_1 from "./Documents/Doc3_1";
-import Doc3_2 from "./Documents/Doc3_2";
-import Doc4_1 from "./Documents/Doc4_1";
-import Doc4_2 from "./Documents/Doc4_2";
+import Doc1_1 from "./Documents/Doc1_1/Doc1_1";
+import Doc1_2 from "./Documents/Doc1_2/Doc1_2.js";
+import Doc1_3 from "./Documents/Doc1_3/Doc1_3.js";
+import Doc2_1 from "./Documents/Doc2_1/Doc2_1.js";
+import Doc2_2 from "./Documents/Doc2_2/Doc2_2.js";
+import Doc2_3 from "./Documents/Doc2_3/Doc2_3.js";
+import Doc2_4 from "./Documents/Doc2_4/Doc2_4.js";
+import Doc2_5 from "./Documents/Doc2_5/Doc2_5.js";
+import Doc2_6 from "./Documents/Doc2_6/Doc2_6.js";
+import Doc2_7 from "./Documents/Doc2_7/Doc2_7.js";
+import Doc2_8 from "./Documents/Doc2_8/Doc2_8.js";
+import Doc3_1 from "./Documents/Doc3_1/Doc3_1.js";
+import Doc3_2 from "./Documents/Doc3_2/Doc3_2.js";
+import Doc4_1 from "./Documents/Doc4_1/Doc4_1.js";
+import Doc4_2 from "./Documents/Doc4_2/Doc4_2.js";
 
 function App() {
 
@@ -34,7 +33,10 @@ function App() {
                 <Switch>
                     <Route  exact path="/" component={MyDocuments}/>
                     <Route  exact path="/navigation"  component={Navigation}/>
-
+                    <Route  exact path="/navigation/1" component={Doc1_1}/>
+                    <Route  exact path="/navigation/2" component={Doc1_2}/>
+                    <Route  exact path="/navigation/3" component={Doc1_3}/>
+                    <Route  exact path="/navigation/4" component={Doc2_1}/>
                     <Route  exact path="/navigation/5" component={Doc2_2}/>
                     <Route  exact path="/navigation/6" component={Doc2_3}/>
                     <Route  exact path="/navigation/7" component={Doc2_4}/>
