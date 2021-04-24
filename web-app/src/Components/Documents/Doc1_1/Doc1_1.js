@@ -1,17 +1,30 @@
 import React from 'react';
 import '../../../App.css';
+import axios from 'axios';
 
 
+export default class Doc1_1 extends React.Component {
+    state = {
+        groups: []
+    }
 
-function Doc1_1() {
-    return (
-        <div>
-            <div className="row">
+    componentDidMount() {
+        axios.get(`http://localhost:3001/univGroups`)
+            .then(res => {
+                const groups = res.data;
+                this.setState({groups});
+                console.log(groups);
+            })
+    }
 
-            </div>
-        </div>
-    );
+    render() {
+        return (
+            <ul>
+                {this.state.groups.map(group => <li>{group.title} </li>)}
+            </ul>
+        )
+    }
 }
 
-export default Doc1_1;
+
 
