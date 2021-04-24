@@ -1,0 +1,26 @@
+.background {
+    background-image: url("1.jpg");
+    height: 40vh;
+}
+.header{
+    background-color: #39393991;
+    min-height: 60px;
+    margin: 0px;
+    color: white;
+    padding: 15px 20px;
+}
+.header a {
+    color: white;
+}
+
+.header a.activeLink{
+    color: #00f3ff !important;
+}
+
+
+.header a:hover {
+    color: white;
+    text-decoration-line: none;
+}
+
+
