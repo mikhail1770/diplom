@@ -20,7 +20,7 @@ export default class Doc1_1 extends React.Component {
     render() {
         return (
             <ul>
-                {this.state.groups.map(group => <li>{group.title} </li>)}
+                {this.state.groups.map(group => <li>{group.GroupName} </li>)}
             </ul>
         )
     }
