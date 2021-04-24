@@ -1,89 +1,41 @@
-import React from "react";
-import { render } from "react-dom";
+import React, {useState} from 'react';
+import '../../App.css';
+import {Link, NavLink} from "react-router-dom";
 
-const Article = ({ title, text }) => (
-    <div>
-        <h3>{title || "Без заголовка"}</h3>
-        <p>{text || "пусто"}</p>
-    </div>
-);
 
-class Doc_1 extends React.Component {
+class Doc2_8 extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
+        this.state = { value: '' }
 
-        this.state = {
-            head_names: ['qwe0', 'qwe1'],
-            rows: [
-                [1, 2],
-                [3, 4]
-            ]
-        };
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    AddRow() {
-        let newRows = this.state.rows;
-        newRows.push([0, 0]);
-        this.setState({rows: newRows});
+    handleChange(event) {
+        this.setState({ value: event.target.value })
+    }
+
+    handleSubmit(event) {
+        //alert('Отправленное имя: ' + this.state.value)
+        event.preventDefault()
     }
 
     render() {
         return (
-            <div>
-                <Table head={this.state.head_names} rows={this.state.rows} />
-                <hr />
-                <button onClick={ this.AddRow.bind(this) }>Add row</button>
-            </div>
-        );
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Имя:
+                    <input
+                        type="text"
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                    />
+                </label>
+                <input type="submit" value="Отправить" />
+            </form>
+        )
     }
 }
 
-class Table extends React.Component {
-    render() {
-        return (
-            <table>
-                <thead>
-                {this.genHead()}
-                </thead>
-                <tbody>
-                {this.genRow()}
-                </tbody>
-            </table>
-        );
-    }
-
-    genHead() {
-        var head = this.props.head;
-
-        return head.map(function(v, i) {
-            return (
-                <th key={'th' + i}>
-                    {v}
-                </th>
-            );
-        });
-    }
-
-    genRow() {
-        var rows = this.props.rows;
-
-        return rows.map(function(v, i) {
-            var tmp = v.map(function(v2, j) {
-                return (
-                    <td key={'td' + i + '_' + j}>
-                        {v2}
-                    </td>
-                );
-            });
-
-            return (
-                <tr key={'tr' + i}>
-                    {tmp}
-                </tr>
-            )
-        });
-    }
-}
-
-
-export default Doc_1;
+export default Doc2_8;

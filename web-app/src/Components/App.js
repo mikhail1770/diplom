@@ -7,10 +7,10 @@ import s from './App.module.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import MyDocuments from "./MyDocuments/MyDocuments";
 import Footer from "./Footer/Footer.js";
-import Doc1_1 from "./Documents/Doc1_1";
-import Doc1_2 from "./Documents/Doc1_2";
-import Doc1_3 from "./Documents/Doc1_3";
-import Doc2_1 from "./Documents/Doc2_1";
+//import Doc1_1 from "./Documents/Doc1_1/Doc1_1";
+//import Doc1_2 from "./Documents/Doc1_2";
+//import Doc1_3 from "./Documents/Doc1_3";
+//import Doc2_1 from "./Documents/Doc2_1";
 import Doc2_2 from "./Documents/Doc2_2";
 import Doc2_3 from "./Documents/Doc2_3";
 import Doc2_4 from "./Documents/Doc2_4";
@@ -34,10 +34,7 @@ function App() {
                 <Switch>
                     <Route  exact path="/" component={MyDocuments}/>
                     <Route  exact path="/navigation"  component={Navigation}/>
-                    <Route  exact path="/navigation/1" component={Doc1_1}/>
-                    <Route  exact path="/navigation/2" component={Doc1_2}/>
-                    <Route  exact path="/navigation/3" component={Doc1_3}/>
-                    <Route  exact path="/navigation/4" component={Doc2_1}/>
+
                     <Route  exact path="/navigation/5" component={Doc2_2}/>
                     <Route  exact path="/navigation/6" component={Doc2_3}/>
                     <Route  exact path="/navigation/7" component={Doc2_4}/>
