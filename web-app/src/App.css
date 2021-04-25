@@ -60,3 +60,23 @@ html{
 footer{
 
 }
+.form{
+    padding: 20px;
+    border: 1px solid cornflowerblue;
+    margin: 10px;
+}
+
+.form .row{
+    padding-bottom: 40px;
+}
+#disciplines {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    width: 100%;
+    z-index: 1;
+}
+.search:focus + #disciplines {
+    display: block;
+}
