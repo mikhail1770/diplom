@@ -2,8 +2,12 @@ import React from 'react';
 import '../../../App.css';
 import axios from 'axios';
 import SelectForm from "../SelectForm";
-import InputText from "../InputText";
-import $ from "jquery";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
 
 
 export default class Doc1_1 extends React.Component {
@@ -11,17 +15,21 @@ export default class Doc1_1 extends React.Component {
         super(props);
         this.state = {
             verificationResults: ['к защите', 'к доработке'],
+            students: [],
             groups: [],
+            discipline: [],
             group: '',
             disciplines: '',
             studentName: '',
             dateOfReceipt: '',
             verificationResult: 'к защите',
-            fail: ''
+            fail: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
-
+        this.onGroupChange = this.onGroupChange.bind(this);
+        this.onStudentNameChange = this.onGroupChange.bind(this);
+        this.onDisciplinesChange = this.onGroupChange.bind(this);
     }
 
 
@@ -35,6 +43,18 @@ export default class Doc1_1 extends React.Component {
         });
     }
 
+    onGroupChange = (e, values) => {
+        this.setState({group: values});
+    }
+
+    onStudentNameChange = (e, values) => {
+        this.setState({studentName: values});
+    }
+
+    onDisciplinesChange = (e, values) => {
+        this.setState({discipline: values});
+    }
+
     onSubmit = event => {
         event.preventDefault();
 
@@ -43,7 +63,7 @@ export default class Doc1_1 extends React.Component {
             studentName: this.state.studentName,
             group: this.state.group,
             dateOfReceipt: this.state.dateOfReceipt,
-            verificationResult: this.state.verificationResult
+            verificationResult: this.state.verificationResult,
         };
 
         axios.post('http://localhost:3001/', {coursework})
@@ -60,6 +80,8 @@ export default class Doc1_1 extends React.Component {
             dateOfReceipt: '',
             verificationResult: '',
             fail: '',
+            students: []
+
         })
 
 
@@ -70,50 +92,97 @@ export default class Doc1_1 extends React.Component {
             .then(res => {
                 const groups = res.data;
                 this.setState({groups});
+                console.log(groups)
+            })
 
+        axios.get(`http://localhost:3001/students/1`)
+            .then(res => {
+                const students = res.data;
+                this.setState({students});
+                console.log(students)
             })
 
 
     }
 
     render() {
-
         return (
-            <form className="form " onSubmit={this.onSubmit}>
+
+            <form className="form container">
+
                 <div className="form-row row">
-                    <div className='col-md-3'>
-
-                        <InputText label={'Дисциплина'} name={'disciplines'} handleChange={this.handleChange}
-                                   value={this.state.disciplines}/>
-                    </div>
 
                     <div className='col-md-3'>
-                        <InputText label={'Группа'} name={'group'} handleChange={this.handleChange}
-                                   value={this.state.group} state={this.state.verificationResults}/>
+                        <Autocomplete
+                            options={this.state.disciplines}
+                            onChange={this.onDisciplinesChange}
+                            style={{width: 200}}
+                            renderInput={(params) => <TextField {...params} label='Дисциплина' variant="outlined"/>}
+                        />
                     </div>
+
                     <div className='col-md-3'>
-                        <InputText label={'ФИО студента'} name={'studentName'} handleChange={this.handleChange}
-                                   value={this.state.studentName}/>
+                        <Autocomplete
+                            options={this.state.groups.map(group => group.GroupName)}
+                            onChange={this.onGroupChange}
+                            style={{width: 200}}
+                            renderInput={(params) => <TextField name={'group'} {...params} label='Группа'
+                                                                variant="outlined"/>}
+                        />
                     </div>
+
                     <div className='col-md-3'>
-                        <InputText label={'Дата поступления'} name={'dateOfReceipt'} handleChange={this.handleChange}
-                                   value={this.state.dateOfReceipt}/>
+                        <Autocomplete
+                            onChange={this.onStudentNameChange}
+                            options={this.state.students.map(studentName => studentName.Name)}
+                            style={{width: 200}}
+                            renderInput={(params) => <TextField  {...params} label='ФИО студента' variant="outlined"/>}
+                        />
                     </div>
+
+                    <div className='col-md-3 '>
+                        <TextField
+                            id="date"
+                            label="Дата поступления"
+                            onChange={this.handleChange}
+                            name='dateOfReceipt'
+                            type="date"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </div>
+
                 </div>
                 <div className="row">
                     <div className='col-md-6'>
-                        <SelectForm state={this.state.verificationResults} handleChange={this.handleChange}
-                                    label={'Результат проверки'}/>
+                        <FormControl variant="outlined" className='formControl'>
+                            <InputLabel id="demo-simple-select-outlined-label">Результат проверки</InputLabel>
+                            <Select
+                                onChange={this.handleChange}
+
+                                style={{width: 200}}
+                                name="verificationResult"
+                                label="Результат проверки"
+                            >
+                                {this.state.verificationResults.map(verificationResult =>
+                                    <MenuItem value={verificationResult}>{verificationResult}</MenuItem>)}
+                            </Select>
+                        </FormControl>
                     </div>
+
                     <div className='col-md-6'>
                         <p>Загрузить файл:</p>
                         <input type="file"/>
                     </div>
-                    <input type="submit" value="Добавить" class="btn btn-primary"/>
-                    {/*{this.state.verificationResult}
-                    {this.state.disciplines}*/}
+                    {this.state.verificationResult}
+                    {this.state.group}
+                    {this.state.studentName}
                 </div>
+                <input type="submit" value="Добавить" className="btn btn-primary" onClick={this.onSubmit}/>
+
             </form>
+
 
         )
     }
