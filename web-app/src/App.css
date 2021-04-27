@@ -60,3 +60,23 @@ html{
 footer{
 
 }
+.form{
+    padding: 20px;
+    border: 1px solid #c7c7c7;
+    margin: 0px;
+}
+
+.form .row{
+    padding-bottom: 40px;
+}
+#disciplines {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #c7c7c7;
+    width: 100%;
+    z-index: 1;
+}
+.search:focus + #disciplines {
+    display: block;
+}
