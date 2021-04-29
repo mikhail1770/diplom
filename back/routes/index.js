@@ -19,6 +19,13 @@ router.get('/students/:id', function(req, res, next){ //запрос данны�
   });  
 })
 
+router.get('/students', function(req, res, next){ //запрос данных студентов
+  connection.query('SELECT * FROM students', function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });  
+})
+
 router.get('/univGroups/:id', function(req, res, next){ //запрос на получение списка группы по id
   connection.query('SELECT * FROM students WHERE UnivGroup = ?', [req.params.id], function (error, results, fields) {
     if (error) throw error;
@@ -35,6 +42,12 @@ router.get('/univGroups', function(req, res, next){ //запрос на полу
 
 router.get('/professor', function(req, res, next){ //запрос на получение списка групп
   connection.query('SELECT * FROM professor', function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });  
+})
+router.get('/disciplines', function(req, res, next){ //запрос на получение списка дисциплин
+  connection.query('SELECT * FROM disciplines', function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });  
