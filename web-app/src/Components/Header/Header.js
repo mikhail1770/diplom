@@ -8,10 +8,10 @@ function Header() {
         <div className={`${s.background}`}>
             <div className={`${s.header} row`}>
                 <div className="col-md-2">
-                    <NavLink  to='/navigation' activeClassName={s.activeLink}>Новый документ</NavLink>
+                    <NavLink  to='/' activeClassName={s.activeLink}>Документы кафедры</NavLink>
                 </div>
                 <div className="col-md-2">
-                    <NavLink  exact to='/' activeClassName={s.activeLink}>Мои документы</NavLink>
+
                 </div>
                 <div className="col-md-8 text-right">
                     Личный кабинет
