@@ -7,10 +7,10 @@ function Header() {
     return (
         <div className={`${s.background}`}>
             <div className={`${s.header} row`}>
-                <div className="col-md-2">
+                <div className="col-md-3">
                     <NavLink  to='/' activeClassName={s.activeLink}>Документы кафедры</NavLink>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-1">
 
                 </div>
                 <div className="col-md-8 text-right">

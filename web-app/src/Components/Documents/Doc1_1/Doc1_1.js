@@ -8,6 +8,10 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import ModalWin from "./ModalWin";
+import Icon from '@material-ui/core/Icon';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {Edit} from "@material-ui/icons";
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 
 
 export default class Doc1_1 extends React.Component {
@@ -26,12 +30,12 @@ export default class Doc1_1 extends React.Component {
             verificationResult: 'к защите',
             fail: '',
             open: false,
-            fullTimesGroup: []
+            currentGroup: {}
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.onAutocompleteChange = this.onAutocompleteChange.bind(this);
-        this.OnOpenModal = this.onOpenModal.bind(this);
+
 
     }
 
@@ -47,23 +51,26 @@ export default class Doc1_1 extends React.Component {
     }
 
     onAutocompleteChange = (value, name) => {
-        if (!value) return;
-        console.log(value);
-        return this.setState({[name]: value.id});
+        console.log('sdf');
+        if (!value) {
+            return this.setState({[name]: null});
+        } else {
+            return this.setState({[name]: value.id});
+        }
+
     }
 
-    onOpenModal = event => {
+    onOpenModal = (arr) => {
         this.setState({
             open: true,
-            fullTimesGroup: event.target.value
+            currentGroup: arr
         });
     }
 
-    onClouseModal = event => {
-        console.log('уаыу')
+    onClouseModal = () => {
         this.setState({
             open: false,
-
+            currentGroup: {}
         });
     }
 
@@ -122,11 +129,9 @@ export default class Doc1_1 extends React.Component {
 
         return (
             <div>
-                <form className="form container">
-
-                    <div className="form-row row">
-
-                        <div className='col-md-3'>
+                <form className=" container">
+                    <div className="form-row row center-block form">
+                        <div className='col-md-3 pad'>
                             <Autocomplete
                                 id="group"
                                 getOptionLabel={(option) => option.GroupName}
@@ -137,8 +142,6 @@ export default class Doc1_1 extends React.Component {
                                                                      variant="outlined"/>}
                             />
                         </div>
-
-
                         <div className='col-md-3'>
                             <Autocomplete
                                 id="discipline"
@@ -149,10 +152,8 @@ export default class Doc1_1 extends React.Component {
                                 renderInput={(params) => <TextField {...params} label='Дисциплина' variant="outlined"/>}
                             />
                         </div>
-
                         <div className='col-md-3'>
                             <Autocomplete
-
                                 id="studentName"
                                 onChange={(e, v) => this.onAutocompleteChange(v, "studentName")}
                                 options={this.state.students.map(studentName => studentName.Name)}
@@ -161,51 +162,85 @@ export default class Doc1_1 extends React.Component {
                                                                      variant="outlined"/>}
                             />
                         </div>
-
-
                         <div className='col-md-3'>
-                            <Button variant="contained" color="primary" className="btn btn-primary"
-                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
-                                Найти
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className="btn btn-primary btnFind"
+                                onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
+                                <span>Найти</span>
                             </Button>
-                            {this.state.group}
-                            {this.state.discipline}
                         </div>
                     </div>
 
+                    <div className='row'>
 
+                        <div className='col-md-12'>
+                            <h3 className='titleTab lead'>Заочная форма обучения </h3>
+                            <table className="table table-bordered table-hover">
+                                <thead >
+                                <tr>
+                                    <th>ФИО</th>
+                                    <th>Группа</th>
+                                    <th>Дата поступления</th>
+                                    <th>Результат проверки</th>
+                                    <th>Срок возврата</th>
+                                    <th>Курсовая работа</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.state.fullTimesGroups.map(fullTimesGroup => (
+                                    <tr>
+                                        <td>{fullTimesGroup.Name}</td>
+                                        <td className='text-center'>{fullTimesGroup.UnivGroup}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td width='150px'>
+                                            <Button
+                                                onClick={(e) => this.onOpenModal(fullTimesGroup)}
+                                                variant="contained"
+                                                color="secondary"
+                                                className='button colorButTab'
+                                                startIcon={<Edit/>}
+                                            >
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                className='button '
+                                                startIcon={<DeleteIcon/>}
+                                            >
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='col-md-12'>
+                            <div className='btnSend'>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className="btn btn-primary btnFind colorButTab"
+                                onClick={this.onSubmit}>
+                                <span>Отправить</span>
+                            </Button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
-                <table class="table">
-                    <thead class="thead-inverse">
-                    <tr>
-                        <th>ФИО</th>
-                        <th>Группа</th>
-                        <th>Дата поступления</th>
-                        <th>Результат проверки</th>
-                        <th>Срок возврата</th>
-                        <th>Курсовая работа</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.fullTimesGroups.map(fullTimesGroup => (
-                        <tr onClick={this.OnOpenModal}>
-                            <td>{fullTimesGroup.Name}</td>
-                            <td>{fullTimesGroup.UnivGroup}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-                <Button variant="contained" color="primary" className="btn btn-primary center-block"
-                        onClick={this.onSubmit}>
-                    Отправить
-                </Button>
-
                 <div>
-                    <ModalWin clouse={this.onClouseModal} state={this.state.open} handleChange={this.handleChange}/>
+                    <ModalWin
+                        clouse={this.onClouseModal}
+                        state={this.state.open}
+                        handleChange={this.handleChange}
+                        currentGroup={this.state.currentGroup}/>
                 </div>
             </div>
 

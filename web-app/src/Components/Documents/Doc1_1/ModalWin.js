@@ -9,67 +9,92 @@ import Select from "@material-ui/core/Select";
 function ModalWin(props) {
 
     return (
-        <div>
-            <Modal
-                open={props.state}
-                onClose={props.clouse}
-            >
-                <div className='paper'>
-                    <table className="table">
-                        <thead className="thead-inverse">
-                        <tr>
-                            <th>ФИО</th>
-                            <th>Группа</th>
-                            <th>Дата поступления</th>
-                            <th>Результат проверки</th>
-                            <th>Срок возврата</th>
-                            <th>Курсовая работа</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <TextField
-                                    id="date"
-                                    onChange={props.handleChange}
-                                    name='dateOfReceipt'
-                                    type="date"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}/>
-                            </td>
-                            <td>
-                                <Select
-                                    onChange={props.handleChange}
-                                    style={{width: 200}}
-                                    name="verificationResult"
-                                    label="Результат проверки"
-                                >
+        <Modal
+            open={props.state}
+            onClose={props.clouse}
+        >
 
-                                        <MenuItem >dfg</MenuItem>)}
-                                </Select>
-                            </td>
-                            <td><TextField
-                                id="date"
-                                onChange={props.handleChange}
-                                name='dateOfReceipt'
-                                type="date"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            /></td>
-                            <td><input type="file"/></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <Button variant="contained" color="primary" className="btn btn-primary center-block">
-                        Сохранить
-                    </Button>
+            <div className='paper modalForm modal-content'>
+                <div className="modal-header">
+                    <h4 className="modal-title">Окно редактирования</h4>
                 </div>
-            </Modal>
-        </div>
+                <div className='modal-body'>
+                <div className='row'>
+                    <div className='col-5'>
+                        <span>ФИО студента:</span>
+                    </div>
+                    <div className='col-7'>
+                        <span>{props.currentGroup.Name}</span>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-5'>
+                        <span>Группа:</span>
+                    </div>
+                    <div className='col-7'>
+                        <span>{props.currentGroup.UnivGroup}</span>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-5'>
+                        <span>Дата поступления:</span>
+                    </div>
+                    <div className='col-7'>
+                        <span><TextField
+                            id="date"
+                            onChange={props.handleChange}
+                            name='dateOfReceipt'
+                            type="date"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}/></span>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-5'>
+                        <span>Результат проверки:</span>
+                    </div>
+                    <div className='col-7'>
+                        <span><Select
+                            onChange={props.handleChange}
+                            style={{width: 200}}
+                            name="verificationResult"
+                            label="Результат проверки"
+                        ></Select>
+                        </span>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-5'>
+                        <span>Срок возврата:</span>
+                    </div>
+                    <div className='col-7'>
+                        <span><TextField
+                            id="date"
+                            onChange={props.handleChange}
+                            name='dateOfReceipt'
+                            type="date"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}/></span>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-5'>
+                        <span>Курсовая работа:</span>
+                    </div>
+                    <div className='col-7'>
+                        <input type='file'/>
+                    </div>
+                </div>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" onClick={props.clouse}>Закрыть</button>
+                    <button type="button" className="btn btn-primary">Сохранить</button>
+                </div>
+
+            </div>
+        </Modal>
     );
 }
 

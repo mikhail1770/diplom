@@ -19,7 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp" />
+    <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/ModalWin.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/ModalWin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +55,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/web-app/src/Components" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -88,7 +98,7 @@
       <workItem from="1619495143833" duration="10696000" />
       <workItem from="1619703068311" duration="3930000" />
       <workItem from="1619761250877" duration="20447000" />
-      <workItem from="1619846937634" duration="2624000" />
+      <workItem from="1619846937634" duration="21965000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618563930188</created>
@@ -147,9 +157,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1619340508064" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1619350127545">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1619881105154">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1619350127545" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1619881105154" />
   </component>
 </project>
