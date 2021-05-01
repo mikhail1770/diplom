@@ -4,10 +4,10 @@ import axios from 'axios';
 import {get} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
+import ModalWin from "./ModalWin";
 
 
 export default class Doc1_1 extends React.Component {
@@ -17,17 +17,22 @@ export default class Doc1_1 extends React.Component {
             verificationResults: ['к защите', 'к доработке'],
             students: [],
             groups: [],
+            fullTimesGroups: [],
             discipline: '',
             group: '',
-            disciplines: ['История', 'Математика'],
+            disciplines: [],
             studentName: '',
             dateOfReceipt: '',
             verificationResult: 'к защите',
             fail: '',
+            open: false,
+            fullTimesGroup: []
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.onAutocompleteChange = this.onAutocompleteChange.bind(this);
+        this.OnOpenModal = this.onOpenModal.bind(this);
+
     }
 
 
@@ -42,9 +47,25 @@ export default class Doc1_1 extends React.Component {
     }
 
     onAutocompleteChange = (value, name) => {
-        return this.setState({[name]: value});
+        if (!value) return;
+        console.log(value);
+        return this.setState({[name]: value.id});
     }
 
+    onOpenModal = event => {
+        this.setState({
+            open: true,
+            fullTimesGroup: event.target.value
+        });
+    }
+
+    onClouseModal = event => {
+        console.log('уаыу')
+        this.setState({
+            open: false,
+
+        });
+    }
 
     onSubmit = event => {
         event.preventDefault();
@@ -75,7 +96,6 @@ export default class Doc1_1 extends React.Component {
 
         })
 
-
     }
 
     componentDidMount() {
@@ -84,9 +104,22 @@ export default class Doc1_1 extends React.Component {
             const groups = res.data;
             this.setState({groups});
         })
+
+        get('students').then(res => { //получение очных групп и их дисциплин
+            const fullTimesGroups = res.data;
+            this.setState({fullTimesGroups});
+            console.log(fullTimesGroups)
+        })
+
+        get('students', {group: {}}).then(res => {  //получение групп, дисциплин и студентов
+            const fullTimesGroups = res.data;
+            this.setState({fullTimesGroups});
+            console.log(fullTimesGroups)
+        })
     }
 
     render() {
+
         return (
             <div>
                 <form className="form container">
@@ -95,8 +128,23 @@ export default class Doc1_1 extends React.Component {
 
                         <div className='col-md-3'>
                             <Autocomplete
-                                options={this.state.disciplines}
-                                onChange={this.state.groups.map(disciplines => disciplines.onAutocompleteChange)}
+                                id="group"
+                                getOptionLabel={(option) => option.GroupName}
+                                options={this.state.groups}
+                                onChange={(e, v) => this.onAutocompleteChange(v, "group")}
+                                style={{width: 200}}
+                                renderInput={(params) => <TextField  {...params} label='Группа'
+                                                                     variant="outlined"/>}
+                            />
+                        </div>
+
+
+                        <div className='col-md-3'>
+                            <Autocomplete
+                                id="discipline"
+                                getOptionLabel={(option) => option.GroupName}
+                                options={this.state.groups}
+                                onChange={(e, v) => this.onAutocompleteChange(v, "discipline")}
                                 style={{width: 200}}
                                 renderInput={(params) => <TextField {...params} label='Дисциплина' variant="outlined"/>}
                             />
@@ -104,17 +152,7 @@ export default class Doc1_1 extends React.Component {
 
                         <div className='col-md-3'>
                             <Autocomplete
-                                id="group"
-                                options={this.state.groups.map(group => group.GroupName)}
-                                onChange={(e, v) => this.onAutocompleteChange(v, "group")}
-                                style={{width: 200}}
-                                renderInput={(params) => <TextField    {...params} label='Группа'
-                                                                       variant="outlined"/>}
-                            />
-                        </div>
 
-                        <div className='col-md-3'>
-                            <Autocomplete
                                 id="studentName"
                                 onChange={(e, v) => this.onAutocompleteChange(v, "studentName")}
                                 options={this.state.students.map(studentName => studentName.Name)}
@@ -124,54 +162,23 @@ export default class Doc1_1 extends React.Component {
                             />
                         </div>
 
-                        <div className='col-md-3 '>
-                            <TextField
-                                id="date"
 
-                                onChange={this.handleChange}
-                                name='dateOfReceipt'
-                                type="date"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
+                        <div className='col-md-3'>
+                            <Button variant="contained" color="primary" className="btn btn-primary"
+                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
+                                Найти
+                            </Button>
+                            {this.state.group}
+                            {this.state.discipline}
                         </div>
-
                     </div>
-                    <div className="row">
-                        <div className='col-md-6'>
-                            <FormControl variant="outlined" className='formControl'>
-                                <InputLabel id="demo-simple-select-outlined-label">Результат проверки</InputLabel>
-                                <Select
-                                    onChange={this.handleChange}
 
-                                    style={{width: 200}}
-                                    name="verificationResult"
-                                    label="Результат проверки"
-                                >
-                                    {this.state.verificationResults.map(verificationResult =>
-                                        <MenuItem value={verificationResult}>{verificationResult}</MenuItem>)}
-                                </Select>
-                            </FormControl>
-                        </div>
-
-                        <div className='col-md-6'>
-                            <p>Загрузить файл:</p>
-                            <input type="file"/>
-                        </div>
-                        {this.state.verificationResult}
-                        {this.state.group}
-                        {this.state.studentName}
-                    </div>
-                    <input type="submit" value="Добавить" className="btn btn-primary" onClick={this.onSubmit}/>
 
                 </form>
-                <table>
-                    <caption>Курсовые работы заочной формы обучения</caption>
-                    <thead>
+                <table class="table">
+                    <thead class="thead-inverse">
                     <tr>
-                        <th>№ п/п</th>
-                        <th>Ф.И.О. студента</th>
+                        <th>ФИО</th>
                         <th>Группа</th>
                         <th>Дата поступления</th>
                         <th>Результат проверки</th>
@@ -180,48 +187,26 @@ export default class Doc1_1 extends React.Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.groups.map(cours => (
-                        <tr key={cours.id}>
-                            <td>1</td>
-                            <td>dfg</td>
-                            <td>{cours.GroupName}</td>
-                            <td><TextField
-                                id="date"
-
-                                onChange={this.handleChange}
-                                name='dateOfReceipt'
-                                type="date"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            /></td>
-                            <td>
-                                <Select
-                                    onChange={this.handleChange}
-
-                                    style={{width: 200}}
-                                    name="verificationResult"
-                                    label="Результат проверки"
-                                >
-                                    {this.state.verificationResults.map(verificationResult =>
-                                        <MenuItem value={verificationResult}>{verificationResult}</MenuItem>)}
-                                </Select>
-                           </td>
-                            <td><TextField
-                                id="date"
-
-                                onChange={this.handleChange}
-                                name='dateOfReceipt'
-                                type="date"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            /></td>
-                            <td> <input type="file"/></td>
+                    {this.state.fullTimesGroups.map(fullTimesGroup => (
+                        <tr onClick={this.OnOpenModal}>
+                            <td>{fullTimesGroup.Name}</td>
+                            <td>{fullTimesGroup.UnivGroup}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
+                <Button variant="contained" color="primary" className="btn btn-primary center-block"
+                        onClick={this.onSubmit}>
+                    Отправить
+                </Button>
+
+                <div>
+                    <ModalWin clouse={this.onClouseModal} state={this.state.open} handleChange={this.handleChange}/>
+                </div>
             </div>
 
 
