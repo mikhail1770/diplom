@@ -30,7 +30,8 @@ export default class Doc1_1 extends React.Component {
             verificationResult: 'к защите',
             fail: '',
             open: false,
-            currentGroup: {}
+            currentGroup: {},
+            deleteObj: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -60,10 +61,16 @@ export default class Doc1_1 extends React.Component {
 
     }
 
-    onOpenModal = (arr) => {
+    onOpenModal = (obj) => {
         this.setState({
             open: true,
-            currentGroup: arr
+            currentGroup: obj
+        });
+    }
+
+    deleteStr = (obj) => {
+        this.setState({
+            deleteObj: obj.id
         });
     }
 
@@ -174,7 +181,7 @@ export default class Doc1_1 extends React.Component {
                     </div>
 
                     <div className='row'>
-
+                        {this.state.deleteObj}
                         <div className='col-md-12'>
                             <h3 className='titleTab lead'>Заочная форма обучения </h3>
                             <table className="table table-bordered table-hover">
@@ -200,7 +207,7 @@ export default class Doc1_1 extends React.Component {
                                         <td></td>
                                         <td width='150px'>
                                             <Button
-                                                onClick={(e) => this.onOpenModal(fullTimesGroup)}
+                                                onClick={() => this.onOpenModal(fullTimesGroup)}
                                                 variant="contained"
                                                 color="secondary"
                                                 className='button colorButTab'
@@ -212,6 +219,7 @@ export default class Doc1_1 extends React.Component {
                                                 color="secondary"
                                                 className='button '
                                                 startIcon={<DeleteIcon/>}
+                                                onClick={() => this.deleteStr(fullTimesGroup)}
                                             >
                                             </Button>
                                         </td>
