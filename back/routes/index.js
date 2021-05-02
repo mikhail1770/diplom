@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql2');
 
+
+var pdf = require('../classes/pdf')
+
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
   user: 'u0856139_univdoc',
@@ -17,6 +20,12 @@ router.get('/students/:id', function(req, res, next){ //запрос данны�
     if (error) throw error;
     res.json(results);
   });  
+})
+
+
+router.get('/documents/:type/generate', (req,res) => {
+  let generator = new pdf(req.params.type)  
+  generator.generate({});
 })
 
 router.get('/students', function(req, res, next){ //запрос данных студентов
