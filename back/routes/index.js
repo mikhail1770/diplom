@@ -33,6 +33,14 @@ router.get('/univGroups/:id', function(req, res, next){ //запрос на по
   });  
 })
 
+router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп
+  connection.query('SELECT univgroups.id AS univID, univgroups.GroupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.formOfStudyId=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
+  [req.params.id], function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });  
+})
+
 router.get('/univGroups', function(req, res, next){ //запрос на получение списка групп
   connection.query('SELECT * FROM univgroups', function (error, results, fields) {
     if (error) throw error;
@@ -52,8 +60,8 @@ router.get('/disciplines', function(req, res, next){ //запрос на пол�
     res.json(results);
   });  
 })
-router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //запрос на получение списка дисциплин группы по форме обучения (очка, заочка..)
-  connection.query('SELECT disciplines.Name, univgroups.GroupName, formOfStudy.formOfStudy, univgroups.id, disciplines.disID FROM studyPlan JOIN univgroups ON studyPlan.GroupId=univgroups.id JOIN disciplines ON studyPlan.disciplineID=disciplines.disID JOIN formOfStudy ON univgroups.formOfStudy=formOfStudy.formOfStudyId WHERE formOfStudy.formOfStudyId=?', 
+router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //бесполезное говно, которое и делать то и не надо было запрос на получение списка дисциплин группы по форме обучения (очка, заочка..)
+  connection.query('SELECT disciplines.Name, univgroups.GroupName, formOfStudy.formOfStudy, univgroups.id , disciplines.disID FROM studyPlan JOIN univgroups ON studyPlan.GroupId=univgroups.id JOIN disciplines ON studyPlan.disciplineID=disciplines.disID JOIN formOfStudy ON univgroups.formOfStudy=formOfStudy.formOfStudyId WHERE formOfStudy.formOfStudyId=?', 
   [req.params.id],  function (error, results, fields) {
     if (error) throw error;
     res.json(results);
