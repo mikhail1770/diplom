@@ -4,17 +4,14 @@ import axios from 'axios';
 import {get} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import ModalWin from "./ModalWin";
-import Icon from '@material-ui/core/Icon';
+import ModalWin from "./ModalWin1_1";
 import DeleteIcon from '@material-ui/icons/Delete';
 import {Edit} from "@material-ui/icons";
-import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 
 
 export default class Doc1_1 extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +28,9 @@ export default class Doc1_1 extends React.Component {
             fail: '',
             open: false,
             currentGroup: {},
-            deleteObj: ''
+            deleteObj: '',
+            num: 1
+
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -114,15 +113,10 @@ export default class Doc1_1 extends React.Component {
 
     componentDidMount() {
 
-        get('univGroups').then(res => {
+        get('/search/disciplines/formOfStudy/2').then(res => { //получение заочных групп и их дисциплин
             const groups = res.data;
             this.setState({groups});
-        })
-
-        get('students').then(res => { //получение очных групп и их дисциплин
-            const fullTimesGroups = res.data;
-            this.setState({fullTimesGroups});
-            console.log(fullTimesGroups)
+            console.log(groups)
         })
 
         get('students', {group: {}}).then(res => {  //получение групп, дисциплин и студентов
@@ -152,7 +146,7 @@ export default class Doc1_1 extends React.Component {
                         <div className='col-md-3'>
                             <Autocomplete
                                 id="discipline"
-                                getOptionLabel={(option) => option.GroupName}
+                                getOptionLabel={(option) => option.Name}
                                 options={this.state.groups}
                                 onChange={(e, v) => this.onAutocompleteChange(v, "discipline")}
                                 style={{width: 200}}
@@ -183,10 +177,18 @@ export default class Doc1_1 extends React.Component {
                     <div className='row'>
                         {this.state.deleteObj}
                         <div className='col-md-12'>
-                            <h3 className='titleTab lead'>Заочная форма обучения </h3>
+                            <div className='row'>
+                                <div className='col-md-6 pad'>
+                                    <h3 className='titleTab lead'>{this.state.discipline}</h3>
+                                </div>
+                                <div className='col-md-6'>
+                                    <h3 className='titleTab lead text-right'>Заочная форма обучения </h3>
+                                </div>
+                            </div>
                             <table className="table table-bordered table-hover">
-                                <thead >
+                                <thead>
                                 <tr>
+                                    <th>№</th>
                                     <th>ФИО</th>
                                     <th>Группа</th>
                                     <th>Дата поступления</th>
@@ -199,8 +201,9 @@ export default class Doc1_1 extends React.Component {
                                 <tbody>
                                 {this.state.fullTimesGroups.map(fullTimesGroup => (
                                     <tr>
-                                        <td>{fullTimesGroup.Name}</td>
-                                        <td className='text-center'>{fullTimesGroup.UnivGroup}</td>
+                                        <td>{this.state.num++}</td>
+                                        <td></td>
+                                        <td className='text-center'></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -227,19 +230,6 @@ export default class Doc1_1 extends React.Component {
                                 ))}
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className='col-md-12'>
-                            <div className='btnSend'>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className="btn btn-primary btnFind colorButTab"
-                                onClick={this.onSubmit}>
-                                <span>Отправить</span>
-                            </Button>
-                            </div>
                         </div>
                     </div>
                 </form>

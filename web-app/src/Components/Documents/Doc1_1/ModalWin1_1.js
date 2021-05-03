@@ -1,19 +1,16 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
 import '../../../App.css'
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 
-function ModalWin(props) {
+function ModalWin1_1(props) {
 
     return (
         <Modal
             open={props.state}
             onClose={props.clouse}
         >
-
             <div className='paper modalForm modal-content'>
                 <div className="modal-header">
                     <h4 className="modal-title">Окно редактирования</h4>
@@ -25,14 +22,6 @@ function ModalWin(props) {
                     </div>
                     <div className='col-7'>
                         <span>{props.currentGroup.Name}</span>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='col-5'>
-                        <span>Группа:</span>
-                    </div>
-                    <div className='col-7'>
-                        <span>{props.currentGroup.UnivGroup}</span>
                     </div>
                 </div>
                 <div className='row'>
@@ -92,10 +81,9 @@ function ModalWin(props) {
                     <button type="button" className="btn btn-secondary" onClick={props.clouse}>Закрыть</button>
                     <button type="button" className="btn btn-primary">Сохранить</button>
                 </div>
-
             </div>
         </Modal>
     );
 }
 
-export default ModalWin;
+export default ModalWin1_1;
