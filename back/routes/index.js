@@ -40,6 +40,14 @@ router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //з�
     res.json(results);
   });  
 })
+router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //запрос на получение списка дисциплин группы
+  connection.query('SELECT disciplines.Name AS disName, disciplines.disID AS disID FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.disID JOIN univgroups ON studyPlan.GroupId=univgroups.id WHERE univgroups.id=?', 
+  [req.params.id], function (error, results, fields) {
+    if (error) throw error;
+    console.log(req.params)
+    res.json(results);
+  });  
+})
 
 router.get('/univGroups', function(req, res, next){ //запрос на получение списка групп
   connection.query('SELECT * FROM univgroups', function (error, results, fields) {
