@@ -17,7 +17,7 @@ export default class Doc1_1 extends React.Component {
         this.state = {
             verificationResults: ['к защите', 'к доработке'],
             students: [],
-            groups: [],
+            groups: {},
             fullTimesGroups: [],
             discipline: '',
             group: '',
@@ -98,6 +98,7 @@ export default class Doc1_1 extends React.Component {
             console.log(error)
             console.log(coursework)
         });
+
         this.setState({
             group: '',
             disciplines: '',
@@ -113,7 +114,7 @@ export default class Doc1_1 extends React.Component {
 
     componentDidMount() {
 
-        get('/search/disciplines/formOfStudy/2').then(res => { //получение заочных групп и их дисциплин
+        get('search/disciplines/formOfStudy/1').then(res => { //получение заочных групп и их дисциплин
             const groups = res.data;
             this.setState({groups});
             console.log(groups)
