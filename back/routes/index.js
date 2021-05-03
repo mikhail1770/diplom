@@ -34,7 +34,7 @@ router.get('/univGroups/:id', function(req, res, next){ //запрос на по
 })
 
 router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп
-  connection.query('SELECT univgroups.id AS univID, univgroups.GroupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
+  connection.query('SELECT univgroups.id, univgroups.GroupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
