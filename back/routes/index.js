@@ -34,14 +34,14 @@ router.get('/univGroups/:id', function(req, res, next){ //запрос на по
 })
 
 router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп
-  connection.query('SELECT univgroups.id, univgroups.GroupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
+  connection.query('SELECT univgroups.id, univgroups.groupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });  
 })
 router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //запрос на получение списка дисциплин группы
-  connection.query('SELECT disciplines.Name, disciplines.id FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.id JOIN univgroups ON studyPlan.GroupId=univgroups.id WHERE univgroups.id=?', 
+  connection.query('SELECT disciplines.name, disciplines.id FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.id JOIN univgroups ON studyPlan.groupId=univgroups.id WHERE univgroups.id=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     console.log(req.params)
@@ -50,15 +50,20 @@ router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //за
 })
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
-  let sql = 'SELECT disciplines.Name, univgroups.GroupName, Courseworks.CheckingDate, Courseworks.IncomingDate, univgroups.Course, courseworkresult.Result, students.Name, professor.ProfName FROM Courseworks JOIN univgroups ON Courseworks.univGroups=univgroups.id JOIN students ON Courseworks.Student=students.id JOIN disciplines ON Courseworks.Disciplines=disciplines.id JOIN professor ON Courseworks.Professor=professor.id JOIN courseworkresult ON Courseworks.courseworkresult=courseworkresult.id WHERE 1=1'
+  let sql = 'SELECT disciplines.name, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE 1=1'
   let params = [];
-  if(req.query.byGroupID != null){
+  if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
     params.push(parseInt(req.query.byGroupID))
   }
-  if(req.query.byDescipline != null){
+  if(req.query.byDescipline != null){ //поиск по id дисциплины
     sql = sql + ' AND disciplines.id=?';
     params.push(parseInt(req.query.byDescipline))
+  }
+  if(req.query.sortIncomingDate != null){ //поиск по диапозону дат
+    sql = sql + ' AND courseworks.incomingDate BETWEEN ? AND ?'
+    params.push(req.query.sortIncomingDate)
+    params.push(req.query.sortIncomingDate2)
   }
   connection.query(sql, params, function (error, results, fields) {
     if (error) throw error;
