@@ -34,14 +34,14 @@ router.get('/univGroups/:id', function(req, res, next){ //запрос на по
 })
 
 router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп
-  connection.query('SELECT univgroups.id AS univID, univgroups.GroupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.formOfStudyId=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
+  connection.query('SELECT univgroups.id AS univID, univgroups.GroupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });  
 })
 router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //запрос на получение списка дисциплин группы
-  connection.query('SELECT disciplines.Name AS disName, disciplines.disID AS disID FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.disID JOIN univgroups ON studyPlan.GroupId=univgroups.id WHERE univgroups.id=?', 
+  connection.query('SELECT disciplines.Name, disciplines.id FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.id JOIN univgroups ON studyPlan.GroupId=univgroups.id WHERE univgroups.id=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     console.log(req.params)
