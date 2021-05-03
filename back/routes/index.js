@@ -49,6 +49,23 @@ router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //за
   });  
 })
 
+router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
+  let sql = 'SELECT disciplines.Name, univgroups.GroupName, Courseworks.CheckingDate, Courseworks.IncomingDate, univgroups.Course, courseworkresult.Result, students.Name, professor.ProfName FROM Courseworks JOIN univgroups ON Courseworks.univGroups=univgroups.id JOIN students ON Courseworks.Student=students.id JOIN disciplines ON Courseworks.Disciplines=disciplines.id JOIN professor ON Courseworks.Professor=professor.id JOIN courseworkresult ON Courseworks.courseworkresult=courseworkresult.id WHERE 1'
+  if(req.query.byGroupID != null){
+    sql = sql + 'AND univgroups.id=?';
+    params.push(`%${req.query.byGroupID}%`)
+  }
+  if(req.query.byDescipline != null){
+    sql = sql + 'AND disciplines.id=?';
+    params.push(`%${req.query.byDescipline}%`)
+  }
+  connection.query(sql, params, function (error, results, fields) {
+    if (error) throw error;
+    console.log(req.query)
+    res.json(results);
+  });  
+})
+
 router.get('/univGroups', function(req, res, next){ //запрос на получение списка групп
   connection.query('SELECT * FROM univgroups', function (error, results, fields) {
     if (error) throw error;
