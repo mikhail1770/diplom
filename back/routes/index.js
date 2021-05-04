@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql2');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
@@ -79,7 +81,7 @@ router.get('/univGroups', function(req, res, next){ //запрос на полу
   });  
 })
 
-router.get('/professor', function(req, res, next){ //запрос на получение списка групп
+router.get('/professor', function(req, res, next){ //запрос на получение списка преподавателей
   connection.query('SELECT * FROM professor', function (error, results, fields) {
     if (error) throw error;
     res.json(results);
