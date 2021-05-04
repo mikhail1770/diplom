@@ -20,7 +20,7 @@ export default class Doc1_1 extends React.Component {
             groups: {},
             fullTimesGroups: [],
             discipline: '',
-            group: '',
+            group: '0',
             disciplines: [],
             studentName: '',
             dateOfReceipt: '',
@@ -55,9 +55,15 @@ export default class Doc1_1 extends React.Component {
         if (!value) {
             return this.setState({[name]: null});
         } else {
+            let id = 1
+            get(`search/disciplines/univGroup/${id}`).then(res => {  //получение дисциплин
+                const disciplines = res.data;
+                this.setState({disciplines});
+                console.log(disciplines)
+            })
             return this.setState({[name]: value.id});
-        }
 
+        }
     }
 
     onOpenModal = (obj) => {
@@ -114,17 +120,14 @@ export default class Doc1_1 extends React.Component {
 
     componentDidMount() {
 
-        get('search/disciplines/formOfStudy/1').then(res => { //получение заочных групп и их дисциплин
+        get('search/univGroups/formOfStudy/1').then(res => { //получение заочных групп
             const groups = res.data;
             this.setState({groups});
             console.log(groups)
         })
 
-        get('students', {group: {}}).then(res => {  //получение групп, дисциплин и студентов
-            const fullTimesGroups = res.data;
-            this.setState({fullTimesGroups});
-            console.log(fullTimesGroups)
-        })
+
+
     }
 
     render() {
@@ -136,7 +139,7 @@ export default class Doc1_1 extends React.Component {
                         <div className='col-md-3 pad'>
                             <Autocomplete
                                 id="group"
-                                getOptionLabel={(option) => option.GroupName}
+                                getOptionLabel={(option) => option.groupName}
                                 options={this.state.groups}
                                 onChange={(e, v) => this.onAutocompleteChange(v, "group")}
                                 style={{width: 200}}
@@ -147,8 +150,8 @@ export default class Doc1_1 extends React.Component {
                         <div className='col-md-3'>
                             <Autocomplete
                                 id="discipline"
-                                getOptionLabel={(option) => option.Name}
-                                options={this.state.groups}
+                                getOptionLabel={(option) => option.name}
+                                options={this.state.disciplines}
                                 onChange={(e, v) => this.onAutocompleteChange(v, "discipline")}
                                 style={{width: 200}}
                                 renderInput={(params) => <TextField {...params} label='Дисциплина' variant="outlined"/>}
@@ -203,7 +206,7 @@ export default class Doc1_1 extends React.Component {
                                 {this.state.fullTimesGroups.map(fullTimesGroup => (
                                     <tr>
                                         <td>{this.state.num++}</td>
-                                        <td></td>
+                                        <td>1</td>
                                         <td className='text-center'></td>
                                         <td></td>
                                         <td></td>
