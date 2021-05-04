@@ -34,17 +34,40 @@ router.get('/univGroups/:id', function(req, res, next){ //запрос на по
 })
 
 router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп
-  connection.query('SELECT univgroups.id, univgroups.GroupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
+  connection.query('SELECT univgroups.id, univgroups.groupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });  
 })
 router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //запрос на получение списка дисциплин группы
-  connection.query('SELECT disciplines.Name, disciplines.id FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.id JOIN univgroups ON studyPlan.GroupId=univgroups.id WHERE univgroups.id=?', 
+  connection.query('SELECT disciplines.name, disciplines.id FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.id JOIN univgroups ON studyPlan.groupId=univgroups.id WHERE univgroups.id=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     console.log(req.params)
+    res.json(results);
+  });  
+})
+
+router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
+  let sql = 'SELECT disciplines.name, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE 1=1'
+  let params = [];
+  if(req.query.byGroupID != null){ //поиск по id группы
+    sql = sql + ' AND univgroups.id=?';
+    params.push(parseInt(req.query.byGroupID))
+  }
+  if(req.query.byDescipline != null){ //поиск по id дисциплины
+    sql = sql + ' AND disciplines.id=?';
+    params.push(parseInt(req.query.byDescipline))
+  }
+  if(req.query.sortIncomingDate != null){ //поиск по диапозону дат
+    sql = sql + ' AND courseworks.incomingDate BETWEEN ? AND ?'
+    params.push(req.query.sortIncomingDate)
+    params.push(req.query.sortIncomingDate2)
+  }
+  connection.query(sql, params, function (error, results, fields) {
+    if (error) throw error;
+    console.log(req.query)
     res.json(results);
   });  
 })
@@ -62,12 +85,14 @@ router.get('/professor', function(req, res, next){ //запрос на полу�
     res.json(results);
   });  
 })
+
 router.get('/disciplines', function(req, res, next){ //запрос на получение списка дисциплин
   connection.query('SELECT * FROM disciplines', function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });  
 })
+
 router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //бесполезное говно, которое и делать то и не надо было запрос на получение списка дисциплин группы по форме обучения (очка, заочка..)
   connection.query('SELECT disciplines.Name, univgroups.GroupName, formOfStudy.formOfStudy, univgroups.id , disciplines.disID FROM studyPlan JOIN univgroups ON studyPlan.GroupId=univgroups.id JOIN disciplines ON studyPlan.disciplineID=disciplines.disID JOIN formOfStudy ON univgroups.formOfStudy=formOfStudy.formOfStudyId WHERE formOfStudy.formOfStudyId=?', 
   [req.params.id],  function (error, results, fields) {
@@ -76,33 +101,6 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
   });  
 })
 
-router.get('/coursework/sort', function(req, res, next){ // в работе. Не использовать, иначе серверу хана
-  let sql = 'SELECT * FROM Courseworks WHERE 1=1';
-  let params = [];
-  if(req.query.byName != null){
-    sql = sql + ' AND goodname LIKE ?';
-    params.push(`%${req.query.byName}%`)
-  }
-  if(req.query.diam != null){
-    sql = sql + ' AND diam BETWEEN ? AND ?';
-    params.push(parseInt(req.query.diam)-1)
-    params.push(parseInt(req.query.diam)+1)
-  }
-  if(req.query.nardiam != null){
-    sql = sql + ' AND nardiam BETWEEN ? AND ?';
-    params.push(parseInt(req.query.nardiam)-1)
-    params.push(parseInt(req.query.nardiam)+1)
-  }
-  if(req.query.width != null){
-    sql = sql + ' AND width BETWEEN ? AND ?';
-    params.push(parseInt(req.query.width)-1)
-    params.push(parseInt(req.query.width)+1)
-  }
-  connection.query(sql, params ,function (error, results, fields) {
-    if (error) throw error;
-    res.json(results);
-  });
-})
 
 
 module.exports = router;
