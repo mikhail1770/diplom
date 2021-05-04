@@ -150,7 +150,7 @@ export default class Doc1_1 extends React.Component {
                         <div className='col-md-3'>
                             <Autocomplete
                                 id="discipline"
-                                getOptionLabel={(option) => option.Name}
+                                getOptionLabel={(option) => option.name}
                                 options={this.state.disciplines}
                                 onChange={(e, v) => this.onAutocompleteChange(v, "discipline")}
                                 style={{width: 200}}
