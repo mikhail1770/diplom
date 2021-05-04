@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-/* GET home page. */
+{/* GET запросы */
 router.get('/students/:id', function(req, res, next){ //запрос данных студента по id
   connection.query('SELECT * FROM students WHERE id = ?', [req.params.id], function (error, results, fields) {
     if (error) throw error;
@@ -42,6 +42,7 @@ router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //з�
     res.json(results);
   });  
 })
+
 router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //запрос на получение списка дисциплин группы
   connection.query('SELECT disciplines.name, disciplines.id FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.id JOIN univgroups ON studyPlan.groupId=univgroups.id WHERE univgroups.id=?', 
   [req.params.id], function (error, results, fields) {
@@ -52,7 +53,7 @@ router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //за
 })
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
-  let sql = 'SELECT disciplines.name, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE 1=1'
+  let sql = 'SELECT disciplines.name, courseworks.id, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE 1=1'
   let params = [];
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -62,14 +63,20 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     sql = sql + ' AND disciplines.id=?';
     params.push(parseInt(req.query.byDescipline))
   }
-  if(req.query.sortIncomingDate != null){ //поиск по диапозону дат
+  if(req.query.datePeriod != null){ //поиск по диапозону дат
     sql = sql + ' AND courseworks.incomingDate BETWEEN ? AND ?'
-    params.push(req.query.sortIncomingDate)
-    params.push(req.query.sortIncomingDate2)
+    params.push(req.query.datePeriod)
+    params.push(req.query.datePeriod2)
+  }
+  if(req.query.sortIncomingDate == 'ASC'){ //сортировка по возрастанию, если в query придет ASC
+    sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) ASC';
+  }
+  else if(req.query.sortIncomingDate == 'DESC') { // сортировка по убыванию, если в query придет DESC
+  sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
   }
   connection.query(sql, params, function (error, results, fields) {
     if (error) throw error;
-    console.log(req.query)
+    console.log(req.query,sql)
     res.json(results);
   });  
 })
@@ -103,6 +110,27 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
   });  
 })
 
+}
+
+{/* UPDATE запросы */
+
+}
+
+{/* DELETE запросы */
+
+}
+
+{/* POST запросы */
+  router.post('/courseworks/add', function(req, res, next){
+    console.log(req.body)
+    connection.query('INSERT INTO courseworks (disciplines, univGroups, cours, student, incomingDate, checkingDate, professor, courseworkresult, fileLink) VALUES(?,?,?,?,?,?,?,?,?);',
+    [req.body.disciplines, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.fileLink],
+     function (err, results, fields){
+       if(err) throw err;    
+       res.json(results);
+    });
+  });
 
 
+}
 module.exports = router;
