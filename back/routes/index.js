@@ -109,11 +109,27 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
     res.json(results);
   });  
 })
-
 }
 
 {/* UPDATE запросы */
+  router.put('/edit/courseworks/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми по id курсовой
+    connection.query('UPDATE courseworks SET ? WHERE id = ?', [req.body, req.params.id], 
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+      console.log(req.body)
+    });
+  })
 
+  router.put('/edit/professor/:id', (req,res,next) => { //запрос на обновление данных в таблице преподавателей по id препода
+    connection.query('UPDATE professor SET ? WHERE id = ?', [req.body, req.params.id], 
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+      console.log(req.body)
+    });
+  })
+  
 }
 
 {/* DELETE запросы */
