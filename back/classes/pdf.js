@@ -10,14 +10,15 @@ var templatestypes = {
 
 
 class PdfGenerator {
-    constructor(formtype){
+    constructor(formtype, namedata){
         this.formtype = formtype;
-        console.log(123)
+        this.namedata = namedata;
+        console.log(formtype,namedata)
     }
 
 
     generate(params){
-        console.log(123)
+        console.log()
         var options = {
             format: "A3",
             orientation: "portrait",
@@ -31,17 +32,17 @@ class PdfGenerator {
 
         var users = [
             {
-              name: "Shyam",
+              name: "ds",
               age: "26",
             },
-            {
+            /*{
               name: "Navjot",
               age: "26",
             },
             {
               name: "Vitthal",
               age: "26",
-            },
+            },*/
           ];
 
 
@@ -49,11 +50,12 @@ class PdfGenerator {
           var document = {
             html: templatestypes[this.formtype],
             // Сюда пихаем информацию из базы данных, уже сформированную как нужно
-            data: {users: users},
+            data: {name:this.namedata},
             // Так будет называться сохраненный PDF файл
             path: "./output.pdf",
             type: "",
           };
+          console.log();
 
         // Ну и собсна создаем PDF, передаем объект document в котором указан шаблон и данные, 
         // и объект options в котором указана информация о PDF
