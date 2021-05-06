@@ -66,6 +66,15 @@ router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //за
   });  
 })
 
+router.get('/search/studnets/univGroup/:id', function(req, res, next){ //запрос на получение списка студентов группы
+  connection.query('SELECT students.name, students.id FROM students JOIN univgroups ON students.univGroup=univgroups.id WHERE univgroups.id=?', 
+  [req.params.id], function (error, results, fields) {
+    if (error) throw error;
+    console.log(req.params)
+    res.json(results);
+  });  
+})
+
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
   let sql = 'SELECT disciplines.name, courseworks.id, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE 1=1'
   let params = [];
