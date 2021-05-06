@@ -83,6 +83,10 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     params.push(req.query.datePeriod)
     params.push(req.query.datePeriod2)
   }
+  if(req.query.byStudent != null){ //поиск по id студента
+    sql = sql + ' AND students.id=?';
+    params.push(parseInt(req.query.byStudent))
+  }
   if(req.query.sortIncomingDate == 'ASC'){ //сортировка по возрастанию, если в query придет ASC
     sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) ASC';
   }
