@@ -3,8 +3,6 @@ var router = express.Router();
 var mysql = require('mysql2');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
-
-
 var pdf = require('../classes/pdf')
 
 const connection = mysql.createConnection({
