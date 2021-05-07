@@ -20,7 +20,7 @@ export default class Doc1_1 extends React.Component {
             groups: {},
             fullTimesGroups: [],
             discipline: '',
-            group: '0',
+            group: '',
             disciplines: [],
             studentName: '',
             dateOfReceipt: '',
@@ -29,13 +29,16 @@ export default class Doc1_1 extends React.Component {
             open: false,
             currentGroup: {},
             deleteObj: '',
-            num: 1
+            num: 1,
+            courseworks: [],
+            coursework: '',
+            studentsName:[]
 
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.onAutoGroup = this.onAutoGroup.bind(this);
         this.onAutocompleteChange = this.onAutocompleteChange.bind(this);
-
 
     }
 
@@ -50,17 +53,31 @@ export default class Doc1_1 extends React.Component {
         });
     }
 
+    onAutoGroup = (value, name) => {                                //При выборе группы выводятся дисциплины
+        if (!value) {
+            return this.setState({[name]: null});
+        } else {
+            if (value.id != '') {
+                this.setState({[name]: value.id});
+                get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+                    const disciplines = res.data;
+                    this.setState({disciplines});
+                    console.log(disciplines)
+                })
+                get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+                    const studentsName = res.data;
+                    this.setState({studentsName});
+                    console.log(studentsName)
+                })
+            }
+        }
+    }
+
     onAutocompleteChange = (value, name) => {
         console.log('sdf');
         if (!value) {
             return this.setState({[name]: null});
         } else {
-            let id = 1
-            get(`search/disciplines/univGroup/${id}`).then(res => {  //получение дисциплин
-                const disciplines = res.data;
-                this.setState({disciplines});
-                console.log(disciplines)
-            })
             return this.setState({[name]: value.id});
 
         }
@@ -97,13 +114,17 @@ export default class Doc1_1 extends React.Component {
             verificationResult: this.state.verificationResult,
         };
 
-        axios.post('http://localhost:3001/', {coursework})
-            .then((res) => {
-                console.log(res.data)
-            }).catch((error) => {
-            console.log(error)
-            console.log(coursework)
-        });
+        get('search/courseworks/disciplines/univGroup', {
+            params: {
+                byGroupID: '1'
+            }
+        })
+            .then(res => {  //получение дисциплин
+                const courseworks = res.data;
+                this.setState({courseworks});
+                console.log(courseworks)
+            })
+
 
         this.setState({
             group: '',
@@ -127,7 +148,6 @@ export default class Doc1_1 extends React.Component {
         })
 
 
-
     }
 
     render() {
@@ -141,7 +161,7 @@ export default class Doc1_1 extends React.Component {
                                 id="group"
                                 getOptionLabel={(option) => option.groupName}
                                 options={this.state.groups}
-                                onChange={(e, v) => this.onAutocompleteChange(v, "group")}
+                                onChange={(e, v) => this.onAutoGroup(v, "group")}
                                 style={{width: 200}}
                                 renderInput={(params) => <TextField  {...params} label='Группа'
                                                                      variant="outlined"/>}
@@ -150,18 +170,20 @@ export default class Doc1_1 extends React.Component {
                         <div className='col-md-3'>
                             <Autocomplete
                                 id="discipline"
-                                getOptionLabel={(option) => option.name}
+                                getOptionLabel={(option) => option.disName}
                                 options={this.state.disciplines}
                                 onChange={(e, v) => this.onAutocompleteChange(v, "discipline")}
                                 style={{width: 200}}
-                                renderInput={(params) => <TextField {...params} label='Дисциплина' variant="outlined"/>}
+                                renderInput={(params) => <TextField {...params} label='Дисциплина'
+                                                                    variant="outlined"/>}
                             />
                         </div>
                         <div className='col-md-3'>
                             <Autocomplete
                                 id="studentName"
+                                getOptionLabel={(option) => option.name}
                                 onChange={(e, v) => this.onAutocompleteChange(v, "studentName")}
-                                options={this.state.students.map(studentName => studentName.Name)}
+                                options={this.state.studentsName}
                                 style={{width: 200}}
                                 renderInput={(params) => <TextField  {...params} label='ФИО студента'
                                                                      variant="outlined"/>}
@@ -199,22 +221,22 @@ export default class Doc1_1 extends React.Component {
                                     <th>Результат проверки</th>
                                     <th>Срок возврата</th>
                                     <th>Курсовая работа</th>
-                                    <th></th>
+                                    <th>#</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {this.state.fullTimesGroups.map(fullTimesGroup => (
+                                {this.state.courseworks.map(coursework => (
                                     <tr>
-                                        <td>{this.state.num++}</td>
-                                        <td>1</td>
-                                        <td className='text-center'></td>
+                                        <td>{}</td>
+                                        <td>{coursework.Name}</td>
+                                        <td className='text-center'>{coursework.groupName}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td width='150px'>
                                             <Button
-                                                onClick={() => this.onOpenModal(fullTimesGroup)}
+                                                onClick={() => this.onOpenModal(coursework)}
                                                 variant="contained"
                                                 color="secondary"
                                                 className='button colorButTab'
@@ -226,7 +248,7 @@ export default class Doc1_1 extends React.Component {
                                                 color="secondary"
                                                 className='button '
                                                 startIcon={<DeleteIcon/>}
-                                                onClick={() => this.deleteStr(fullTimesGroup)}
+                                                onClick={() => this.deleteStr(coursework)}
                                             >
                                             </Button>
                                         </td>
