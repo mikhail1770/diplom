@@ -101,10 +101,8 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
   sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
   }
   connection.query(sql, params, function (error, results, fields) {
-    
     results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} )
     results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
-  
     if (error) throw error;
     console.log(results)
     res.json(results);
