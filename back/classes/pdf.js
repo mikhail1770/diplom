@@ -1,21 +1,23 @@
 //Required package
 var pdf = require("pdf-creator-node");
 var fs = require("fs");
+var moment = require('moment');
 
 
 var templatestypes = {
-    doc_1 : fs.readFileSync("./classes/template.html", "utf8")
+    doc_1 : fs.readFileSync("./classes/template.html", "utf8"),
+    courseworkslist : fs.readFileSync("./classes/courseworks.html", "utf8")
 }
 
 
 
 class PdfGenerator {
-    constructor(formtype, namedata){
+    constructor(formtype, namedata, discipline){
         this.formtype = formtype;
         this.namedata = namedata;
-        console.log(formtype,namedata)
+        this.discipline=discipline;
+        console.log()
     }
-
 
     generate(params){
         console.log()
@@ -30,27 +32,11 @@ class PdfGenerator {
             }
         };
 
-        var users = [
-            {
-              name: "ds",
-              age: "26",
-            },
-            /*{
-              name: "Navjot",
-              age: "26",
-            },
-            {
-              name: "Vitthal",
-              age: "26",
-            },*/
-          ];
-
-
-
-          var document = {
+        
+        var document = {
             html: templatestypes[this.formtype],
             // Сюда пихаем информацию из базы данных, уже сформированную как нужно
-            data: {name:this.namedata},
+            data: {test:this.namedata, disciplne:this.discipline },
             // Так будет называться сохраненный PDF файл
             path: "./output.pdf",
             type: "",
