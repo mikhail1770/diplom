@@ -4,6 +4,7 @@ var mysql = require('mysql2');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 var pdf = require('../classes/pdf')
+var moment = require('moment');
 
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
@@ -15,16 +16,10 @@ const connection = mysql.createConnection({
 connection.connect();
 
 {/* GET запросы */
-router.get('/students/:id', function(req, res, next){ //запрос данных студента по id
+router.get('/students/:id', function(req, res, next){ //запрос данных студента по id 
   connection.query('SELECT * FROM students WHERE id = ?', [req.params.id], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
-    let params = "doc_1";
-    if(results != null){
-      let namedata = results[0].name;
-      let generator = new pdf(params,namedata)
-      generator.generate({});
-    }
   });  
 })
 
@@ -103,8 +98,15 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
   sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
   }
   connection.query(sql, params, function (error, results, fields) {
+    let discipline = results[0].name;
+    let params = "courseworkszaochlist";
+    results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} )
+    results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
+    let alldata = results.map((i) => i)
+    let generator = new pdf(params,alldata,discipline)
+    generator.generate({});
     if (error) throw error;
-    console.log(req.query,sql)
+    console.log(results)
     res.json(results);
   });  
 })
