@@ -4,6 +4,7 @@ var mysql = require('mysql2');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 var pdf = require('../classes/pdf')
+var moment = require('moment');
 
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
@@ -97,13 +98,14 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
   sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
   }
   connection.query(sql, params, function (error, results, fields) {
-    let namedata = results.map((i) => i)
     let discipline = results[0].name;
-    let params = "courseworkslist";
-    let generator = new pdf(params,namedata,discipline)
+    let params = "courseworkszaochlist";
+    results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} )
+    let alldata = results.map((i) => i)
+    let generator = new pdf(params,alldata,discipline)
     generator.generate({});
     if (error) throw error;
-    console.log(req.query, namedata,discipline)
+    console.log(results)
     res.json(results);
   });  
 })
