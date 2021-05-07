@@ -101,6 +101,7 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     let discipline = results[0].name;
     let params = "courseworkszaochlist";
     results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} )
+    results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
     let alldata = results.map((i) => i)
     let generator = new pdf(params,alldata,discipline)
     generator.generate({});
