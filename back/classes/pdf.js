@@ -23,8 +23,8 @@ class PdfGenerator {
     generate(params){
         console.log()
         var options = {
-            format: "A3",
-            orientation: "portrait",
+            format: "A4",
+            orientation: "Landscape",
             border: "20mm",
             header: {height: '0mm'},
             footer: {
