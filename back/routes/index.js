@@ -23,12 +23,6 @@ router.get('/students/:id', function(req, res, next){ //запрос данны�
   });  
 })
 
-router.get('/documents/:type/generate', (req,res, next) => {
-  connection.query()
-  
-  generator.generate({});
-})
-
 router.get('/students', function(req, res, next){ //запрос данных студентов
   connection.query('SELECT * FROM students', function (error, results, fields) {
     if (error) throw error;
@@ -73,7 +67,6 @@ router.get('/search/studnets/univGroup/:id', function(req, res, next){ //зап�
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
   let sql = 'SELECT disciplines.name, courseworks.id, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE 1=1'
   let params = [];
-  console.log(params);
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
     params.push(parseInt(req.query.byGroupID))
@@ -97,15 +90,12 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
   else if(req.query.sortIncomingDate == 'DESC') { // сортировка по убыванию, если в query придет DESC
   sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
   }
-  /*if(req.query.print != null){ //печать
-    params.push(parseInt(req.query.print))
-  }*/
   connection.query(sql, params, function (error, results, fields) {
     let discipline
-    results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} )
+    results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
     results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
-    if(req.query.print == 1){
-      if(results.length != 0){
+    if(req.query.print == 1){ //запуск печати, если req.query.print=1
+      if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
         discipline = results[0].name;
         let params = "courseworksochlist";
         let alldata = results.map((i) => i)
@@ -114,7 +104,7 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
       }
     }
     if (error) throw error;
-    console.log(req.query.print)
+    console.log()
     res.json(results);
   });  
 })

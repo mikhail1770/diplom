@@ -32,12 +32,11 @@ class PdfGenerator {
                 contents: {}
             }
         };
-
-        
+ 
         var document = {
             html: templatestypes[this.formtype],
             // Сюда пихаем информацию из базы данных, уже сформированную как нужно
-            data: {test:this.alldata, disciplne:this.discipline },
+            data: {alldata:this.alldata, disciplne:this.discipline },
             // Так будет называться сохраненный PDF файл
             path: "./"+this.formtype+".pdf",
             type: "",
