@@ -6,7 +6,8 @@ var moment = require('moment');
 
 var templatestypes = {
     doc_1 : fs.readFileSync("./classes/template.html", "utf8"),
-    courseworkszaochlist : fs.readFileSync("./classes/courseworkszaochlist.html", "utf8")
+    courseworkszaochlist : fs.readFileSync("./classes/courseworkszaochlist.html", "utf8"),
+    courseworksochlist : fs.readFileSync("./classes/courseworksochlist.html", "utf8"),
 }
 
 
@@ -38,7 +39,7 @@ class PdfGenerator {
             // Сюда пихаем информацию из базы данных, уже сформированную как нужно
             data: {test:this.alldata, disciplne:this.discipline },
             // Так будет называться сохраненный PDF файл
-            path: "./output.pdf",
+            path: "./"+this.formtype+".pdf",
             type: "",
           };
           console.log();
