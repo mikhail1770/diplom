@@ -114,6 +114,7 @@ footer {
 
 .titleTab{
     font-size: 22px;
+
 }
 
 .colorButTab{
@@ -143,3 +144,6 @@ footer {
 
 }
 
+.main{
+    margin-top: 50px;
+}

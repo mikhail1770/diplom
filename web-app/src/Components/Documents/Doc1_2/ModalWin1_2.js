@@ -21,7 +21,15 @@ function ModalWin1_2(props) {
                             <span>ФИО студента:</span>
                         </div>
                         <div className='col-7'>
-                            <span>{props.currentGroup.Name}</span>
+                            <span>{props.courseworks.Name}</span>
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='col-5'>
+                            <span>ФИО студента:</span>
+                        </div>
+                        <div className='col-7'>
+                            <span></span>
                         </div>
                     </div>
                     <div className='row'>

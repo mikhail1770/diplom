@@ -14,7 +14,6 @@ function App() {
         <BrowserRouter>
             <div className="container App">
                 <Header />
-                <Main />
                 <div className="content">
                 <Switch>
                     <Route  exact path="/"  component={Navigation}/>
