@@ -98,7 +98,10 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
   sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
   }
   connection.query(sql, params, function (error, results, fields) {
-    let discipline = results[0].name;
+    let discipline
+    if(results.length != 0){
+      discipline = results[0].name;
+    }
     let params = "courseworksochlist";
     results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} )
     results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
@@ -106,7 +109,7 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     let generator = new pdf(params,alldata,discipline)
     generator.generate({});
     if (error) throw error;
-    console.log(results)
+    console.log(discipline)
     res.json(results);
   });  
 })
