@@ -97,19 +97,24 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
   else if(req.query.sortIncomingDate == 'DESC') { // сортировка по убыванию, если в query придет DESC
   sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
   }
+  /*if(req.query.print != null){ //печать
+    params.push(parseInt(req.query.print))
+  }*/
   connection.query(sql, params, function (error, results, fields) {
     let discipline
-    if(results.length != 0){
-      discipline = results[0].name;
-    }
-    let params = "courseworksochlist";
     results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} )
     results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
-    let alldata = results.map((i) => i)
-    let generator = new pdf(params,alldata,discipline)
-    generator.generate({});
+    if(req.query.print == 1){
+      if(results.length != 0){
+        discipline = results[0].name;
+        let params = "courseworksochlist";
+        let alldata = results.map((i) => i)
+        let generator = new pdf(params,alldata,discipline)
+        generator.generate({});
+      }
+    }
     if (error) throw error;
-    console.log(discipline)
+    console.log(req.query.print)
     res.json(results);
   });  
 })
