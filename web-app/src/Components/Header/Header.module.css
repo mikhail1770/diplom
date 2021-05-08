@@ -1,20 +1,22 @@
-.background {
-    background-image: url("1.jpg");
-    height: 40vh;
-}
+@import url('https://fonts.googleapis.com/css2?семья=Vollkorn:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Vollkorn:wght@400;900&display=swap');
 .header{
-    background-color: #39393991;
-    min-height: 60px;
-    margin: 0px;
-    color: white;
-    padding: 15px 20px;
+
 }
-.header a {
+.textLink{
+    padding: 25px;
     color: white;
+    font-family: 'Vollkorn', serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    text-transform: capitalize;
+    color: #DFDEDE;
 }
 
 .header a.activeLink{
-    color: #00f3ff !important;
+
 }
 
 
@@ -23,4 +25,124 @@
     text-decoration-line: none;
 }
 
+.upperBlock{
+    width: 1140px;
+    height: 201px;
+    left: 0px;
+    top: 0px;
+    background: #2D2A35;
+}
 
+.iconDoc{
+    position: absolute;
+    left: 206px;
+    top: 50px;
+}
+
+.iconUser{
+    position: absolute;
+    right: 220px;
+    top: 50px;
+}
+.linkDoc{
+    position: absolute;
+    width: 203px;
+    height: 38px;
+    left: 121px;
+    top: 100px;
+    background: #60259A;
+    border-radius: 10px;
+}
+
+.linkDoc:hover a {
+    position: absolute;
+    width: 203px;
+    border: 3px solid #60259A;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+
+.linkUser{
+    position: absolute;
+    width: 169px;
+    height: 38px;
+    right: 155px;
+    top: 100px;
+    border: 3px solid #60259A;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+}
+
+.logo{
+    position: absolute;
+    width: 266px;
+    height: 63px;
+    left: 57px;
+    top: 69px;
+    font-family: Krona One;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 62px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: #FFFFFF;
+    background: -webkit-linear-gradient(top, #FFFFFF, #858383);
+    background: -moz-linear-gradient(top, #FFFFFF, #858383);
+    background: linear-gradient(to bottom, #FFFFFF, #858383);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+ .line{
+     background: url("./line.png");
+     width: 1140px;
+     height: 59px;
+
+ }
+.listDoc{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #DFDEDE;
+}
+
+.listDoc{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    text-align: center;
+padding: 20px 0px;
+    color: #DFDEDE;
+}
+
+.nameKafedra{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    text-align: center;
+    padding: 20px 0px;
+    color: #2D2A35;
+}
+
+.lineBlack{
+
+    width: 1140px;
+    height: 20px;
+
+
+    background: #2D2A35;
+}

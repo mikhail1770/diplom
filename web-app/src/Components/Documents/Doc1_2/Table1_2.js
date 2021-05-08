@@ -2,6 +2,7 @@ import React from "react";
 import '../../../App.css'
 import Button from "@material-ui/core/Button";
 import {Edit} from "@material-ui/icons";
+import ModalWin from "./ModalWin1_2";
 import {format} from 'date-fns'
 
 function Table1_2(props) {
@@ -51,11 +52,20 @@ function Table1_2(props) {
                                         startIcon={<Edit/>}
                                     >
                                     </Button>
+                                    <ModalWin
+                                        verificationResult={props.verificationResult}
+                                        clouse={props.clouse}
+                                        state={props.state}
+                                        handleChange={props.handleChange}
+                                        courseworks={props.courseworks}
+                                        currentGroup={props.currentGroup}
+                                        onSave={props.onSave}/>
                                 </td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
+
                 </div>
             </div>
         );

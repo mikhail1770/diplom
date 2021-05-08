@@ -1,11 +1,11 @@
 import React, {ReactHTML as todos} from 'react';
 import '../../../App.css';
 import axios from 'axios';
-import {get} from '../axios.js'
+import {get, post} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
-import ModalWin from "./ModalWin1_2";
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import {Edit} from "@material-ui/icons";
 import Table1_2 from "./Table1_2";
@@ -26,17 +26,19 @@ export default class Doc1_2 extends React.Component {
             studentName: null,
             dateOfReceipt: '',
             verificationResult: 'к защите',
-            fail: '',
             open: false,
-            currentGroup: {},
-            deleteObj: '',
-            num: 1,
             courseworks: [],
             coursework: [],
             studentsName: [],
             disciplineName: '',
             fullDiscipline: null,
             fullName:null,
+            course:'',
+            incomingDate:'',
+            checkingDate:'',
+            professor:'',
+            fileLink:'',
+            currentGroup: []
 
         };
 
@@ -56,6 +58,8 @@ export default class Doc1_2 extends React.Component {
         this.setState({
             [name]: value,
         });
+
+
     }
 
     onAutoGroup = (value, name) => {
@@ -103,13 +107,16 @@ export default class Doc1_2 extends React.Component {
     }
 
     onSave = event => {
-
-    }
-
-    onPrint = event => {
-
-        axios.post('/user', {
-           
+        post('courseworks/add', {
+            disciplines:this.state.discipline,
+            univGroups:this.state.group,
+            cours:this.state.course,
+            student:this.state.studentName,
+            incomingDate:this.state.incomingDate,
+            checkingDate:this.state.checkingDate,
+            professor:this.state.professor,
+            courseworkresult:this.state.verificationResult,
+            fileLink:this.state.fileLink
         })
             .then(function (response) {
                 console.log(response);
@@ -117,6 +124,19 @@ export default class Doc1_2 extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    onPrint = event => {
+
+        get('search/courseworks/disciplines/univGroup/?print=1',  {
+            params: {
+                byGroupID: this.state.group,
+                byDescipline: this.state.discipline,
+                byStudent: this.state.studentName
+            }
+        }).then(res => {
+
+        })
     }
 
     onSubmit = event => {
@@ -184,6 +204,7 @@ export default class Doc1_2 extends React.Component {
                                 renderInput={(params) => <TextField  {...params} label='Группа'
                                                                      variant="outlined"/>}
                             />
+
                         </div>
                         <div className='col-md-3'>
                             <Autocomplete
@@ -226,22 +247,20 @@ export default class Doc1_2 extends React.Component {
                             </Button>
                         </div>
                     </div>
-
+                    {this.state.verificationResult}
                     <Table1_2
                         disciplineName = {this.state.disciplineName}
                         courseworks = {this.state.courseworks}
                         onOpenModal={this.onOpenModal}
-                    />
-
-                </form>
-
-                <div>
-                    <ModalWin
+                        currentGroup={this.state.currentGroup}
+                        verificationResult={this.state.verificationResult}
                         clouse={this.onClouseModal}
                         state={this.state.open}
                         handleChange={this.handleChange}
-                        courseworks={this.state.courseworks}/>
-                </div>
+                        onSave={this.onSave}/>
+                </form>
+
+
             </div>
 
 
