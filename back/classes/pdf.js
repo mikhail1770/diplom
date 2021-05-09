@@ -13,10 +13,11 @@ var templatestypes = {
 
 
 class PdfGenerator {
-    constructor(formtype, alldata, discipline){
+    constructor(formtype, alldata, discipline, orientation){
         this.formtype = formtype;
         this.alldata = alldata;
         this.discipline=discipline;
+        this.orientation = orientation;
         console.log()
     }
 
@@ -24,7 +25,7 @@ class PdfGenerator {
         console.log()
         var options = {
             format: "A4",
-            orientation: "Landscape",
+            orientation: this.orientation,
             border: "20mm",
             header: {height: '0mm'},
             footer: {

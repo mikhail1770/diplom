@@ -99,7 +99,8 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
         discipline = results[0].name;
         let params = "courseworksochlist";
         let alldata = results.map((i) => i)
-        let generator = new pdf(params,alldata,discipline)
+        let orientation = "Landscape";
+        let generator = new pdf(params,alldata,discipline,orientation)
         generator.generate({});
       }
     }
