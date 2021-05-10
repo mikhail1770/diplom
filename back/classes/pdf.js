@@ -39,16 +39,17 @@ class PdfGenerator {
             // Сюда пихаем информацию из базы данных, уже сформированную как нужно
             data: {alldata:this.alldata, disciplne:this.discipline },
             // Так будет называться сохраненный PDF файл
-            path: "./public/"+pdfname,
+            path: "./printdocs/"+pdfname,
             type: "",
           };
-          callback(pdfname);
+          
           console.log();
 
         // Ну и собсна создаем PDF, передаем объект document в котором указан шаблон и данные, 
         // и объект options в котором указана информация о PDF
         pdf.create(document, options).then((res) => {
             console.log(res);
+            callback(pdfname);
         }).catch((error) => {
             console.error(error);
         });
