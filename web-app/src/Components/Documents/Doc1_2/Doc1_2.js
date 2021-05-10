@@ -136,7 +136,7 @@ export default class Doc1_2 extends React.Component {
             }
         }).then(res => {
             console.log(res)
-            window.open('http://localhost:3001/' + res.data.filename, '_blank').focus();
+            window.open('http://localhost:3001/printdocs/'+res.data.filename, '_blank').focus();
 
         })
     }

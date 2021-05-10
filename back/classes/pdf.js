@@ -39,7 +39,7 @@ class PdfGenerator {
             // Сюда пихаем информацию из базы данных, уже сформированную как нужно
             data: {alldata:this.alldata, disciplne:this.discipline },
             // Так будет называться сохраненный PDF файл
-            path: "./printdocs/"+pdfname,
+            path: "./public/printdocs/"+pdfname,
             type: "",
           };
           
