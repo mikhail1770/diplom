@@ -101,12 +101,16 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
         let alldata = results.map((i) => i)
         let orientation = "Landscape";
         let generator = new pdf(params,alldata,discipline,orientation)
-        generator.generate({});
+        generator.generate({}, (url) => {          
+          res.json({filename: url})
+        });
       }
+    }else{
+      res.json(results);
     }
     if (error) throw error;
     console.log()
-    res.json(results);
+    
   });  
 })
 

@@ -2,7 +2,7 @@
 var pdf = require("pdf-creator-node");
 var fs = require("fs");
 var moment = require('moment');
-
+var randtoken = require('rand-token');
 
 var templatestypes = {
     doc_1 : fs.readFileSync("./classes/template.html", "utf8"),
@@ -21,7 +21,7 @@ class PdfGenerator {
         console.log()
     }
 
-    generate(params){
+    generate(params, callback){
         console.log()
         var options = {
             format: "A4",
@@ -33,15 +33,16 @@ class PdfGenerator {
                 contents: {}
             }
         };
- 
+        let pdfname = `${this.formtype}_${randtoken.generate(16)}.pdf`;
         var document = {
             html: templatestypes[this.formtype],
             // Сюда пихаем информацию из базы данных, уже сформированную как нужно
             data: {alldata:this.alldata, disciplne:this.discipline },
             // Так будет называться сохраненный PDF файл
-            path: "./"+this.formtype+".pdf",
+            path: "./public/"+pdfname,
             type: "",
           };
+          callback(pdfname);
           console.log();
 
         // Ну и собсна создаем PDF, передаем объект document в котором указан шаблон и данные, 
