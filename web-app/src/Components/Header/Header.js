@@ -2,9 +2,9 @@ import React from "react";
 import '../../App.css';
 import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import doc from './doc.png';
-import user from './user.png';
-
+import doc from './doc.svg';
+import user from './user.svg';
+import univDoc from './UnivDoc.svg';
 function Header() {
     return (
         <div className={`${s.header}`}>
@@ -17,13 +17,13 @@ function Header() {
                     </div>
                     <div className='row'>
                         <div className='col-md-12'>
-                            <NavLink to='/' activeClassName={`${s.activeLink}`} className={`${s.textLink}`}> <div className={`${s.linkDoc}`}>Документы кафедры</div></NavLink>
+                            <div ><NavLink to='/' className={`${s.linkDoc} ${s.mar1}`}>Документы кафедры</NavLink></div>
                         </div>
                     </div>
 
                 </div>
                 <div className='col-md-4'>
-                    <span className={`${s.logo}`}>UnivDoc</span>
+                    <img className={`${s.univDoc}`} src={univDoc}/>
                 </div>
                 <div className='col-md-4'>
                     <div className='row'>
@@ -32,9 +32,8 @@ function Header() {
                         </div>
                     </div>
                     <div className='row'>
-                        <div className='col-md-12'>
-                            <div className={`${s.linkUser}`}><NavLink to='/' className={`${s.textLink}`}>Личный
-                                кабинет</NavLink></div>
+                        <div  className={`${s.mar} col-md-12}`}>
+                           <div><NavLink to='/' className={`${s.linkUser}`}> Личный кабинет </NavLink></div>
                         </div>
                     </div>
                 </div>
@@ -45,7 +44,7 @@ function Header() {
                     <span>Кафедра информационных систем и технологий</span>
                 </div>
                 <div className={`${s.listDoc} col-md-6`}>
-                    <span>Перечень документов </span>
+                    <span>Перечень документов ведения учета</span>
                 </div>
             </div>
             <div className={`${s.lineBlack} row`}>

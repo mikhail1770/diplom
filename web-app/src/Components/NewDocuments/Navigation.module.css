@@ -1,24 +1,82 @@
 .categories li{
-    width: 650px;
-    border-bottom: 1px solid #e4dede;
-    padding: 15px 0;
+
+
+    padding: 20px 0;
     list-style-type: none;
 
 }
-
+ul{
+    margin-bottom: 0px !important;
+}
  .categories{
-     padding: 20px 0px;
+     padding: 50px 0px;
+  margin: 0px  70px 20px 70px;
+
+     width: 1000px;
+
+     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+     border-radius: 10px;
 
  }
 
-.category {
-    padding: 0 50px;
-    border-right: 2px solid #c7c7c7;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+.categories a {
+    text-decoration-line: none;
+    color: #5D5D5D;
+    border-bottom: 1px solid #C9C9C9;
+
+    padding: 20px 0px;
 }
 
+.categories a:hover {
+    font-size: 13px;
+}
+.category {
 
+    border-right: 1px solid #C9C9C9;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+  text-align: left;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #2D2A35;
+}
+.listDoc{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+
+padding: 0px !important;
+    color: #5D5D5D;
+}
+
+.noBorder{
+    border-bottom: 1px solid #FFFFFF !important;
+
+}
+
+.shadowUpper{
+    background: linear-gradient(180deg, #F4F4F4 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF;
+
+}
+
+.shadowBelow{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #F4F4F4 100%), #FFFFFF;
+}
+
+.noPaddingTop{
+    padding-top: 0px !important;
+}
+
+.noPaddingBottoom{
+    padding-bottom: 0px !important;
+}

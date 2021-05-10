@@ -240,11 +240,12 @@ export default class Doc1_2 extends React.Component {
                                 onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
                                 <span>Найти</span>
                             </Button>
+
                             <Button
                                 variant="contained"
                                 color="primary"
                                 className="btn btn-primary btnFind"
-                                onClick={this.onPrint}>
+                                onClick={this.onPrint} disabled={!this.state.group || !this.state.discipline}>
                                 <span>Печать</span>
                             </Button>
                         </div>

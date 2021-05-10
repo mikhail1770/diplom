@@ -20,16 +20,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp">
+      <change afterPath="$PROJECT_DIR$/back/printdocs/courseworksochlist_UnD8vRkq3Ywf18za.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/printdocs/courseworksochlist_hFqKBC31IWVNJhQi.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/printdocs/courseworksochlist_hMQihdXA9YJVOwc3.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Header/UnivDoc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Header/UnivDoc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Header/doc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Header/line.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/Components/Header/user.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/courseworksochlist.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/back/courseworksochlist.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/1.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +114,10 @@
       <workItem from="1620203785897" duration="1208000" />
       <workItem from="1620288402711" duration="17910000" />
       <workItem from="1620360368019" duration="21715000" />
-      <workItem from="1620461414070" duration="26596000" />
+      <workItem from="1620461414070" duration="28293000" />
+      <workItem from="1620535395105" duration="19492000" />
+      <workItem from="1620630339526" duration="586000" />
+      <workItem from="1620642065158" duration="2974000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618563930188</created>

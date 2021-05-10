@@ -1,24 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?семья=Vollkorn:wght@400;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Vollkorn:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&display=swap');
 .header{
 
 }
 .textLink{
-    padding: 25px;
-    color: white;
-    font-family: 'Vollkorn', serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 18px;
-    text-transform: capitalize;
-    color: #DFDEDE;
-}
 
-.header a.activeLink{
 
 }
 
+.linkDoc a.activeLink{
+
+}
 
 .header a:hover {
     color: white;
@@ -34,44 +27,63 @@
 }
 
 .iconDoc{
-    position: absolute;
-    left: 206px;
-    top: 50px;
+    margin-left: 176.1px;
+    margin-top: 50.32px;
+    margin-bottom: 15px;
 }
 
 .iconUser{
-    position: absolute;
-    right: 220px;
-    top: 50px;
+    margin-left: 97px;
+    margin-top: 54px;
+    margin-bottom: 15px;
+
 }
 .linkDoc{
-    position: absolute;
-    width: 203px;
-    height: 38px;
-    left: 121px;
-    top: 100px;
+    padding: 7px 15px;
+    color: white;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 18px;
+    color: #DFDEDE;
     background: #60259A;
     border-radius: 10px;
-}
-
-.linkDoc:hover a {
-    position: absolute;
-    width: 203px;
     border: 3px solid #60259A;
-    box-sizing: border-box;
-    border-radius: 10px;
+    text-transform: capitalize;
 }
+.mar1{
+    margin-left: 91px;
+    margin-top: 100px;
+}
+.linkDoc:hover{
+    box-shadow:0 0 10px #60259A;
 
+}
 
 .linkUser{
-    position: absolute;
-    width: 169px;
-    height: 38px;
-    right: 155px;
-    top: 100px;
+    padding: 8px 15px;
+    color: white;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 18px;
+    color: #DFDEDE;
+    background: #2D2A35;
     border: 3px solid #60259A;
-    box-sizing: border-box;
     border-radius: 10px;
+    text-transform: capitalize;
+}
+
+.mar{
+    margin-left: 41px;
+
+
+}
+
+.linkUser:hover{
+    box-shadow:0 0 10px #60259A;
 
 }
 
@@ -108,7 +120,7 @@
     line-height: 17px;
     /* identical to box height */
 
-    text-align: center;
+    text-align: right;
 
     color: #DFDEDE;
 }
@@ -121,8 +133,11 @@
     line-height: 17px;
     /* identical to box height */
 
-    text-align: center;
-padding: 20px 0px;
+    text-align: right;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    padding-right: 155px;
+
     color: #DFDEDE;
 }
 
@@ -133,16 +148,22 @@ padding: 20px 0px;
     font-size: 14px;
     line-height: 17px;
     /* identical to box height */
-    text-align: center;
+
     padding: 20px 0px;
     color: #2D2A35;
+   padding-left: 120px;
 }
 
 .lineBlack{
 
     width: 1140px;
     height: 20px;
-
+margin-bottom: 40px;
 
     background: #2D2A35;
+}
+
+.univDoc{
+    margin-top: 69px;
+    margin-left: 42px;
 }
