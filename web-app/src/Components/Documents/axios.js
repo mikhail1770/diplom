@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let host = 'http://193.124.115.147:3001/';
+let host = 'http://localhost:3001/';
 
 function get(url, params) {
     return axios.get(host + url, params);
