@@ -33,13 +33,13 @@ class PdfGenerator {
                 contents: {}
             }
         };
- 
+        let i=1;
         var document = {
             html: templatestypes[this.formtype],
             // Сюда пихаем информацию из базы данных, уже сформированную как нужно
             data: {alldata:this.alldata, disciplne:this.discipline },
             // Так будет называться сохраненный PDF файл
-            path: "./"+this.formtype+".pdf",
+            path: "./printdocs/"+this.formtype+"_"+i+".pdf",
             type: "",
           };
           console.log();
