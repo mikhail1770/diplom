@@ -135,6 +135,8 @@ export default class Doc1_2 extends React.Component {
                 byStudent: this.state.studentName
             }
         }).then(res => {
+            console.log(res)
+            //window.open('http://localhost:3001/' + res.link , '_blank').focus();
 
         })
     }
