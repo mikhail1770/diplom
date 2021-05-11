@@ -38,7 +38,7 @@ router.get('/univGroups/:id', function(req, res, next){ //запрос на по
   });  
 })
 
-router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп
+router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп 
   connection.query('SELECT univgroups.id, univgroups.groupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
@@ -65,7 +65,7 @@ router.get('/search/studnets/univGroup/:id', function(req, res, next){ //зап�
 })
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
-  let sql = 'SELECT disciplines.name, courseworks.id, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE 1=1'
+  let sql = 'SELECT disciplines.name, courseworks.id, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
   let params = [];
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -110,6 +110,56 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     }
     if (error) throw error;
     console.log()
+    
+  });  
+})
+
+router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых заочников
+  let sql = 'SELECT disciplines.name, courseworkszaoch.id, univgroups.groupName, courseworkszaoch.checkingDate, courseworkszaoch.incomingDate, univgroups.course, courseworkresult.result, students.Name FROM courseworkszaoch JOIN univgroups ON courseworkszaoch.univGroups = univgroups.id JOIN students ON courseworkszaoch.student = students.id JOIN disciplines ON courseworkszaoch.disciplines = disciplines.id JOIN courseworkresult ON courseworkszaoch.courseworkresult = courseworkresult.id WHERE univgroups.formOfStudy = 2'
+  let params = [];
+  if(req.query.byGroupID != null){ //поиск по id группы
+    sql = sql + ' AND univgroups.id=?';
+    params.push(parseInt(req.query.byGroupID))
+  }
+  if(req.query.byDescipline != null){ //поиск по id дисциплины
+    sql = sql + ' AND disciplines.id=?';
+    params.push(parseInt(req.query.byDescipline))
+  }
+  if(req.query.datePeriod != null){ //поиск по диапозону дат
+    sql = sql + ' AND courseworkszaoch.incomingDate BETWEEN ? AND ?'
+    params.push(req.query.datePeriod)
+    params.push(req.query.datePeriod2)
+  }
+  if(req.query.byStudent != null){ //поиск по id студента
+    sql = sql + ' AND students.id=?';
+    params.push(parseInt(req.query.byStudent))
+  }
+  if(req.query.sortIncomingDate == 'ASC'){ //сортировка по возрастанию, если в query придет ASC
+    sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) ASC';
+  }
+  else if(req.query.sortIncomingDate == 'DESC') { // сортировка по убыванию, если в query придет DESC
+  sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
+  }
+  connection.query(sql, params, function (error, results, fields) {
+    let discipline
+    results.map((i, index) => {results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
+    results.map((i, index) => {results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
+    if(req.query.print == 1){ //запуск печати, если req.query.print=1
+      if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
+        discipline = results[0].name;
+        let params = "courseworkszaochlist";
+        let alldata = results.map((i) => i)
+        let orientation = "Landscape";
+        let generator = new pdf(params,alldata,discipline,orientation)
+        generator.generate({}, (url) => {          
+          res.json({filename: url})
+          console.log(alldata)
+        });
+      }
+    }else{
+      res.json(results);
+    }
+    if (error) throw error;
     
   });  
 })

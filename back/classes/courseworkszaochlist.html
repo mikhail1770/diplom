@@ -22,26 +22,15 @@
             mso-footer-margin:35.4pt;
             mso-paper-source:0;}
         -->
-        </style>
-        
-        
-        
-        
+        </style>       
         <div class="WordSection1">
-        
         <div style="border:none;  padding:0cm 0cm 1.0pt 0cm">
-        
         <p class="MsoNormal" align="left" style="text-align:left;text-indent:0cm;
         border:none;padding:0cm;"><span style="font-size:12.0pt;line-height:
         150%">Наименование дисциплины (модуля): {{disciplne}}</span></p>
-        
-       
-        
         </div>
-        
         <p class="MsoNormal" align="left" style="text-align:left;text-indent:0cm;
         line-height:normal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
-        
         <table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none;">
          <tbody><tr>
           <td width="40" style="width:29.75pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt">
@@ -88,7 +77,7 @@
           </td>
          </tr>
 
-         {{#each test}}
+         {{#each alldata}}
          <tr> 
           <td>
             <p class="MsoNormal" align="center" style="text-align:center;text-indent:0cm; line-height:normal">
@@ -100,7 +89,7 @@
           <td> 
             <p class="MsoNormal" align="center" style="text-align:center;text-indent:0cm;line-height:normal">
                 <span style="font-size:12.0pt">
-                    {{this.Name}}
+                    {{this.name}}
                 </span>
             </p> 
         </td>   
@@ -139,31 +128,12 @@
             </span>
             </p> 
         </td>
-        </tr>  {{/each}}
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-        </tbody></table>
+        </tr> 
+        {{/each}}
+        </tbody>
+        </table>
         
         <p class="MsoNormal" align="left" style="text-align:left;text-indent:0cm"><o:p>&nbsp;</o:p></p>
-        
         </div>
-        
-        
     </body>
 </html>
