@@ -213,6 +213,15 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
     });
   })
   
+  router.put('/edit/courseworkszaoch/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми заочников по id курсовой
+    connection.query('UPDATE courseworkszoch SET ? WHERE id = ?', [req.body, req.params.id], 
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+      console.log(req.body)
+    });
+  })
+
 }
 
 {/* DELETE запросы */
