@@ -5,6 +5,7 @@ var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 var pdf = require('../classes/pdf')
 var moment = require('moment');
+var randtoken = require('rand-token');
 
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
@@ -216,6 +217,29 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
   router.put('/edit/courseworkszaoch/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми заочников по id курсовой
     connection.query('UPDATE courseworkszoch SET ? WHERE id = ?', [req.body, req.params.id], 
     function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+      console.log(req.body)
+    });
+  })
+
+  router.put('/joke', (req,res,next) => { //анехдот
+    connection.query( function (error, results, fields) {
+      let jokeSelect = require('rand-token').generator({numeric});
+      if(jokeSelect == 1 || jokeSelect ==2 ){
+      results = 'В дверь постучали 57 раз.                "Нахера я считал" - подумал я'
+      }
+      else if(jokeSelect == 3 || jokeSelect == 4 ){
+        results = 'В дверь постучали 0 раз                "Отец" - подумал я'
+      }
+      else if(jokeSelect == 5 || jokeSelect == 6 ){
+        results = 'В дверь постучали 0 раз                "Отец" - подумал'
+      }else if(jokeSelect == 7 || jokeSelect == 8 ){
+        results = 'В дверь постучали 0 раз                "Отец" - подумал я'
+      }
+      else if(jokeSelect == 9){
+        results = 'И чего ты ждал? Шуточек прибауточек? ЧМО'
+      }
       if (error) throw error;
       res.json(results);
       console.log(req.body)
