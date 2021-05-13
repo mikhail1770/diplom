@@ -1,0 +1,488 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Vollkorn:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&display=swap');
+
+* {
+    -webkit-tap-highlight-color: transparent !important;
+
+}
+
+.App {
+    background-color: white;
+    min-height: 100vh;
+    padding: 0px;
+    font-size: 12px;
+    font-family: Montserrat !important;
+
+}
+
+button:active, button:focus {
+    outline: none !important;
+}
+
+button::-moz-focus-inner {
+    border: 0 !important;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+body {
+    background-color: #f4f4f4;
+
+
+}
+
+html {
+    position: relative;
+}
+
+.row {
+    margin: 0px 0px;
+}
+
+.content {
+
+    padding-bottom: 100px;
+}
+
+footer {
+
+}
+
+
+.search:focus + #disciplines {
+    display: block;
+}
+
+.paper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    background-color: white;
+
+
+}
+.paper input{
+    font-family: Montserrat !important;
+    font-size: 12px !important;
+    width: 200px!important;
+
+
+}
+.MuiButton-startIcon {
+    display: inherit;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.button {
+    margin: 2px 5px !important;
+    min-width: 0px !important;
+}
+
+.center-block {
+
+
+}
+
+.btnFind {
+    width: 120px;
+    height: 53px;
+    margin: 0 auto;
+
+}
+
+.table {
+    margin-top: 30px;
+
+}
+
+.titleTab {
+    font-size: 22px;
+
+}
+
+.colorButTab {
+    background-color: #488eef !important;
+}
+
+.btn-primary:disabled {
+    background-color: #eee !important;
+}
+
+.btn-primary {
+    background: #2D2A35 !important;
+    border-radius: 10px !important;
+    width: 100px;
+    height: 51px;
+}
+
+.btnSend {
+
+    width: 120px;
+    margin: 20px auto;
+}
+
+.modalForm {
+    background: linear-gradient(180deg, #F4F4F4 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF;
+    box-shadow: 0px 0px 20px #2D2A35;
+    border-radius: 10px;
+    border: none;
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    line-height: 17px !important;
+    color: #DFDEDE;
+
+}
+
+.pad {
+    padding-left: 0px !important;
+}
+
+.modal-body > .row {
+
+
+}
+
+.main {
+    margin-top: 50px;
+}
+
+.but {
+
+
+}
+
+.PrivateNotchedOutline-root-1 {
+
+    border-radius: 10px !important;
+    border-color: rgba(0, 0, 0, 0.51) !important;
+
+
+}
+
+.MuiInputBase-root {
+
+    cursor: text;
+    display: inline-flex;
+    font-family: Montserrat  !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    line-height: 11px;
+
+    color: #2D2A35;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.MuiFormLabel-root {
+    font-family: Montserrat !important;
+
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+}
+
+.MuiButton-label {
+    font-family: Montserrat  !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 11px !important;
+    line-height: 15px !important;
+}
+
+.MuiButton-containedPrimary {
+
+    /* identical to box height */
+    text-transform: none !important;
+
+}
+
+.MuiInputLabel-outlined {
+    z-index: 1;
+    transform: translate(14px, 20px) scale(1);
+    pointer-events: none;
+    color: #282c34 !important;
+}
+
+.PrivateNotchedOutline-legendLabelled-3 {
+    width: auto;
+    height: 11px;
+    display: block;
+    padding: 0;
+    font-size: 0.75em;
+    max-width: 0.01px;
+    text-align: left;
+    transition: max-width 50ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+    visibility: hidden;
+    color: rgba(55, 59, 69, 0.75) !important;
+}
+
+.MuiButton-contained.Mui-disabled {
+    color: #5e5c5c !important;
+}
+
+.table {
+    background: linear-gradient(180deg, #F4F4F4 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF;
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 5px 15px 6px rgba(34, 60, 80, 0.2);
+    overflow: hidden;
+    border-radius: 10px;
+    color: #5E5E5E;
+    font-size: 12px !important;
+
+
+}
+
+.padRig {
+    padding-right: 0px !important;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.headTable {
+    font-family: Montserrat !important;
+    background-color: #2D2A35;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 12px;
+    color: #DFDEDE;
+}
+
+
+.w {
+    width: 120px;
+}
+
+table-striped {
+    background-color: #EBE8F3 !important;
+}
+
+.block {
+    margin: auto !important;
+    width: 150px;
+    padding-top: 20px;
+}
+
+.MuiInputBase-input {
+    font-family: Montserrat !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #EBE8F3;
+}
+
+.b {
+    margin-left: 200px;
+
+}
+
+.line {
+    background: url("./line.png");
+    width: 1140px;
+    height: 59px;
+}
+
+.nameDepartment {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 20px 0px;
+    color: #2D2A35;
+    padding-left: 70px;
+}
+
+.lineBlack {
+
+    width: 1140px;
+    height: 20px;
+    margin-bottom: 40px;
+
+    background: #2D2A35;
+}
+
+.univDoc {
+    margin-top: 69px;
+    margin-left: 42px;
+}
+
+.listDoc {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    text-align: right;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    padding-right: 70px;
+
+    color: #DFDEDE;
+}
+
+.nav {
+    padding: 0px 70px;
+
+}
+
+.topTable {
+    margin-top: 20px;
+}
+
+.modal-header {
+    background-color: #2D2A35;
+    padding: 20px;
+}
+
+.modal-title {
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    line-height: 22px !important;
+    text-transform: capitalize;
+    padding-left: 50px;
+    color: #ffffff;
+
+
+}
+.v{
+    display: flex;
+    align-items: center;
+}
+.modal-footer {
+    justify-content: center;
+
+}
+
+.save {
+    width: 108px;
+    height: 38px;
+    background-color: #60259A !important;
+    border-color: #60259A;
+    font-family: Montserrat Alternates;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+
+    color: #ffffff;
+}
+.f{
+    margin: 25px auto;
+    width: 110px;
+}
+.modalRow {
+    background: #FFFFFF;
+    box-shadow: inset 0px -0.5px 1px rgba(0, 0, 0, 0.25), inset 0px 1px 2px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 10px 50px;
+    padding: 5px 0px;
+    font-family: Montserrat!important;
+    height: 45px;
+
+}
+.MuiListItem-root{
+    font-family: Montserrat!important;
+    font-style: normal!important;
+    font-size: 14px!important;
+
+}
+
+.titleModal {
+    color: #2D2A35;
+    border-right: 1px solid #C9C9C9;
+    font-family: Montserrat!important;
+    font-style: normal!important;
+    font-weight: bold!important;
+    font-size: 13.5px!important;
+
+
+}
+
+.propsModal {
+    font-family: Montserrat!important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+
+    color: #5E5E5E !important;
+    text-align: left;
+
+
+
+}
+
+.MuiInput-underline:before {
+    border-bottom: none !important;
+}
+
+.date .MuiInputBase-root {
+    padding: 0px;
+    color: #5E5E5E !important;
+    width: 120px !important;
+}
+
+.MuiSelect-select.MuiSelect-select {
+    color: #5E5E5E !important;
+    font-size: 12px;
+}
+
+.fontSize{
+    font-family: Montserrat  !important;
+    font-style: normal;
+    font-weight: 600!important;
+    font-size: 12px!important;
+    line-height: 15px;
+    /* identical to box height */
+
+
+    color: #5E5E5E;
+}

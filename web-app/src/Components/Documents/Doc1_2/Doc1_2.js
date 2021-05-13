@@ -1,13 +1,9 @@
-import React, {ReactHTML as todos} from 'react';
-import '../../../App.css';
-import axios from 'axios';
+import React from 'react';
+import '../../App.css';
 import {get, post} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
-
-import DeleteIcon from '@material-ui/icons/Delete';
-import {Edit} from "@material-ui/icons";
 import Table1_2 from "./Table1_2";
 
 
@@ -32,13 +28,14 @@ export default class Doc1_2 extends React.Component {
             studentsName: [],
             disciplineName: '',
             fullDiscipline: null,
-            fullName:null,
-            course:'',
-            incomingDate:'',
-            checkingDate:'',
-            professor:'',
-            fileLink:'',
-            currentGroup: []
+            fullName: null,
+            course: '',
+            incomingDate: '',
+            checkingDate: '',
+            professor: '',
+            fileLink: '',
+            currentGroup: [],
+            name: 'rere[f'
 
         };
 
@@ -58,8 +55,6 @@ export default class Doc1_2 extends React.Component {
         this.setState({
             [name]: value,
         });
-
-
     }
 
     onAutoGroup = (value, name) => {
@@ -67,7 +62,13 @@ export default class Doc1_2 extends React.Component {
             return this.setState({[name]: null});
         } else {
             if (value.id != '') {
-                this.setState({[name]: value.id, fullDiscipline: null, fullName: null, discipline:null, studentName:null});
+                this.setState({
+                    [name]: value.id,
+                    fullDiscipline: null,
+                    fullName: null,
+                    discipline: null,
+                    studentName: null
+                });
                 get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
                     const disciplines = res.data;
                     this.setState({disciplines});
@@ -108,15 +109,15 @@ export default class Doc1_2 extends React.Component {
 
     onSave = event => {
         post('courseworks/add', {
-            disciplines:this.state.discipline,
-            univGroups:this.state.group,
-            cours:this.state.course,
-            student:this.state.studentName,
-            incomingDate:this.state.incomingDate,
-            checkingDate:this.state.checkingDate,
-            professor:this.state.professor,
-            courseworkresult:this.state.verificationResult,
-            fileLink:this.state.fileLink
+            disciplines: this.state.discipline,
+            univGroups: this.state.group,
+            cours: this.state.course,
+            student: this.state.studentName,
+            incomingDate: this.state.incomingDate,
+            checkingDate: this.state.checkingDate,
+            professor: this.state.professor,
+            courseworkresult: this.state.verificationResult,
+            fileLink: this.state.fileLink
         })
             .then(function (response) {
                 console.log(response);
@@ -128,7 +129,7 @@ export default class Doc1_2 extends React.Component {
 
     onPrint = event => {
 
-        get('search/courseworks/disciplines/univGroup/?print=1',  {
+        get('search/courseworks/disciplines/univGroup/?print=1', {
             params: {
                 byGroupID: this.state.group,
                 byDescipline: this.state.discipline,
@@ -136,7 +137,7 @@ export default class Doc1_2 extends React.Component {
             }
         }).then(res => {
             console.log(res)
-            window.open('http://localhost:3001/printdocs/'+res.data.filename, '_blank').focus();
+            window.open('http://localhost:3001/printdocs/' + res.data.filename, '_blank').focus();
 
         })
     }
@@ -170,6 +171,7 @@ export default class Doc1_2 extends React.Component {
 
     }
 
+
     componentDidMount() {
 
         get('search/univGroups/formOfStudy/1').then(res => { //получение заочных групп
@@ -185,21 +187,24 @@ export default class Doc1_2 extends React.Component {
 
         return (
             <div>
-                <form className=" container main">
-                    <div className='row'>
-                        <div className='col-md-12'>
-                            <h3 className='titleTab lead'>Очная форма обучения </h3>
-                        </div>
+                <div className='line row'>
+                    <div className='nameDepartment col-md-6'>
+                        <span>Кафедра информационных систем и технологий</span>
                     </div>
-                    <div className="form-row row center-block form">
-
-
+                    <div className='listDoc col-md-6'>
+                        <span>Учет курсовых работ очной формы обучения</span>
+                    </div>
+                </div>
+                <div className='lineBlack row'></div>
+                <form className='nav container main'>
+                    <div className='form-row row center-block form'>
                         <div className='col-md-3 pad'>
 
                             <Autocomplete
 
                                 id="group"
                                 getOptionLabel={(option) => option.groupName}
+
                                 options={this.state.groups}
                                 onChange={(e, v) => this.onAutoGroup(v, "group")}
                                 style={{width: 200}}
@@ -210,9 +215,11 @@ export default class Doc1_2 extends React.Component {
                         </div>
                         <div className='col-md-3'>
                             <Autocomplete
+                                className='col-md-3'
+                                className='bot'
                                 value={this.state.fullDiscipline}
                                 id="discipline"
-                                getOptionLabel={(option) =>  option.disName }
+                                getOptionLabel={(option) => option.disName}
                                 options={this.state.disciplines}
                                 onChange={(e, v) => this.onAutocompleteChange(v, "discipline", 'fullDiscipline')}
                                 style={{width: 200}}
@@ -225,7 +232,7 @@ export default class Doc1_2 extends React.Component {
                                 value={this.state.fullName}
                                 id="studentName"
                                 getOptionLabel={(option) => option.name}
-                                onChange={(e, v) => this.onAutocompleteChange(v, "studentName",'fullName')}
+                                onChange={(e, v) => this.onAutocompleteChange(v, "studentName", 'fullName')}
                                 options={this.state.studentsName}
                                 style={{width: 200}}
                                 renderInput={(params) => <TextField  {...params} label='ФИО студента'
@@ -233,37 +240,35 @@ export default class Doc1_2 extends React.Component {
                             />
                         </div>
                         <div className='col-md-3'>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className="btn btn-primary btnFind"
-                                onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
-                                <span>Найти</span>
-                            </Button>
+                            <div className='b'>
+                                <Button
+                                    className='b'
+                                    variant="contained"
+                                    color="primary"
+                                    className="btn btn-primary btnFind"
+                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
+                                    <span>Найти</span>
+                                </Button>
+                            </div>
 
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className="btn btn-primary btnFind"
-                                onClick={this.onPrint} disabled={!this.state.group || !this.state.discipline}>
-                                <span>Печать</span>
-                            </Button>
                         </div>
                     </div>
-                    {this.state.verificationResult}
-                    <Table1_2
-                        disciplineName = {this.state.disciplineName}
-                        courseworks = {this.state.courseworks}
-                        onOpenModal={this.onOpenModal}
-                        currentGroup={this.state.currentGroup}
-                        verificationResult={this.state.verificationResult}
-                        clouse={this.onClouseModal}
-                        state={this.state.open}
-                        handleChange={this.handleChange}
-                        onSave={this.onSave}/>
+
                 </form>
-
-
+                <div className='row topTable nav'>
+                    <div className='col-md-12 pad padRig'>
+                        <Table1_2
+                            disciplineName={this.state.disciplineName}
+                            courseworks={this.state.courseworks}
+                            onOpenModal={this.onOpenModal}
+                            currentGroup={this.state.currentGroup}
+                            verificationResult={this.state.verificationResult}
+                            clouse={this.onClouseModal}
+                            state={this.state.open}
+                            handleChange={this.handleChange}
+                            onSave={this.onSave}
+                            print={this.onPrint}/>
+                    </div></div>
             </div>
 
 

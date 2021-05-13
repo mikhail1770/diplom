@@ -1,13 +1,13 @@
 import React from 'react';
-import '../../../App.css';
+import '../../App.css';
 import axios from 'axios';
 import {get} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
 import ModalWin from "./ModalWin1_3";
-import DeleteIcon from '@material-ui/icons/Delete';
-import {Edit} from "@material-ui/icons";
+import Table1_3 from "./Table1_3";
+import {post} from "../axios";
 
 
 
@@ -30,7 +30,8 @@ export default class Doc1_2 extends React.Component {
             fail: '',
             open: false,
             currentGroup: {},
-            deleteObj: ''
+            deleteObj: '',
+            reports:[]
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -50,26 +51,46 @@ export default class Doc1_2 extends React.Component {
         });
     }
 
-    onAutocompleteChange = (value, name) => {
-        console.log('sdf');
+    onAutoGroup = (value, name) => {
         if (!value) {
             return this.setState({[name]: null});
         } else {
-            return this.setState({[name]: value.id});
+            if (value.id != '') {
+                this.setState({
+                    [name]: value.id,
+                    fullDiscipline: null,
+                    fullName: null,
+                    discipline: null,
+                    studentName: null
+                });
+                get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+                    const disciplines = res.data;
+                    this.setState({disciplines});
+                    console.log(disciplines)
+                })
+                get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+                    const studentsName = res.data;
+                    this.setState({studentsName});
+                    console.log(studentsName)
+                })
+            }
         }
+    }
 
+    onAutocompleteChange = (value, name, fullName) => {
+        console.log('sdf');
+        if (!value) {
+            return this.setState({[name]: null, [fullName]: null});
+        } else {
+            return this.setState({[name]: value.id, [fullName]: value});
+
+        }
     }
 
     onOpenModal = (obj) => {
         this.setState({
             open: true,
             currentGroup: obj
-        });
-    }
-
-    deleteStr = (obj) => {
-        this.setState({
-            deleteObj: obj.id
         });
     }
 
@@ -80,11 +101,45 @@ export default class Doc1_2 extends React.Component {
         });
     }
 
+    onSave = event => {
+        post('courseworks/add', {
+            disciplines: this.state.discipline,
+            univGroups: this.state.group,
+            cours: this.state.course,
+            student: this.state.studentName,
+            incomingDate: this.state.incomingDate,
+            checkingDate: this.state.checkingDate,
+            professor: this.state.professor,
+            courseworkresult: this.state.verificationResult,
+            fileLink: this.state.fileLink
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    onPrint = event => {
+
+        get('search/courseworks/disciplines/univGroup/?print=1', {
+            params: {
+                byGroupID: this.state.group,
+                byDescipline: this.state.discipline,
+                byStudent: this.state.studentName
+            }
+        }).then(res => {
+            console.log(res)
+            window.open('http://localhost:3001/printdocs/' + res.data.filename, '_blank').focus();
+
+        })
+    }
+
     onSubmit = event => {
         event.preventDefault();
 
         const coursework = {
-            course: this.state.course,
             disciplines: this.state.disciplines,
             studentName: this.state.studentName,
             group: this.state.group,
@@ -92,52 +147,46 @@ export default class Doc1_2 extends React.Component {
             verificationResult: this.state.verificationResult,
         };
 
-        axios.post('http://localhost:3001/', {coursework})
-            .then((res) => {
-                console.log(res.data)
-            }).catch((error) => {
-            console.log(error)
-            console.log(coursework)
-        });
-        this.setState({
-            group: '',
-            disciplines: '',
-            studentName: '',
-            dateOfReceipt: '',
-            verificationResult: '',
-            fail: '',
-            students: []
 
+        get('search/courseworks/disciplines/univGroup', {
+            params: {
+                byGroupID: this.state.group,
+                byDescipline: this.state.discipline,
+                byStudent: this.state.studentName
+            }
+        }).then(res => {  //получение дисциплин
+            const courseworks = res.data;
+            this.setState({courseworks});
+            console.log(courseworks)
         })
+
+        this.state.disciplineName = this.state.disciplines.find(disName => disName.id == this.state.discipline).disName;
+        this.setState({})
 
     }
 
+
     componentDidMount() {
 
-        get('univGroups').then(res => {
-            const groups = res.data;
-            this.setState({groups});
-        })
 
-        get('students/').then(res => { //получение очных групп и их дисциплин
-            const fullTimesGroups = res.data;
-            this.setState({fullTimesGroups});
-            console.log(fullTimesGroups)
-        })
 
-        get('students', {group: {}}).then(res => {  //получение групп, дисциплин и студентов
-            const fullTimesGroups = res.data;
-            this.setState({fullTimesGroups});
-            console.log(fullTimesGroups)
-        })
     }
 
     render() {
 
         return (
             <div>
-                <form className=" container">
-                    <div className="form-row row center-block form">
+                <div className='line row'>
+                    <div className='nameDepartment col-md-6'>
+                        <span>Кафедра информационных систем и технологий</span>
+                    </div>
+                    <div className='listDoc col-md-6'>
+                        <span>Учет отчетов по практике</span>
+                    </div>
+                </div>
+                <div className='lineBlack row'></div>
+                <form className='nav container main'>
+                    <div className='form-row row center-block form'>
                         <div className='col-md-3 pad'>
                             <Autocomplete
                                 id="group"
@@ -169,77 +218,29 @@ export default class Doc1_2 extends React.Component {
                             />
                         </div>
                         <div className='col-md-3'>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className="btn btn-primary btnFind"
-                                onClick={this.onSubmit} disabled={!this.state.group || !this.state.course}>
-                                {this.state.course}
-                                <span>Найти</span>
-                            </Button>
+                            <div className='b'>
+                                <Button
+                                    className='b'
+                                    variant="contained"
+                                    color="primary"
+                                    className="btn btn-primary btnFind"
+                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
+                                    <span>Найти</span>
+                                </Button>
+                            </div>
                         </div>
                     </div>
 
-                    <div className='row'>
-                        {this.state.deleteObj}
-                        <div className='col-md-12'>
-                                    <h3 className='titleTab lead text-right'>Отчеты по практике </h3>
-                            <table className="table table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th>ФИО студента</th>
-                                    <th>Группа</th>
-                                    <th>Курс</th>
-                                    <th>База практики</th>
-                                    <th>Дата поступления</th>
-                                    <th>Преподаватель</th>
-                                    <th>Дата проверки</th>
-                                    <th>Результаты проверки</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.state.fullTimesGroups.map(fullTimesGroup => (
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td className='text-center'></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td width='150px'>
-                                            <Button
-                                                onClick={() => this.onOpenModal(fullTimesGroup)}
-                                                variant="contained"
-                                                color="secondary"
-                                                className='button colorButTab'
-                                                startIcon={<Edit/>}
-                                            >
-                                            </Button>
-                                            <Button
-                                                variant="contained"
-                                                color="secondary"
-                                                className='button '
-                                                startIcon={<DeleteIcon/>}
-                                                onClick={() => this.deleteStr(fullTimesGroup)}
-                                            >
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </form>
-                <div>
-                    <ModalWin
-                        clouse={this.onClouseModal}
-                        state={this.state.open}
-                        handleChange={this.handleChange}
-                        currentGroup={this.state.currentGroup}/>
+
+                <div className='row topTable nav'>
+                    <div className='col-md-12 pad padRig'>
+                        <Table1_3
+                            disciplineName={this.state.disciplineName}
+                            reports={this.state.reports}
+                            onOpenModal={this.onOpenModal}
+                            clouse={this.onClouseModal}/>
+                    </div>
                 </div>
             </div>
 

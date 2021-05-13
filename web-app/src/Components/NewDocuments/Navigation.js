@@ -1,11 +1,22 @@
 import React from "react";
-import '../../App.css';
+import '../App.css';
 import s from './Navigation.module.css';
 import {Link} from "react-router-dom";
 
 function Navigation(props) {
     return (
         <div>
+            <div className='line row'>
+                <div className='nameDepartment col-md-6'>
+                    <span>Кафедра информационных систем и технологий</span>
+                </div>
+                <div className='listDoc col-md-6'>
+                    <span>Перечень документов ведения учетов</span>
+                </div>
+            </div>
+            <div className='lineBlack row'>
+
+            </div>
             <div className={`${s.categories} ${s.shadowUpper} row`}>
                 <div className={`${s.category} col-md-4 `}>
                     <div><p>Регистрация работ студентов</p></div>

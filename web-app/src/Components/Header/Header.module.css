@@ -51,10 +51,18 @@
     border-radius: 10px;
     border: 3px solid #60259A;
     text-transform: capitalize;
+    margin-left: 70px;
+
 }
 .mar1{
-    margin-left: 91px;
-    margin-top: 100px;
+    margin-top: 70px;
+    cursor: default;
+
+}
+
+.mar{
+    margin-top: 85px;
+    margin-left: 200px;
 }
 .linkDoc:hover{
     box-shadow:0 0 10px #60259A;
@@ -74,6 +82,8 @@
     border: 3px solid #60259A;
     border-radius: 10px;
     text-transform: capitalize;
+    max-width: 250px;
+    text-align: center;
 }
 
 .mar{
@@ -82,10 +92,6 @@
 
 }
 
-.linkUser:hover{
-    box-shadow:0 0 10px #60259A;
-
-}
 
 .logo{
     position: absolute;

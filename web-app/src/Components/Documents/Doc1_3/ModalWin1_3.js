@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
-import '../../../App.css'
+import '../../App.css'
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 

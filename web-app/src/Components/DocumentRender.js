@@ -34,12 +34,13 @@ class DocumentRender extends React.Component {
             13: Doc3_2,
             14: Doc4_1,
             15: Doc4_2
+
         }
 
     }
         render() {
             const TagName = this.documents[this.props.match.params.documentId]
-            return <TagName />;
+            return <TagName/>;
         }
 
 }

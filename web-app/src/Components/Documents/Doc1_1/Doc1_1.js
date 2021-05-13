@@ -1,11 +1,11 @@
 import React from 'react';
-import '../../../App.css';
+import '../../App.css';
 import {get} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
-import ModalWin from "./ModalWin1_1";
 import Table1_1 from "./Table1_1";
+import {post} from "../axios";
 
 
 export default class Doc1_1 extends React.Component {
@@ -33,7 +33,7 @@ export default class Doc1_1 extends React.Component {
             studentsName: [],
             disciplineName: '',
             fullDiscipline: null,
-            fullName:null,
+            fullName: null,
 
         };
 
@@ -59,7 +59,13 @@ export default class Doc1_1 extends React.Component {
             return this.setState({[name]: null});
         } else {
             if (value.id != '') {
-                this.setState({[name]: value.id, fullDiscipline: null, fullName: null, discipline:null, studentName:null});
+                this.setState({
+                    [name]: value.id,
+                    fullDiscipline: null,
+                    fullName: null,
+                    discipline: null,
+                    studentName: null
+                });
                 get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
                     const disciplines = res.data;
                     this.setState({disciplines});
@@ -83,7 +89,25 @@ export default class Doc1_1 extends React.Component {
 
         }
     }
-
+    onSave = event => {
+        post('courseworks/add', {
+            disciplines: this.state.discipline,
+            univGroups: this.state.group,
+            cours: this.state.course,
+            student: this.state.studentName,
+            incomingDate: this.state.incomingDate,
+            checkingDate: this.state.checkingDate,
+            professor: this.state.professor,
+            courseworkresult: this.state.verificationResult,
+            fileLink: this.state.fileLink
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
     onOpenModal = (obj) => {
         this.setState({
             open: true,
@@ -97,7 +121,20 @@ export default class Doc1_1 extends React.Component {
             currentGroup: {}
         });
     }
+    onPrint = event => {
 
+        get('search/courseworks/disciplines/univGroup/?print=1', {
+            params: {
+                byGroupID: this.state.group,
+                byDescipline: this.state.discipline,
+                byStudent: this.state.studentName
+            }
+        }).then(res => {
+            console.log(res)
+            window.open('http://localhost:3001/printdocs/' + res.data.filename, '_blank').focus();
+
+        })
+    }
     onSubmit = event => {
         event.preventDefault();
         const coursework = {
@@ -109,7 +146,7 @@ export default class Doc1_1 extends React.Component {
         };
 
 
-        get('search/courseworks/disciplines/univGroup', {
+        get('search/courseworkszaoch/disciplines/univGroup', {
             params: {
                 byGroupID: this.state.group,
                 byDescipline: this.state.discipline,
@@ -140,14 +177,17 @@ export default class Doc1_1 extends React.Component {
 
         return (
             <div>
-                <form className="container main">
-                    <div className='row'>
-                        <div className='col-md-12'>
-                            <h3 className='titleTab lead'>Заочная форма обучения </h3>
-                        </div>
+                <div className='line row'>
+                    <div className='nameDepartment col-md-6'>
+                        <span>Кафедра информационных систем и технологий</span>
                     </div>
+                    <div className='listDoc col-md-6'>
+                        <span>Учет курсовых работ заочной формы обучения</span>
+                    </div>
+                </div>
+                <div className='lineBlack row'></div>
+                <form className='nav container main'>
                     <div className="form-row row center-block form">
-
                         <div className='col-md-3 pad'>
 
                             <Autocomplete
@@ -165,7 +205,7 @@ export default class Doc1_1 extends React.Component {
                             <Autocomplete
                                 value={this.state.fullDiscipline}
                                 id="discipline"
-                                getOptionLabel={(option) =>  option.disName }
+                                getOptionLabel={(option) => option.disName}
                                 options={this.state.disciplines}
                                 onChange={(e, v) => this.onAutocompleteChange(v, "discipline", 'fullDiscipline')}
                                 style={{width: 200}}
@@ -178,7 +218,7 @@ export default class Doc1_1 extends React.Component {
                                 value={this.state.fullName}
                                 id="studentName"
                                 getOptionLabel={(option) => option.name}
-                                onChange={(e, v) => this.onAutocompleteChange(v, "studentName",'fullName')}
+                                onChange={(e, v) => this.onAutocompleteChange(v, "studentName", 'fullName')}
                                 options={this.state.studentsName}
                                 style={{width: 200}}
                                 renderInput={(params) => <TextField  {...params} label='ФИО студента'
@@ -186,29 +226,34 @@ export default class Doc1_1 extends React.Component {
                             />
                         </div>
                         <div className='col-md-3'>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className="btn btn-primary btnFind"
-                                onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
-                                <span>Найти</span>
-                            </Button>
+                            <div className='b'>
+                                <Button
+                                    className='b'
+                                    variant="contained"
+                                    color="primary"
+                                    className="btn btn-primary btnFind"
+                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
+                                    <span>Найти</span>
+                                </Button>
+                            </div>
                         </div>
                     </div>
-                       <Table1_1
-                       disciplineName = {this.state.disciplineName}
-                       courseworks = {this.state.courseworks}
-                       onOpenModal={this.onOpenModal}
-                       />
-
                 </form>
-                <div>
-                    <ModalWin
-                        clouse={this.onClouseModal}
-                        state={this.state.open}
-                        handleChange={this.handleChange}
-                        currentGroup={this.state.currentGroup}
-                        />
+                <div className='row  nav topTable'>
+                    <div className='col-md-12 pad padRig'>
+
+                        <Table1_1
+                            disciplineName={this.state.disciplineName}
+                            courseworks={this.state.courseworks}
+                            onOpenModal={this.onOpenModal}
+                            currentGroup={this.state.currentGroup}
+                            verificationResult={this.state.verificationResult}
+                            clouse={this.onClouseModal}
+                            state={this.state.open}
+                            handleChange={this.handleChange}
+                            onSave={this.onSave}
+                            print={this.onPrint}/>
+                    </div>
                 </div>
             </div>
 
