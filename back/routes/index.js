@@ -5,7 +5,6 @@ var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 var pdf = require('../classes/pdf')
 var moment = require('moment');
-var randtoken = require('rand-token');
 
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
@@ -35,15 +34,34 @@ router.get('/univGroups/:id', function(req, res, next){ //запрос на по
   connection.query('SELECT * FROM students WHERE UnivGroup = ?', [req.params.id], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
-    console.log();
+    console.log(results);
   });  
 })
 
 router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп 
-  connection.query('SELECT univgroups.id, univgroups.groupName AS groupName FROM univgroups JOIN formOfStudy ON formOfStudy.id=univgroups.formOfStudy WHERE univgroups.formOfStudy=?', 
+  connection.query('SELECT univgroups.id, univgroups.groupName AS groupName, univgroups.course FROM univgroups JOIN formOfStudy ON formOfStudy.id = univgroups.formOfStudy WHERE univgroups.formOfStudy = ?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
+  });  
+})
+
+router.get('/search/univGroups/course/formOfStudy', function(req, res, next){ //запрос на получение списка групп через форму обучения и курс
+  let sql = 'SELECT univgroups.id, univgroups.groupName AS groupName, univgroups.course FROM univgroups JOIN formOfStudy ON formOfStudy.id = univgroups.formOfStudy WHERE 1'
+  let params = []
+  if(req.query.formOfStudy != null){ //поиск по id формы обучения
+    sql = sql + ' AND univgroups.formOfStudy = ?';
+    params.push(parseInt(req.query.formOfStudy))
+  }
+  if(req.query.course != null){ //поиск по номеру курса
+    sql = sql + ' AND univgroups.course = ?';
+    params.push(parseInt(req.query.course))
+  }
+  connection.query(sql,params, function (error, results, fields) {
+    console.log()
+    if (error) throw error;
+    res.json(results);
+   
   });  
 })
 
@@ -56,6 +74,7 @@ router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //за
   });  
 })
 
+
 router.get('/search/studnets/univGroup/:id', function(req, res, next){ //запрос на получение списка студентов группы
   connection.query('SELECT students.name, students.id FROM students JOIN univgroups ON students.univGroup=univgroups.id WHERE univgroups.id=?', 
   [req.params.id], function (error, results, fields) {
@@ -67,7 +86,7 @@ router.get('/search/studnets/univGroup/:id', function(req, res, next){ //зап�
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
   let sql = 'SELECT disciplines.name, courseworks.id, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
-  let params = [];
+  let params = []
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
     params.push(parseInt(req.query.byGroupID))
@@ -95,6 +114,7 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     let discipline
     results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
     results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
+    console.log(results)
     if(req.query.print == 1){ //запуск печати, если req.query.print=1
       if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
         discipline = results[0].name;
@@ -110,13 +130,13 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
       res.json(results);
     }
     if (error) throw error;
-    console.log()
+    
     
   });  
 })
 
 router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых заочников
-  let sql = 'SELECT disciplines.name, courseworkszaoch.id, univgroups.groupName, courseworkszaoch.checkingDate, courseworkszaoch.incomingDate, univgroups.course, courseworkresult.result, students.Name FROM courseworkszaoch JOIN univgroups ON courseworkszaoch.univGroups = univgroups.id JOIN students ON courseworkszaoch.student = students.id JOIN disciplines ON courseworkszaoch.disciplines = disciplines.id JOIN courseworkresult ON courseworkszaoch.courseworkresult = courseworkresult.id WHERE univgroups.formOfStudy = 2'
+   let sql = 'SELECT disciplines.name, courseworkszaoch.id, univgroups.groupName, courseworkszaoch.checkingDate, courseworkszaoch.incomingDate, univgroups.course, courseworkresult.result, students.Name FROM courseworkszaoch JOIN univgroups ON courseworkszaoch.univGroups = univgroups.id JOIN students ON courseworkszaoch.student = students.id JOIN disciplines ON courseworkszaoch.disciplines = disciplines.id JOIN courseworkresult ON courseworkszaoch.courseworkresult = courseworkresult.id WHERE univgroups.formOfStudy = 2'
   let params = [];
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -143,6 +163,7 @@ router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res,
   }
   connection.query(sql, params, function (error, results, fields) {
     let discipline
+    console.log()
     results.map((i, index) => {results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
     results.map((i, index) => {results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
     if(req.query.print == 1){ //запуск печати, если req.query.print=1
@@ -223,7 +244,7 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
     });
   })
 
-  router.put('/joke', (req,res,next) => { //анехдот
+  /*router.put('/joke', (req,res,next) => { //анехдот
     connection.query( function (error, results, fields) {
       let jokeSelect = require('rand-token').generator({numeric});
       if(jokeSelect == 1 || jokeSelect ==2 ){
@@ -233,7 +254,7 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
         results = 'В дверь постучали 0 раз                "Отец" - подумал я'
       }
       else if(jokeSelect == 5 || jokeSelect == 6 ){
-        results = 'В дверь постучали 0 раз                "Отец" - подумал'
+        results = 'Зашел на сайт для сирот, но домашняя страничка не прогрузилась'
       }else if(jokeSelect == 7 || jokeSelect == 8 ){
         results = 'В дверь постучали 0 раз                "Отец" - подумал я'
       }
@@ -244,7 +265,7 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
       res.json(results);
       console.log(req.body)
     });
-  })
+  })*/
 
 }
 
