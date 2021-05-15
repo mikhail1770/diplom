@@ -46,22 +46,51 @@ router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //з�
   });  
 })
 
-router.get('/search/univGroups/course/formOfStudy', function(req, res, next){ //запрос на получение списка групп через форму обучения и курс
-  let sql = 'SELECT univgroups.id, univgroups.groupName AS groupName, univgroups.course FROM univgroups JOIN formOfStudy ON formOfStudy.id = univgroups.formOfStudy WHERE 1'
-  let params = []
-  if(req.query.formOfStudy != null){ //поиск по id формы обучения
-    sql = sql + ' AND univgroups.formOfStudy = ?';
-    params.push(parseInt(req.query.formOfStudy))
-  }
-  if(req.query.course != null){ //поиск по номеру курса
-    sql = sql + ' AND univgroups.course = ?';
-    params.push(parseInt(req.query.course))
-  }
-  connection.query(sql,params, function (error, results, fields) {
-    console.log()
-    if (error) throw error;
+router.get('/search/practiceReport/course/formOfStudy', function(req, res, next){ //запрос на получение списка групп через курс
+let sql = 'SELECT practice.id, univgroups.groupName, univgroups.course, courseworkresult.result, students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
+let params = []
+if(req.query.byGroupID != null){ //поиск по id группы
+  sql = sql + ' AND univgroups.id=?';
+  params.push(parseInt(req.query.byGroupID))
+}
+if(req.query.byDescipline != null){ //поиск по id дисциплины
+  sql = sql + ' AND univgroups.course=?';
+  params.push(parseInt(req.query.byCourse))
+}
+if(req.query.datePeriod != null){ //поиск по диапозону дат
+  sql = sql + ' AND courseworks.incomingDate BETWEEN ? AND ?'
+  params.push(req.query.datePeriod)
+  params.push(req.query.datePeriod2)
+}
+if(req.query.byStudent != null){ //поиск по id студента
+  sql = sql + ' AND students.id=?';
+  params.push(parseInt(req.query.byStudent))
+}
+if(req.query.sortIncomingDate == 'ASC'){ //сортировка по возрастанию, если в query придет ASC
+  sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) ASC';
+}
+else if(req.query.sortIncomingDate == 'DESC') { // сортировка по убыванию, если в query придет DESC
+sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DESC';
+}
+connection.query(sql, params, function (error, results, fields) {
+  let discipline
+  results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
+  results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
+  console.log(results)
+  if(req.query.print == 1){ //запуск печати, если req.query.print=1
+    if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
+      let params = "practicereport";
+      let alldata = results.map((i) => i)
+      let orientation = "Landscape";
+      let generator = new pdf(params,alldata,discipline,orientation)
+      generator.generate({}, (url) => {          
+        res.json({filename: url})
+      });
+    }
+  }else{
     res.json(results);
-   
+  }
+  if (error) throw error;
   });  
 })
 
@@ -130,8 +159,6 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
       res.json(results);
     }
     if (error) throw error;
-    
-    
   });  
 })
 
