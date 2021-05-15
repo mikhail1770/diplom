@@ -128,46 +128,47 @@ table.MsoTableGrid
   line-height:normal'><span style='font-size:12.0pt;'>Подпись<o:p></o:p></span></p>
   </td>
  </tr>
+ {{#each alldata}}
  <tr>
   <td  valign=top style='border:solid windowtext 1.0pt;
   border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>1</o:p></span></p>
+  line-height:150%;'><o:p>{{this.id}}</o:p></span></p>
   </td>
   <td valign=top style='border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:1%'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>Васильев Василий Василиевич</o:p></span></p>
+  line-height:150%;'><o:p>{{this.name}}</o:p></span></p>
   </td>
   <td valign=top style='border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>ТУ(бз)-01</o:p></span></p>
+  line-height:150%;'><o:p>{{this.groupName}}</o:p></span></p>
   </td>
   <td valign=top style='border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>ООО "Багамская чушь или как проверить верстку"</o:p></span></p>
+  line-height:150%;'><o:p>{{this.basePractic}}</o:p></span></p>
   </td>
   <td valign=top style='border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>22-01-2021</o:p></span></p>
+  line-height:150%;'><o:p>{{this.incomingDate}}</o:p></span></p>
   </td>
   <td valign=top style='border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>Петькин Николай Васурманович</o:p></span></p>
+  line-height:150%;'><o:p>{{this.profName}}</o:p></span></p>
   </td>
   <td valign=top style='border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>24-02-2021</o:p></span></p>
+  line-height:150%;'><o:p>{{this.checkingDate}}</o:p></span></p>
   </td>
   <td valign=top style='border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>к защите</o:p></span></p>
+  line-height:150%;'><o:p>{{this.result}}</o:p></span></p>
   </td>
   <td valign=top style='border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
@@ -175,6 +176,7 @@ table.MsoTableGrid
   line-height:150%;'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
+ {{/each}}
 </table>
 
 <p class=MsoNormal style='text-indent:0cm;line-height:normal'><span

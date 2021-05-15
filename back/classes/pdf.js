@@ -8,6 +8,7 @@ var templatestypes = {
     doc_1 : fs.readFileSync("./classes/template.html", "utf8"),
     courseworkszaochlist : fs.readFileSync("./classes/courseworkszaochlist.html", "utf8"),
     courseworksochlist : fs.readFileSync("./classes/courseworksochlist.html", "utf8"),
+    practicereport : fs.readFileSync("./classes/practicereport.html","utf8"),
 }
 
 
