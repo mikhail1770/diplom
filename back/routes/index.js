@@ -1,10 +1,13 @@
 var express = require('express');
+var app = express();
 var router = express.Router();
 var mysql = require('mysql2');
-var multer  = require('multer')
+var multer = require('multer')
 var upload = multer({ dest: 'uploads/' })
 var pdf = require('../classes/pdf')
 var moment = require('moment');
+var cors = require('cors');
+app.use(cors())
 
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
@@ -12,6 +15,38 @@ const connection = mysql.createConnection({
   password: 'UnivDoc71',
   database: 'u0856139_univdoc'
 });
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+    cb(null, 'public')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' +file.originalname )
+  }
+})
+
+var upload = multer({ storage: storage }).single('file')
+app.post('/upload',function(req, res) {
+     
+    upload(req, res, function (err) {
+           if (err instanceof multer.MulterError) {
+               return res.status(500).json(err)
+           } else if (err) {
+               return res.status(500).json(err)
+           }
+      return res.status(200).send(req.file)
+
+    })
+
+});
+
+app.listen(3002, function() {
+
+    console.log('App running on port 3002');
+
+});
+
+
 
 connection.connect();
 
@@ -46,7 +81,7 @@ router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //з�
   });  
 })
 
-router.get('/search/practiceReport/course/formOfStudy', function(req, res, next){ //запрос на получение списка групп через курс
+router.get('/search/practiceReport/course/formOfStudy', function(req, res, next){ //запрос на получение списка практик
 let sql = 'SELECT practice.id, univgroups.groupName, univgroups.course, courseworkresult.result, students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
 let params = []
 if(req.query.byGroupID != null){ //поиск по id группы
@@ -271,29 +306,7 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
     });
   })
 
-  /*router.put('/joke', (req,res,next) => { //анехдот
-    connection.query( function (error, results, fields) {
-      let jokeSelect = require('rand-token').generator({numeric});
-      if(jokeSelect == 1 || jokeSelect ==2 ){
-      results = 'В дверь постучали 57 раз.                "Нахера я считал" - подумал я'
-      }
-      else if(jokeSelect == 3 || jokeSelect == 4 ){
-        results = 'В дверь постучали 0 раз                "Отец" - подумал я'
-      }
-      else if(jokeSelect == 5 || jokeSelect == 6 ){
-        results = 'Зашел на сайт для сирот, но домашняя страничка не прогрузилась'
-      }else if(jokeSelect == 7 || jokeSelect == 8 ){
-        results = 'В дверь постучали 0 раз                "Отец" - подумал я'
-      }
-      else if(jokeSelect == 9){
-        results = 'И чего ты ждал? Шуточек прибауточек? ЧМО'
-      }
-      if (error) throw error;
-      res.json(results);
-      console.log(req.body)
-    });
-  })*/
-
+  
 }
 
 {/* DELETE запросы */
@@ -311,6 +324,35 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
     });
   });
 
+  router.post('/', function(req, res) {
+    // do something w/ req.body or req.files 
+  });
+
+  var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+  cb(null, 'public')
+  },
+
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' +file.originalname )
+  }
+  })
+
+  var upload = multer({ storage: storage }).single('file')
+
+  app.post('/upload',function(req, res) {
+    
+    upload(req, res, function (err) {
+          if (err instanceof multer.MulterError) {
+              return res.status(500).json(err)
+          } else if (err) {
+              return res.status(500).json(err)
+          }
+      return res.status(200).send(req.file)
+
+    })
+
+  });
 
 }
 module.exports = router;
