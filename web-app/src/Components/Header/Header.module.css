@@ -112,12 +112,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
- .line{
-     background: url("./line.png");
-     width: 1140px;
-     height: 59px;
 
- }
 .listDoc{
     font-family: Montserrat;
     font-style: normal;
@@ -147,27 +142,9 @@
     color: #DFDEDE;
 }
 
-.nameKafedra{
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 17px;
-    /* identical to box height */
 
-    padding: 20px 0px;
-    color: #2D2A35;
-   padding-left: 120px;
-}
 
-.lineBlack{
 
-    width: 1140px;
-    height: 20px;
-margin-bottom: 40px;
-
-    background: #2D2A35;
-}
 
 .univDoc{
     margin-top: 69px;

@@ -7,9 +7,12 @@ import {format} from 'date-fns'
 import s from './Doc1_2.module.css';
 import print from '../print.svg';
 import edit from '../edit.svg';
+import gif from '../1.gif';
 import {withMobileDialog} from "@material-ui/core";
 
 function Table1_2(props) {
+
+
 
     if (props.courseworks.length > 0) {
         return (
@@ -27,18 +30,18 @@ function Table1_2(props) {
                             <th>Результат</th>
                             <th>Курсовая работа</th>
                             <th></th>
-                            <th><div className='cursor' onClick={props.print}><img src={print}/></div></th>
+                            <th>{!props.printLoad ? <div className='cursor' onClick={props.print}><img src={print}/></div> : <img src={gif} className='wid' />}</th>
                         </tr>
                         </thead>
                         <tbody className='fontSize'>
                         {props.courseworks.map((coursework, index) => (
                             <tr>
                                 <td>{index + 1}</td>
-                                <td >{coursework.Name}</td>
+                                <td width='150px'>{coursework.Name.split(' ').map((item, index) => index  !=0 ? item.substring(0,1)+".": item).join(' ')}</td>
                                 <td className='text-center'>{coursework.course}</td>
                                 <td>{coursework.groupName}</td>
                                 <td className='w'>{coursework.incomingDate}</td>
-                                <td>{coursework.profName}</td>
+                                <td>{coursework.profName.split(' ').map((item, index) => index  !=0 ? item.substring(0,1)+".": item).join(' ')}</td>
                                 <td className='w'>{coursework.checkingDate}</td>
                                 <td className='w'>{coursework.result}</td>
                                 <td>Открыть</td>
@@ -46,14 +49,18 @@ function Table1_2(props) {
                                     <div onClick={() => props.onOpenModal(coursework)} className='cursor'> <img src={edit}/></div>
 
 
-                                    <ModalWin
-                                        verificationResult={props.verificationResult}
-                                        clouse={props.clouse}
-                                        state={props.state}
-                                        handleChange={props.handleChange}
-                                        courseworks={props.courseworks}
-                                        currentGroup={props.currentGroup}
-                                        onSave={props.onSave}/>
+                                    {
+                                        props.state && <ModalWin
+
+                                            verificationResult={props.verificationResult}
+                                            clouse={props.clouse}
+                                            state={props.state}
+                                            handleChange={props.handleChange}
+                                            courseworks={props.courseworks}
+                                            currentGroup={props.currentGroup}
+                                            onSave={props.onSave}
+                                            professors={props.professors}/>
+                                    }
                                 </td>
                             <td></td>
                             </tr>

@@ -35,7 +35,9 @@ export default class Doc1_2 extends React.Component {
             professor: '',
             fileLink: '',
             currentGroup: [],
-            name: 'rere[f'
+            name: 'rere[f',
+            professors:[],
+            printLoad: false
 
         };
 
@@ -67,12 +69,16 @@ export default class Doc1_2 extends React.Component {
                     fullDiscipline: null,
                     fullName: null,
                     discipline: null,
-                    studentName: null
+                    studentName: null,
+                    pageLoaded: false
                 });
                 get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
                     const disciplines = res.data;
                     this.setState({disciplines});
                     console.log(disciplines)
+                    this.setState({pageLoaded: true})
+                    
+
                 })
                 get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
                     const studentsName = res.data;
@@ -128,7 +134,7 @@ export default class Doc1_2 extends React.Component {
     }
 
     onPrint = event => {
-
+    this.setState({printLoad: true})
         get('search/courseworks/disciplines/univGroup/?print=1', {
             params: {
                 byGroupID: this.state.group,
@@ -138,7 +144,7 @@ export default class Doc1_2 extends React.Component {
         }).then(res => {
             console.log(res)
             window.open('http://localhost:3001/printdocs/' + res.data.filename, '_blank').focus();
-
+            this.setState({printLoad: false})
         })
     }
 
@@ -178,8 +184,13 @@ export default class Doc1_2 extends React.Component {
             const groups = res.data;
             this.setState({groups});
             console.log(groups)
+            this.setState({pageLoaded: true})
         })
-
+        get('professor').then(res => {
+            const professors = res.data;
+            this.setState({professors});
+            console.log(professors)
+        })
 
     }
 
@@ -196,7 +207,7 @@ export default class Doc1_2 extends React.Component {
                     </div>
                 </div>
                 <div className='lineBlack row'></div>
-                <form className='nav container main'>
+               <form className='nav container main'>
                     <div className='form-row row center-block form'>
                         <div className='col-md-3 pad'>
 
@@ -267,7 +278,9 @@ export default class Doc1_2 extends React.Component {
                             state={this.state.open}
                             handleChange={this.handleChange}
                             onSave={this.onSave}
-                            print={this.onPrint}/>
+                            print={this.onPrint}
+                            printLoad={this.state.printLoad}
+                            professors={this.state.professors}/>
                     </div></div>
             </div>
 

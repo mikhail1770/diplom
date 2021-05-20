@@ -5,7 +5,7 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import {Edit} from "@material-ui/icons";
 import edit from "../edit.svg";
-import ModalWin from "../Doc1_2/ModalWin1_2";
+import ModalWin from "../Doc1_1/ModalWin1_1";
 import print from "../print.svg";
 
 function Table1_1(props) {
@@ -31,7 +31,7 @@ function Table1_1(props) {
                         {props.courseworks.map((coursework, index) => (
                             <tr>
                                 <td>{index + 1}</td>
-                                <td>{coursework.Name}</td>
+                                <td>{props.currentGroup.Name.split(' ').map((item, index) => index  !=0 ? item.substring(0,1)+".": item).join(' ')}</td>
                                 <td className='text-center'>{coursework.groupName}</td>
                                 <td className='w'>{coursework.incomingDate}</td>
                                 <td className='w'>{coursework.result}</td>

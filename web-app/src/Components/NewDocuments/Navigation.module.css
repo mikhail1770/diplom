@@ -71,6 +71,7 @@ padding: 0px !important;
 
 .shadowBelow{
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #F4F4F4 100%), #FFFFFF;
+    margin-bottom: 100px;
 }
 
 .noPaddingTop{

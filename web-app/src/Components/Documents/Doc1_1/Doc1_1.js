@@ -123,7 +123,7 @@ export default class Doc1_1 extends React.Component {
     }
     onPrint = event => {
 
-        get('search/courseworks/disciplines/univGroup/?print=1', {
+        get('search/courseworkszaoch/disciplines/univGroup/?print=1', {
             params: {
                 byGroupID: this.state.group,
                 byDescipline: this.state.discipline,
