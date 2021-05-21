@@ -20,36 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Ekaterina.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/public/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/ModalWin1_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/ModalWin1_1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Table1_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Table1_1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/find.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Footer/Footer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Footer/Footer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/DaysOne-Regular (1).ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/DaysOne-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/OFL.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/UnivDoc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/doc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/exit.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/line.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/print.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/MyDocuments/MyDocuments.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Nav/Main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Nav/Main.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +56,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/web-app/src/Components" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -144,7 +126,9 @@
       <workItem from="1621187037004" duration="3781000" />
       <workItem from="1621223103231" duration="14379000" />
       <workItem from="1621404196861" duration="10581000" />
-      <workItem from="1621481006036" duration="2556000" />
+      <workItem from="1621481006036" duration="3967000" />
+      <workItem from="1621555716076" duration="3155000" />
+      <workItem from="1621575142524" duration="3298000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618563930188</created>
@@ -207,21 +191,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1619881105154" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js</url>
-          <line>191</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js</url>
-          <line>39</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

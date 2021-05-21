@@ -1,18 +1,12 @@
 import React from "react";
 import '../../App.css'
-import Button from "@material-ui/core/Button";
-import {Edit} from "@material-ui/icons";
 import ModalWin from "./ModalWin1_2";
-import {format} from 'date-fns'
-import s from './Doc1_2.module.css';
 import print from '../print.svg';
 import edit from '../edit.svg';
 import gif from '../1.gif';
-import {withMobileDialog} from "@material-ui/core";
+
 
 function Table1_2(props) {
-
-
 
     if (props.courseworks.length > 0) {
         return (
@@ -53,12 +47,11 @@ function Table1_2(props) {
                                         props.state && <ModalWin
 
                                             verificationResult={props.verificationResult}
-                                            clouse={props.clouse}
+                                            close={props.close}
                                             state={props.state}
                                             handleChange={props.handleChange}
                                             courseworks={props.courseworks}
                                             currentGroup={props.currentGroup}
-                                            onSave={props.onSave}
                                             professors={props.professors}/>
                                     }
                                 </td>

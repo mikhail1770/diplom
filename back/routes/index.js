@@ -88,7 +88,7 @@ if(req.query.byGroupID != null){ //поиск по id группы
   sql = sql + ' AND univgroups.id=?';
   params.push(parseInt(req.query.byGroupID))
 }
-if(req.query.byDescipline != null){ //поиск по id дисциплины
+if(req.query.byDiscipline != null){ //поиск по id дисциплины
   sql = sql + ' AND univgroups.course=?';
   params.push(parseInt(req.query.byCourse))
 }
@@ -109,8 +109,8 @@ sql = sql + ' ORDER BY UNIX_TIMESTAMP(STR_TO_DATE(incomingDate, "%Y-%m-%d")) DES
 }
 connection.query(sql, params, function (error, results, fields) {
   let discipline
-  results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
-  results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
+  results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('YYYY-MM-DD')} ) //делаем нормальную дату
+  results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('YYYY-MM-DD')} )
   console.log(results)
   if(req.query.print == 1){ //запуск печати, если req.query.print=1
     if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
@@ -155,9 +155,9 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     sql = sql + ' AND univgroups.id=?';
     params.push(parseInt(req.query.byGroupID))
   }
-  if(req.query.byDescipline != null){ //поиск по id дисциплины
+  if(req.query.byDiscipline != null){ //поиск по id дисциплины
     sql = sql + ' AND disciplines.id=?';
-    params.push(parseInt(req.query.byDescipline))
+    params.push(parseInt(req.query.byDiscipline))
   }
   if(req.query.datePeriod != null){ //поиск по диапозону дат
     sql = sql + ' AND courseworks.incomingDate BETWEEN ? AND ?'
@@ -204,9 +204,9 @@ router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res,
     sql = sql + ' AND univgroups.id=?';
     params.push(parseInt(req.query.byGroupID))
   }
-  if(req.query.byDescipline != null){ //поиск по id дисциплины
+  if(req.query.byDiscipline != null){ //поиск по id дисциплины
     sql = sql + ' AND disciplines.id=?';
-    params.push(parseInt(req.query.byDescipline))
+    params.push(parseInt(req.query.byDiscipline))
   }
   if(req.query.datePeriod != null){ //поиск по диапозону дат
     sql = sql + ' AND courseworkszaoch.incomingDate BETWEEN ? AND ?'
@@ -226,8 +226,8 @@ router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res,
   connection.query(sql, params, function (error, results, fields) {
     let discipline
     console.log()
-    results.map((i, index) => {results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
-    results.map((i, index) => {results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
+    results.map((i, index) => {results[index].incomingDate = moment(i.incomingDate).format('YYYY-MM-DD')} ) //делаем нормальную дату
+    results.map((i, index) => {results[index].checkingDate = moment(i.checkingDate).format('YYYY-MM-DD')} )
     if(req.query.print == 1){ //запуск печати, если req.query.print=1
       if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
         discipline = results[0].name;

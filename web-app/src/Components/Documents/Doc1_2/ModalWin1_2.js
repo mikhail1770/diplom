@@ -8,10 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc1_2/Doc1_2.module.css";
 import axios from "axios";
-import {KeyboardDatePicker} from "@material-ui/pickers";
-import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
-import DateFnsUtils from "@date-io/date-fns";
-import Grid from "@material-ui/core/Grid";
+import {post} from "../axios";
 
 
 class ModalWin1_2 extends React.Component {
@@ -24,13 +21,11 @@ class ModalWin1_2 extends React.Component {
                 profName: '',
                 checkingDate: '',
                 result: '',
-                incomingDate: '2021-05-12',
+                incomingDate: '',
                 id: null,
                 selectedFile: '',
                 nameFail: '',
                 verificationResults: ['к защите', 'к доработке']
-
-
             }
         }
         this.setStateGroupInfo = this.setStateGroupInfo.bind(this);
@@ -39,17 +34,24 @@ class ModalWin1_2 extends React.Component {
 
 
     ChangeSelectedProffesor(e) {
-        //console.log(e.target.value)
         let currentG = this.state.currentGroup;
         currentG.profName = e.target.value;
-        this.setState({currentGroup: currentG})
+        // this.setState({currentGroup: currentG})
     }
 
     ChangeSelectedIncomingDate(e) {
-        //console.log(e.target.value)
-        let currentG = this.state.currentGroup;
-        currentG.incomingDate = e.target.value;
-        this.setState({currentGroup: currentG})
+        this.state.currentGroup.incomingDate = e.target.value;
+
+    }
+
+    ChangeSelectedcheckingDate(e) {
+        this.state.currentGroup.chekingDate = e.target.value;
+
+    }
+
+    ChangeSelectedResult(e) {
+        this.state.currentGroup.result = e.target.value;
+
     }
 
     setStateGroupInfo(props) {
@@ -63,18 +65,19 @@ class ModalWin1_2 extends React.Component {
     }
 
     onSave = () => {
-        new Promise((res, rej) => {
-            res()
-        }).then(e => {
-            this.props.clouse();
-        })
-        this.setState({nameFail: this.state.selectedFile.name})
+        post(`edit/courseworks/${this.state.currentGroup.id}`, {params:this.state.currentGroup})
+            .then(res => {
+
+            })
+
+        if (this.state.selectedFile){this.setState({nameFail: this.state.selectedFile.name})}
         const data = new FormData()
         data.append('file', this.state.selectedFile)
         axios.post("http://localhost:3002/upload", data, {})
             .then(res => {
                 console.log(res.statusText)
             })
+        console.log(this.state.currentGroup)
     }
 
     onChangeHandler = event => {
@@ -95,12 +98,12 @@ class ModalWin1_2 extends React.Component {
         return (
             <Modal
                 open={this.props.state}
-                onClose={this.props.clouse}
+                onClose={this.props.close}
             >
                 <div className='paper modalForm modal-content'>
                     <div className="modal-header">
                         <span className="modal-title">Окно редактирования</span>
-                        <img onClick={this.props.clouse} className='cursor' src={cross}/>
+                        <img onClick={this.props.close} className='cursor' src={cross}/>
                     </div>
                     <div className='modal-body'>
                         <div className='row modalRow'>
@@ -140,6 +143,7 @@ class ModalWin1_2 extends React.Component {
                                     name="incomingDate"
                                     type='date'
                                     defaultValue={this.state.currentGroup.incomingDate}
+                                    onChange={(e) => this.ChangeSelectedIncomingDate(e)}
                                     />
                             </div>
                         </div>
@@ -149,9 +153,10 @@ class ModalWin1_2 extends React.Component {
                             </div>
                             <div className='col-6 v propsModal'>
                                 <TextField
-                                    name="incomingDate"
+                                    name="checkingDate"
                                     type='date'
                                     defaultValue={this.state.currentGroup.checkingDate}
+                                    onChange={(e) => this.ChangeSelectedcheckingDate(e)}
                                 />
                             </div>
                         </div>
@@ -164,6 +169,7 @@ class ModalWin1_2 extends React.Component {
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     defaultValue={this.state.currentGroup.result}
+                                    onChange={(e) => this.ChangeSelectedResult(e)}
                                 >
                                     <MenuItem value={'к защите'}>к защите</MenuItem>
                                     <MenuItem value={'к доработке'}>к доработке</MenuItem>
