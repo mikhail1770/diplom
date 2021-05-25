@@ -82,13 +82,13 @@ router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //з�
 })
 
 router.get('/search/practiceReport/course/formOfStudy', function(req, res, next){ //запрос на получение списка практик
-let sql = 'SELECT practice.id, univgroups.groupName, univgroups.course, courseworkresult.result, courseworkresult.id AS courseWorkResID students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
+let sql = 'SELECT practice.id, univgroups.groupName, practice.regId, univgroups.course, courseworkresult.result, courseworkresult.id AS courseWorkResID students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
 let params = []
 if(req.query.byGroupID != null){ //поиск по id группы
   sql = sql + ' AND univgroups.id=?';
   params.push(parseInt(req.query.byGroupID))
 }
-if(req.query.byDiscipline != null){ //поиск по id дисциплины
+if(req.query.byCourse != null){ //поиск по id дисциплины
   sql = sql + ' AND univgroups.course=?';
   params.push(parseInt(req.query.byCourse))
 }
@@ -138,7 +138,6 @@ router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //за
   });  
 })
 
-
 router.get('/search/studnets/univGroup/:id', function(req, res, next){ //запрос на получение списка студентов группы
   connection.query('SELECT students.name, students.id FROM students JOIN univgroups ON students.univGroup=univgroups.id WHERE univgroups.id=?', 
   [req.params.id], function (error, results, fields) {
@@ -149,7 +148,7 @@ router.get('/search/studnets/univGroup/:id', function(req, res, next){ //зап�
 })
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
-  let sql = 'SELECT disciplines.name, courseworks.id, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
+  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
   let params = []
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -198,7 +197,7 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
 })
 
 router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых заочников
-   let sql = 'SELECT disciplines.name, courseworkszaoch.id, univgroups.groupName, courseworkszaoch.checkingDate, courseworkszaoch.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name FROM courseworkszaoch JOIN univgroups ON courseworkszaoch.univGroups = univgroups.id JOIN students ON courseworkszaoch.student = students.id JOIN disciplines ON courseworkszaoch.disciplines = disciplines.id JOIN courseworkresult ON courseworkszaoch.courseworkresult = courseworkresult.id WHERE univgroups.formOfStudy = 2'
+   let sql = 'SELECT disciplines.name, courseworkszaoch.id,courseworkszaoch.regId, univgroups.groupName, courseworkszaoch.checkingDate, courseworkszaoch.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name FROM courseworkszaoch JOIN univgroups ON courseworkszaoch.univGroups = univgroups.id JOIN students ON courseworkszaoch.student = students.id JOIN disciplines ON courseworkszaoch.disciplines = disciplines.id JOIN courseworkresult ON courseworkszaoch.courseworkresult = courseworkresult.id WHERE univgroups.formOfStudy = 2'
   let params = [];
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -287,6 +286,23 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
       console.log(req.body)
     });
   })
+  router.put('/edit/courseworkszaoch/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми заочников по id курсовой
+    connection.query('UPDATE courseworkszaoch SET ? WHERE id = ?', [req.body, req.params.id], 
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+      console.log(req.body)
+    });
+  })
+
+  router.put('/edit/practiceReport/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми заочников по id курсовой
+    connection.query('UPDATE practice SET ? WHERE id = ?', [req.body, req.params.id], 
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+      console.log(req.body)
+    });
+  })
 
   router.put('/edit/professor/:id', (req,res,next) => { //запрос на обновление данных в таблице преподавателей по id препода
     connection.query('UPDATE professor SET ? WHERE id = ?', [req.body, req.params.id], 
@@ -316,43 +332,14 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //б
 {/* POST запросы */
   router.post('/courseworks/add', function(req, res, next){
     console.log(req.body)
-    connection.query('INSERT INTO courseworks (disciplines, univGroups, cours, student, incomingDate, checkingDate, professor, courseworkresult, fileLink) VALUES(?,?,?,?,?,?,?,?,?);',
-    [req.body.disciplines, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.fileLink],
+    connection.query('INSERT INTO courseworks (disciplines, regId, univGroups, cours, student, incomingDate, checkingDate, professor, courseworkresult, fileLink) VALUES(?,?,?,?,?,?,?,?,?,?);',
+    [req.body.disciplines,req.body.regId, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.fileLink],
      function (err, results, fields){
        if(err) throw err;    
        res.json(results);
     });
   });
 
-  router.post('/', function(req, res) {
-    // do something w/ req.body or req.files 
-  });
-
-  var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-  cb(null, 'public')
-  },
-
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' +file.originalname )
-  }
-  })
-
-  var upload = multer({ storage: storage }).single('file')
-
-  app.post('/upload',function(req, res) {
-    
-    upload(req, res, function (err) {
-          if (err instanceof multer.MulterError) {
-              return res.status(500).json(err)
-          } else if (err) {
-              return res.status(500).json(err)
-          }
-      return res.status(200).send(req.file)
-
-    })
-
-  });
 
 }
 module.exports = router;
