@@ -10,7 +10,6 @@
     font-style: normal !important;
     font-weight: bold !important;
     padding-bottom: 50px;
-
 }
 
 body {
@@ -140,7 +139,7 @@ html {
 
 .modalForm {
     background: linear-gradient(180deg, #F4F4F4 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF;
-    box-shadow: 0px 0px 20px #2D2A35;
+    box-shadow: 0px 0px 20px #2d2a35;
     border-radius: 10px;
     border: none;
     font-family: Montserrat !important;
@@ -348,14 +347,58 @@ html {
 }
 
 .wid{
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.add {
+    position: sticky;
+    top: 20px;
+    right: 0px;
 }
 
 
+.modal-backdrop{opacity: 0 !important;}
 
 
+.block-right{
+    float: right;
+    margin-right: 10px;
+
+}
+
+.bot2{
+    margin-bottom: 250px;
+}
+
+.btnRight{
+   padding: 11px 0px 11px 0px;
+    margin-left: 60px;
+    margin-right: 40px;
+    display: inline-block!important;
+    width: 25px;
+}
+.btnRight1{
+    padding: 11px 0px 11px 0px;
+    margin-right: 40px;
+    display: inline-block!important;
+    width: 20px;
+}
 
 
+.navs{
+    position: fixed;
+    margin-left: 350px;
+    bottom: 0;
+    width: 280px;
+    height: 50px;
+    background: linear-gradient(180deg, #F4F4F4 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 20px 20px 0px 0px;
 
+}
 
+.q{
+    display: inline-block!important;
+    width: 50px;
+}

@@ -1,0 +1,86 @@
+.background{
+    background-color: #2D2A35;
+
+    width: 1920px !important;
+
+}
+.background a:hover {
+    color: white;
+    text-decoration-line: none;
+    box-shadow:0 0 15px #60259A;
+}
+.univDoc{
+    margin: 200px auto 40px auto;
+    width: 270px;
+}
+
+.margin{
+    padding-left: 426px;
+    margin-top: 20px;
+    font-family: Montserrat Alternates;
+    font-style: normal;
+    line-height: 12px;
+
+    color: #DFDEDE;
+
+}
+.margin2{
+    padding-left: 273px;
+
+    margin-top: 20px;
+    font-family: Montserrat Alternates;
+    font-style: normal;
+    line-height: 12px;
+    color: #DFDEDE;
+
+}
+
+.marRow{
+    margin-right: 18px;
+}
+
+.w {
+    padding: 20px;
+    width: 288px;
+    margin-right: 18px;
+    background: #FFFFFF;
+    box-shadow: inset 0px -0.5px 1px rgba(0, 0, 0, 0.25), inset 0px 1px 2px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 17px;
+    /* identical to box height */
+    color: #5E5E5E;
+}
+.linkDoc{
+    padding: 7px 15px;
+    color: white;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+
+    color: #DFDEDE;
+    border-radius: 10px;
+    border: 3px solid #60259A;
+    text-transform: capitalize;
+}
+
+.logIn{
+    margin: 65px auto 25px auto;
+    width: 205px;
+}
+
+.signIn{
+    margin: 40px auto 25px auto;
+    width: 80px;
+}
+
+.logIn .linkDoc{
+    background: #60259A;
+}
+
+.title{
+    font-size: 12px!important;
+}

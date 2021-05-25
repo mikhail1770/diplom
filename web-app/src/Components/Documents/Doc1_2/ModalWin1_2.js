@@ -8,8 +8,6 @@ import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc1_2/Doc1_2.module.css";
 import axios from "axios";
-import {post} from "../axios";
-
 
 class ModalWin1_2 extends React.Component {
 
@@ -38,15 +36,18 @@ class ModalWin1_2 extends React.Component {
         currentG.profName = e.target.value;
         // this.setState({currentGroup: currentG})
     }
-
+    ChangeSelectedStudent(e) {
+        let currentG = this.state.currentGroup;
+        currentG.Name = e.target.value;
+        // this.setState({currentGroup: currentG})
+    }
     ChangeSelectedIncomingDate(e) {
         this.state.currentGroup.incomingDate = e.target.value;
 
     }
 
     ChangeSelectedcheckingDate(e) {
-        this.state.currentGroup.chekingDate = e.target.value;
-
+        this.state.currentGroup.checkingDate = e.target.value;
     }
 
     ChangeSelectedResult(e) {
@@ -65,12 +66,11 @@ class ModalWin1_2 extends React.Component {
     }
 
     onSave = () => {
-        post(`edit/courseworks/${this.state.currentGroup.id}`, {params:this.state.currentGroup})
+        axios.put(`http://localhost:3001/edit/courseworks/${this.state.currentGroup.id}`, {checkingDate: this.state.currentGroup.checkingDate, incomingDate:this.state.currentGroup.incomingDate }, {})
             .then(res => {
-
             })
 
-        if (this.state.selectedFile){this.setState({nameFail: this.state.selectedFile.name})}
+        if(this.state.selectedFile){this.setState({nameFail: this.state.selectedFile.name})}
         const data = new FormData()
         data.append('file', this.state.selectedFile)
         axios.post("http://localhost:3002/upload", data, {})
@@ -99,6 +99,7 @@ class ModalWin1_2 extends React.Component {
             <Modal
                 open={this.props.state}
                 onClose={this.props.close}
+
             >
                 <div className='paper modalForm modal-content'>
                     <div className="modal-header">
@@ -111,7 +112,18 @@ class ModalWin1_2 extends React.Component {
                                 <span>ФИО студента:</span>
                             </div>
                             <div className='col-6 v propsModal'>
-                                {this.state.currentGroup.Name ? this.state.currentGroup.Name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''}
+                                <FormControl className='formControl'>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={this.state.currentGroup.Name}
+                                        onChange={(e) => this.ChangeSelectedStudent(e)}
+                                    >
+                                        {this.props.students.map(student => <MenuItem
+                                            value={student.name}>  {student.name ? student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''} </MenuItem>)}
+
+                                    </Select>
+                                </FormControl>
                             </div>
                         </div>
                         <div className='row modalRow '>
@@ -171,7 +183,7 @@ class ModalWin1_2 extends React.Component {
                                     defaultValue={this.state.currentGroup.result}
                                     onChange={(e) => this.ChangeSelectedResult(e)}
                                 >
-                                    <MenuItem value={'к защите'}>к защите</MenuItem>
+                                    <MenuItem value={1}>к защите</MenuItem>
                                     <MenuItem value={'к доработке'}>к доработке</MenuItem>
                                 </Select>
                             </div>
@@ -184,12 +196,12 @@ class ModalWin1_2 extends React.Component {
                                 <input type='file' onChange={this.onChangeHandler}/>
                             </div>
                         </div>
+                        <div className={`${s.positionSave} f`}>
+                            <button type="button" className="btn btn-primary save block-center"  onClick={this.onSave}>Сохранить
+                            </button>
+                        </div>
+                    </div>
 
-                    </div>
-                    <div className={`${s.positionSave} f`}>
-                        <button type="button" className="btn btn-primary save block-center"  onClick={this.onSave}>Сохранить
-                        </button>
-                    </div>
                 </div>
             </Modal>
         );

@@ -5,6 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
 import Table1_1 from "./Table1_1";
+import top from "../top.svg"
+import s from "./Doc1_1.module.css";
 
 
 export default class Doc1_1 extends React.Component {

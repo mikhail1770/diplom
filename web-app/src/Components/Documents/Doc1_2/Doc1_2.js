@@ -5,6 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
 import Table1_2 from "./Table1_2";
+import main from "../main.svg";
+import top from "../top.svg";
+import printBig from "../printBig.svg";
+import {Link} from "react-router-dom";
+import gif from '../1.gif';
 
 
 export default class Doc1_2 extends React.Component {
@@ -135,7 +140,8 @@ export default class Doc1_2 extends React.Component {
             params: {
                 byGroupID: this.state.group,
                 byDiscipline: this.state.discipline,
-                byStudent: this.state.studentName
+                byStudent: this.state.studentName,
+                sortIncomingDate: 'ASC'
             }
         }).then(res => {  //получение дисциплин
             const courseworks = res.data;
@@ -165,6 +171,7 @@ export default class Doc1_2 extends React.Component {
         return (
             <div>
                 <div className='line row'>
+
                     <div className='nameDepartment col-md-6'>
                         <span>Кафедра информационных систем и технологий</span>
                     </div>
@@ -174,8 +181,10 @@ export default class Doc1_2 extends React.Component {
                 </div>
                 <div className='lineBlack row'></div>
                 <form className='nav container main'>
+
                     <div className='form-row row center-block form'>
                         <div className='col-md-3 pad'>
+
                             <Autocomplete
                                 id="group"
                                 getOptionLabel={(option) => option.groupName}
@@ -241,7 +250,13 @@ export default class Doc1_2 extends React.Component {
                             onSave={this.onSave}
                             print={this.onPrint}
                             printLoad={this.state.printLoad}
-                            professors={this.state.professors}/>
+                            professors={this.state.professors}
+                            students={this.state.studentsName}/>
+                    </div>
+                    <div className='navs'>
+                        <Link to={'/'}><img src={main} title="Вернуться к документам" className='btnRight'/></Link>
+                        <img src={top} title="Вернуться к документам" className='btnRight1'/>
+                        {!this.state.printLoad ? <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> : <img src={gif} className='wid' />}
                     </div>
                 </div>
             </div>

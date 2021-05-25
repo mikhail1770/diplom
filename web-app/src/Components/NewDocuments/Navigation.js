@@ -37,7 +37,7 @@ function Navigation(props) {
                 </div>
                 <div className={`${s.listDoc} col-md-8`}>
                     <ul>
-                        <li className={`${s.noPaddingTop}`}><Link to={'/4'}>Нагрузка преподавателей</Link></li>
+                        <li className={`${s.noPaddingTop}`}><Link to={'/4'}>Нагрузка преподавателей (плановая)</Link></li>
                         <li><Link to={'/5'}>Нагрузка преподавателей-почасовиков</Link></li>
                         <li><Link to={'/6'}>Нагрузка преподавателей, работающих на условиях
                             договора об оказании услуг</Link></li>

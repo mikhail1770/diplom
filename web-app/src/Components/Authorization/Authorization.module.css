@@ -56,6 +56,10 @@
     margin-left: 527px;
     margin-top: 65px;
 
+}
+
+.linkDoc:hover{
+    box-shadow:0 0 15px #60259A;
 
 }
 

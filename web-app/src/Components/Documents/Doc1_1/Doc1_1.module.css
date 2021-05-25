@@ -5,3 +5,11 @@
     margin: 50px auto;
     width: 110px;
 }
+
+.add {
+    display: block;
+    position: fixed;
+    right: 0;
+    top: 200px;
+    z-index: 99999;
+}
