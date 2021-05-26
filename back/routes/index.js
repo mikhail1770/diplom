@@ -148,7 +148,7 @@ router.get('/search/studnets/univGroup/:id', function(req, res, next){ //зап�
 })
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
-  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId, univgroups.groupName, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, professor.profName FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
+  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId, univgroups.groupName, univgroups.id as gid, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, students.id as sid, professor.profName, professor.id as pid FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
   let params = []
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -190,7 +190,33 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
         });
       }
     }else{
-      res.json(results);
+      let echoresult = [];
+      results.map(i => {
+        let ritem = {
+          name: i.name,
+          id: i.id,
+          regId: i.regId,
+          group: {
+            name: i.groupName,
+            id: i.gid
+          },
+          checkingDate: i.checkingDate,
+          incomingDate: i.incomingDate,
+          course: i.course,
+          result: i.result,
+          courseWorkResID: i.courseWorkResID,
+          student: {
+            name: i.Name,
+            id: i.sid
+          },
+          professor: {
+            id: i.pid,
+            name: i.profName
+          }
+        }
+        echoresult.push(ritem);
+      })
+      res.json(echoresult);
     }
     if (error) throw error;
   });  
