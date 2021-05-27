@@ -115,7 +115,7 @@ class ModalWin1_2 extends React.Component {
         this.setState({selectedFile: event.target.files[0]}, () => {
             console.log(this.state.selectedFile)
         })
-        if(this.state.selectedFile){this.setState({nameFail: this.state.selectedFile.name})}
+        {this.setState({nameFail: `${randomNumber}_${event.target.files[0]}`})}
         console.log( this.state.selectedFile)
     }
 
