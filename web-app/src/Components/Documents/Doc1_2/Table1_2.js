@@ -19,10 +19,14 @@ class Table1_2 extends React.Component {
     }
 
     onFile = event => {
-        get(`/${this.props.currentGroup.id}`).then(res => {
+        get(`/coursework/filename/${this.props.currentGroup.id}`).then(res => {
             const fileName = res.data;
             this.setState({fileName});
             console.log(fileName)
+        }).then(res => {
+            console.log(res)
+            window.open('http://localhost:3001/printdocs/' + res.data.filename, '_blank').focus();
+            this.setState({printLoad: false})
         })
     }
 
