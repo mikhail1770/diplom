@@ -73,16 +73,21 @@ router.get('/univGroups/:id', function(req, res, next){ //запрос на по
   });  
 })
 
-router.get('/search/univGroups/formOfStudy/:id', function(req, res, next){ //запрос на получение списка групп 
-  connection.query('SELECT univgroups.id, univgroups.groupName AS groupName, univgroups.course FROM univgroups JOIN formOfStudy ON formOfStudy.id = univgroups.formOfStudy WHERE univgroups.formOfStudy = ?', 
-  [req.params.id], function (error, results, fields) {
+router.get('/search/univGroups/formOfStudy/', function(req, res, next){ //запрос на получение списка групп 
+  let sql = 'SELECT univgroups.id, univgroups.groupName AS groupName, univgroups.course FROM univgroups JOIN formOfStudy ON formOfStudy.id = univgroups.formOfStudy WHERE '
+  let params = []
+  if(req.query.formOfStudy != null){ //поиск по id группы
+    sql = sql + ' univgroups.formOfStudy=?';
+    params.push(parseInt(req.query.formOfStudy))
+  }
+  connection.query(sql, params, function (error, results, fields) {
     if (error) throw error;
     res.json(results);
-  });  
+  });
 })
 
 router.get('/search/practiceReport/course/formOfStudy', function(req, res, next){ //запрос на получение списка практик
-let sql = 'SELECT practice.id, univgroups.groupName, practice.regId, univgroups.course, courseworkresult.result, courseworkresult.id AS courseWorkResID students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
+let sql = 'SELECT practice.id, univgroups.groupName, practice.regId, univgroups.course, courseworkresult.result, courseworkresult.id AS courseWorkResID, students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
 let params = []
 if(req.query.byGroupID != null){ //поиск по id группы
   sql = sql + ' AND univgroups.id=?';
@@ -138,8 +143,26 @@ router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //за
   });  
 })
 
+router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //запрос на получение списка дисциплин группы по id формы обучения
+  connection.query('SELECT disciplines.id, disciplines.name FROM disciplines JOIN studyPlan ON studyPlan.disciplineID = disciplines.id WHERE studyPlan.formOfStudy = ?', 
+  [req.params.id], function (error, results, fields) {
+    if (error) throw error;
+    console.log(req.params)
+    res.json(results);
+  });  
+})
+
 router.get('/search/studnets/univGroup/:id', function(req, res, next){ //запрос на получение списка студентов группы
   connection.query('SELECT students.name, students.id FROM students JOIN univgroups ON students.univGroup=univgroups.id WHERE univgroups.id=?', 
+  [req.params.id], function (error, results, fields) {
+    if (error) throw error;
+    console.log(req.params)
+    res.json(results);
+  });  
+})
+
+router.get('/search/studnets/disciplines/formOfStudy/:id', function(req, res, next){ //запрос на получение списка студентов группы
+  connection.query('SELECT DISTINCT students.name, students.id FROM students JOIN univgroups ON students.univGroup = univgroups.id JOIN studyPlan ON studyPlan.groupId = univgroups.id JOIN disciplines ON disciplines.id = studyPlan.disciplineID WHERE studyPlan.formOfStudy = ?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     console.log(req.params)
@@ -294,7 +317,7 @@ router.get('/disciplines', function(req, res, next){ //запрос на пол�
   });  
 })
 
-router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //бесполезное говно, которое и делать то и не надо было запрос на получение списка дисциплин группы по форме обучения (очка, заочка..)
+router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //бесполезное говно, которое и делать то и не надо было запрос на получение списка дисциплин группы по форме обучения (очка, заочка..)
   connection.query('SELECT disciplines.Name, univgroups.GroupName, formOfStudy.formOfStudy, univgroups.id , disciplines.disID FROM studyPlan JOIN univgroups ON studyPlan.GroupId=univgroups.id JOIN disciplines ON studyPlan.disciplineID=disciplines.disID JOIN formOfStudy ON univgroups.formOfStudy=formOfStudy.formOfStudyId WHERE formOfStudy.formOfStudyId=?', 
   [req.params.id],  function (error, results, fields) {
     if (error) throw error;
