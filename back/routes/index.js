@@ -326,7 +326,7 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
 })
 
 router.get('/coursework/filename/:id', function(req, res, next){ //запрос на получение списка дисциплин
-  connection.query('SELECT filelink FROM courseworks WHERE courseworks.id = ?', function (error, results, fields) {
+  connection.query('SELECT filelink FROM courseworks WHERE courseworks.id = ?',[req.params.id], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });  
