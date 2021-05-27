@@ -33,7 +33,8 @@ class ModalWin1_2 extends React.Component {
             courseWorkResID: '',
             selectedFile: '',
             number:'',
-            nameFail: ''
+            nameFile: '',
+            fileSelected:0
         }
         this.setStateGroupInfo = this.setStateGroupInfo.bind(this);
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -92,30 +93,28 @@ class ModalWin1_2 extends React.Component {
         else {
             console.log(1)
         }
-        axios.put(`http://localhost:3001/edit/courseworks/${this.state.currentGroup.id}`, {checkingDate: this.state.currentGroup.checkingDate, incomingDate:this.state.currentGroup.incomingDate,
-            courseworkresult:this.state.courseWorkResID, filelink:this.state.selectedFile.name, student:this.state.currentGroup.student.id  }, {})
-            .then(res => {
-            })
-
-       this.props.onSubmit();
+        this.props.onSubmit();
 
         const data = new FormData()
         data.append('file', this.state.selectedFile)
         axios.post("http://localhost:3002/upload", data, {})
             .then(res => {
-                console.log(res.statusText)
+                this.setState({nameFile:res.data.filename}, () => {
+                    axios.put(`http://localhost:3001/edit/courseworks/${this.state.currentGroup.id}`, {checkingDate: this.state.currentGroup.checkingDate, incomingDate:this.state.currentGroup.incomingDate,
+                    courseworkresult:this.state.courseWorkResID, filelink:this.state.nameFile, student:this.state.currentGroup.student.id  },() =>{console.log(this.state.nameFile)})
+                    .then(res => {
+                    })
+                })
             })
         console.log(this.state.currentGroup)
     }
 
     onChangeHandler = event => {
-        const randomNumber = Math.random() * 1000
-        this.setState({number : randomNumber});
         console.log(event.target.files[0])
         this.setState({selectedFile: event.target.files[0]}, () => {
             console.log(this.state.selectedFile)
         })
-        if(this.state.selectedFile){this.setState({nameFail: this.state.selectedFile.name})}
+        if(this.state.selectedFile){this.setState({nameFile: this.state.selectedFile.name})}
         console.log( this.state.selectedFile)
     }
 

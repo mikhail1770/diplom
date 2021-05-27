@@ -20,6 +20,7 @@ class Table1_2 extends React.Component {
 
     onFile = event => {
         get(`coursework/filename/${event}`).then(res => {
+            console.log(res.data)
             const fileName = res.data;
             this.setState({fileName});
         }).then(res => {
