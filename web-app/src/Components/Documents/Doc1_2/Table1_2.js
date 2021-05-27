@@ -19,15 +19,15 @@ class Table1_2 extends React.Component {
     }
 
     onFile = event => {
-        get(`coursework/filename/6`).then(res => {
+        get(`coursework/filename/${event}`).then(res => {
             const fileName = res.data;
             this.setState({fileName});
-            console.log()
         }).then(res => {
             console.log(this.state.fileName[0].filelink)
             window.open('http://localhost:3001/' + this.state.fileName[0].filelink,'_blank').focus();
             this.setState({printLoad: false})
         })
+        console.log(event)
     }
 
 
@@ -65,7 +65,7 @@ class Table1_2 extends React.Component {
                                 <td className='w text-center'>{moment(moment(coursework.checkingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
                                 <td className='w'>{coursework.result}</td>
                                 <td>
-                                    <div onClick={this.onFile} className='cursor'>Открыть</div>
+                                    <div onClick={() => this.onFile(coursework.id)} className='cursor'>Открыть</div>
                                 </td>
                                 <td width='50px'>
                                     <div onClick={() => this.props.onOpenModal(coursework)} className='cursor'><img

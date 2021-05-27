@@ -64,16 +64,10 @@ export default class Doc1_1 extends React.Component {
             if (value.id !== '') {
                 this.setState({
                     [name]: value.id,
-                    fullDiscipline: null,
                     fullName: null,
-                    discipline: null,
                     studentName: null
                 });
-                get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
-                    const disciplines = res.data;
-                    this.setState({disciplines});
-                    console.log(disciplines)
-                })
+
                 get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
                     const studentsName = res.data;
                     this.setState({studentsName});
@@ -121,14 +115,7 @@ export default class Doc1_1 extends React.Component {
         })
     }
     onSubmit = event => {
-        event.preventDefault();
-        const coursework = {
-            disciplines: this.state.disciplines,
-            studentName: this.state.studentName,
-            group: this.state.group,
-            dateOfReceipt: this.state.dateOfReceipt,
-            verificationResult: this.state.verificationResult,
-        };
+
 
 
         get('search/courseworkszaoch/disciplines/univGroup', {
@@ -153,7 +140,7 @@ export default class Doc1_1 extends React.Component {
             this.setState({groups});
             console.log(groups)
         })
-        get('search/disciplines/univGroup/2').then(res => {
+        get('disciplines/').then(res => {
             const disciplines = res.data;
             this.setState({disciplines});
             console.log(disciplines)
@@ -176,16 +163,18 @@ export default class Doc1_1 extends React.Component {
                 <form className='nav container main'>
                     <div className="form-row row center-block form">
                         <div className='col-md-4 pad'>
-                                <Autocomplete
-                                    value={this.state.fullDiscipline}
-                                    id="discipline"
-                                    getOptionLabel={(option) => option.disName}
-                                    options={this.state.disciplines}
-                                    onChange={(e, v) => this.onAutocompleteChange(v, "discipline", 'fullDiscipline')}
-                                    style={{width: 200}}
-                                    renderInput={(params) => <TextField {...params} label='Дисциплина'
-                                                                        variant="outlined"/>}
-                                />
+                            <Autocomplete
+                                className='col-md-3'
+                                className='bot'
+                                value={this.state.fullDiscipline}
+                                id="discipline"
+                                getOptionLabel={(option) => option.disName}
+                                options={this.state.disciplines}
+                                onChange={(e, v) => this.onAutocompleteChange(v, "discipline", 'fullDiscipline')}
+                                style={{width: 200}}
+                                renderInput={(params) => <TextField {...params} label='Дисциплина'
+                                                                    variant="outlined"/>}
+                            />
                             </div>
                         <div className='col-md-4'>
                             <Autocomplete
