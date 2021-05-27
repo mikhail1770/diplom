@@ -7,6 +7,10 @@ import Button from "@material-ui/core/Button";
 import Table1_1 from "./Table1_1";
 import top from "../top.svg"
 import s from "./Doc1_1.module.css";
+import {Link} from "react-router-dom";
+import main from "../main.svg";
+import printBig from "../printBig.svg";
+import gif from "../1.gif";
 
 
 export default class Doc1_1 extends React.Component {
@@ -199,9 +203,8 @@ export default class Doc1_1 extends React.Component {
                         <div className='col-md-1'></div>
 
                         <div className='col-md-3'>
-                            <div className='b'>
+                            <div className='b m1'>
                                 <Button
-                                    className='b'
                                     variant="contained"
                                     color="primary"
                                     className="btn btn-primary btnFind"
@@ -226,6 +229,11 @@ export default class Doc1_1 extends React.Component {
                             onSave={this.onSave}
                             print={this.onPrint}
                             printLoad={this.state.printLoad}/>
+                    </div>
+                    <div className='navs'>
+                        <Link to={'/'} ><img src={main} className='cursor' title="Вернуться к документам" className='btnRight'/></Link>
+                        <Link to={'/2'} ><div className='cursor btnRight1'><img src={top} title="Вернуться к документам" /></div></Link>
+                        {!this.state.printLoad ? <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> : <img src={gif} className='wid' />}
                     </div>
                 </div>
             </div>

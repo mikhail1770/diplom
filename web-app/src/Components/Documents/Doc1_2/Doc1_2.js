@@ -146,10 +146,13 @@ export default class Doc1_2 extends React.Component {
     }
 
     componentDidMount() {
-        get('search/univGroups/formOfStudy/1').then(res => { //получение заочных групп
+        get('search/univGroups/formOfStudy', {
+            params: {
+                formOfStudy: 1
+            }
+            }).then(res => { //получение заочных групп
             const groups = res.data;
             this.setState({groups});
-            console.log(groups)
             this.setState({pageLoaded: true})
         })
         get('professor').then(res => {

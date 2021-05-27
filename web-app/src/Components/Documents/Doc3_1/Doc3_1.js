@@ -140,13 +140,13 @@ export default class Doc1_2 extends React.Component {
                             />
                         </div>
                         <div className='col-md-1'>
-                            <div className='b'>
+                            <div className='b m'>
                                 <Button
                                     className='b'
                                     variant="contained"
                                     color="primary"
                                     className="btn btn-primary btnFind"
-                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
+                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.course}>
                                     <span>Найти</span>
                                 </Button>
                             </div>

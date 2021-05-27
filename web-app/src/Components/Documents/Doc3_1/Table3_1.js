@@ -39,11 +39,24 @@ class Table1_2 extends React.Component {
                             <th>ФИО преподавателя, проводившего занятие</th>
                             <th>Тема и вид занятия</th>
                             <th>ФИО преподавателя, посетившего занятие</th>
+                            <th>Должность</th>
                             <th>Рецензия</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody className='fontSize'>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
 
+                        </tr>
                         </tbody>
                         {
                             this.props.state && <ModalWin
