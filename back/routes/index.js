@@ -21,23 +21,24 @@ var storage = multer.diskStorage({
     cb(null, 'public')
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' +file.originalname )
+    cb(null,file.originalname )
+    
   }
 })
 
 var upload = multer({ storage: storage }).single('file')
+
 app.post('/upload',function(req, res) {
-     
     upload(req, res, function (err) {
            if (err instanceof multer.MulterError) {
                return res.status(500).json(err)
+               
            } else if (err) {
                return res.status(500).json(err)
            }
       return res.status(200).send(req.file)
-
     })
-
+console.log(req.filename)
 });
 
 app.listen(3002, function() {
@@ -200,7 +201,6 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     let discipline
     results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('YYYY-MM-DD')} ) //делаем нормальную дату
     results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('YYYY-MM-DD')} )
-    console.log(results)
     if(req.query.print == 1){ //запуск печати, если req.query.print=1
       if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
         discipline = results[0].name;
@@ -285,7 +285,6 @@ router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res,
         let generator = new pdf(params,alldata,discipline,orientation)
         generator.generate({}, (url) => {          
           res.json({filename: url})
-          console.log(alldata)
         });
       }
     }else{
@@ -348,7 +347,6 @@ router.get('/coursework/filename/:id', function(req, res, next){ //запрос 
     function (error, results, fields) {
       if (error) throw error;
       res.json(results);
-      console.log(req.body)
     });
   })
 
