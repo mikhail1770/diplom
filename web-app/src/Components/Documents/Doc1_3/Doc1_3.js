@@ -79,7 +79,6 @@ export default class Doc1_2 extends React.Component {
                     fullName: null,
                     discipline: null,
                     studentName: null,
-                    pageLoaded: false
                 });
 
                 get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
@@ -147,10 +146,9 @@ export default class Doc1_2 extends React.Component {
 
     componentDidMount() {
 
-        get('search/univGroups/formOfStudy/1').then(res => { //получение заочных групп
+        get('search/univGroups/formOfStudy').then(res => { //получение заочных групп
             const groups = res.data;
             this.setState({groups});
-            console.log(groups)
             this.setState({pageLoaded: true})
         })
 
@@ -158,7 +156,6 @@ export default class Doc1_2 extends React.Component {
 
     render() {
 
-        if (this.state.pageLoaded) {
 
             return (
                 <div>
@@ -254,12 +251,6 @@ export default class Doc1_2 extends React.Component {
 
             )
         }
-
-        else{
-
-        }
-    }
-
 }
 
 

@@ -29,10 +29,11 @@ class ModalWin1_2 extends React.Component {
                 result: '',
                 incomingDate: '',
                 id: null,
-                nameFail: '',
             },
             courseWorkResID: '',
             selectedFile: '',
+            number:'',
+            nameFail: ''
         }
         this.setStateGroupInfo = this.setStateGroupInfo.bind(this);
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -91,7 +92,6 @@ class ModalWin1_2 extends React.Component {
         else {
             console.log(1)
         }
-
         axios.put(`http://localhost:3001/edit/courseworks/${this.state.currentGroup.id}`, {checkingDate: this.state.currentGroup.checkingDate, incomingDate:this.state.currentGroup.incomingDate,
             courseworkresult:this.state.courseWorkResID, filelink:this.state.selectedFile.name, student:this.state.currentGroup.student.id  }, {})
             .then(res => {
@@ -109,11 +109,14 @@ class ModalWin1_2 extends React.Component {
     }
 
     onChangeHandler = event => {
+        const randomNumber = Math.random() * 1000
+        this.setState({number : randomNumber});
         console.log(event.target.files[0])
         this.setState({selectedFile: event.target.files[0]}, () => {
             console.log(this.state.selectedFile)
         })
         if(this.state.selectedFile){this.setState({nameFail: this.state.selectedFile.name})}
+        console.log( this.state.selectedFile)
     }
 
 

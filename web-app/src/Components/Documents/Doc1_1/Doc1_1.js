@@ -6,7 +6,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
 import Table1_1 from "./Table1_1";
 import top from "../top.svg"
-import s from "./Doc1_1.module.css";
 import {Link} from "react-router-dom";
 import main from "../main.svg";
 import printBig from "../printBig.svg";
@@ -58,23 +57,12 @@ export default class Doc1_1 extends React.Component {
     }
 
     onAutoGroup = (value, name) => {
-        if (!value) {
-            return this.setState({[name]: null});
-        } else {
-            if (value.id !== '') {
-                this.setState({
-                    [name]: value.id,
-                    fullName: null,
-                    studentName: null
-                });
 
-                get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
-                    const studentsName = res.data;
-                    this.setState({studentsName});
-                    console.log(studentsName)
-                })
-            }
-        }
+        get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+            const studentsName = res.data;
+            this.setState({studentsName});
+            console.log(studentsName)
+        })
     }
 
     onAutocompleteChange = (value, name, fullName) => {
@@ -115,7 +103,6 @@ export default class Doc1_1 extends React.Component {
         })
     }
     onSubmit = event => {
-
 
 
         get('search/courseworkszaoch/disciplines/univGroup', {
@@ -175,7 +162,7 @@ export default class Doc1_1 extends React.Component {
                                 renderInput={(params) => <TextField {...params} label='Дисциплина'
                                                                     variant="outlined"/>}
                             />
-                            </div>
+                        </div>
                         <div className='col-md-4'>
                             <Autocomplete
                                 value={this.state.fullName}
@@ -220,9 +207,14 @@ export default class Doc1_1 extends React.Component {
                             printLoad={this.state.printLoad}/>
                     </div>
                     <div className='navs'>
-                        <Link to={'/'} ><img src={main} className='cursor' title="Вернуться к документам" className='btnRight'/></Link>
-                        <Link to={'/2'} ><div className='cursor btnRight1'><img src={top} title="Вернуться к документам" /></div></Link>
-                        {!this.state.printLoad ? <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> : <img src={gif} className='wid' />}
+                        <Link to={'/'}><img src={main} className='cursor' title="Вернуться к документам"
+                                            className='btnRight'/></Link>
+                        <Link to={'/2'}>
+                            <div className='cursor btnRight1'><img src={top} title="Вернуться к документам"/></div>
+                        </Link>
+                        {!this.state.printLoad ?
+                            <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> :
+                            <img src={gif} className='wid'/>}
                     </div>
                 </div>
             </div>
