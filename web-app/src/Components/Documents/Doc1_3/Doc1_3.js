@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import ModalWin from "./ModalWin1_3";
 import Table1_3 from "./Table1_3";
 import {post} from "../axios";
+import Table1_2 from "../Doc1_2/Table1_2";
 
 
 
@@ -31,7 +32,7 @@ export default class Doc1_2 extends React.Component {
             open: false,
             currentGroup: {},
             deleteObj: '',
-            reports:[]
+            courseworks:[]
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -45,7 +46,6 @@ export default class Doc1_2 extends React.Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-
         this.setState({
             [name]: value,
         });
@@ -63,12 +63,8 @@ export default class Doc1_2 extends React.Component {
                     discipline: null,
                     studentName: null
                 });
-                get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
-                    const disciplines = res.data;
-                    this.setState({disciplines});
-                    console.log(disciplines)
-                })
-                get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+
+                get(`search/studnets/univGroup/${value.id}`).then(res => {
                     const studentsName = res.data;
                     this.setState({studentsName});
                     console.log(studentsName)
@@ -77,14 +73,16 @@ export default class Doc1_2 extends React.Component {
         }
     }
 
-    onAutocompleteChange = (value, name, fullName) => {
+    onAutocompleteChange = (value, name) => {
+        console.log(this.state.course)
         console.log('sdf');
         if (!value) {
-            return this.setState({[name]: null, [fullName]: null});
+            return this.setState({[name]: null});
         } else {
-            return this.setState({[name]: value.id, [fullName]: value});
+            return this.setState({[name]: value});
 
         }
+
     }
 
     onOpenModal = (obj) => {
@@ -101,25 +99,6 @@ export default class Doc1_2 extends React.Component {
         });
     }
 
-    onSave = event => {
-        post('courseworks/add', {
-            disciplines: this.state.discipline,
-            univGroups: this.state.group,
-            cours: this.state.course,
-            student: this.state.studentName,
-            incomingDate: this.state.incomingDate,
-            checkingDate: this.state.checkingDate,
-            professor: this.state.professor,
-            courseworkresult: this.state.verificationResult,
-            fileLink: this.state.fileLink
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
 
     onPrint = event => {
 
@@ -137,21 +116,11 @@ export default class Doc1_2 extends React.Component {
     }
 
     onSubmit = event => {
-        event.preventDefault();
 
-        const coursework = {
-            disciplines: this.state.disciplines,
-            studentName: this.state.studentName,
-            group: this.state.group,
-            dateOfReceipt: this.state.dateOfReceipt,
-            verificationResult: this.state.verificationResult,
-        };
-
-
-        get('search/courseworks/disciplines/univGroup', {
+        get('search/practiceReport/course/formOfStudy', {
             params: {
                 byGroupID: this.state.group,
-                byDescipline: this.state.discipline,
+                byCourse: this.state.course,
                 byStudent: this.state.studentName
             }
         }).then(res => {  //получение дисциплин
@@ -160,15 +129,16 @@ export default class Doc1_2 extends React.Component {
             console.log(courseworks)
         })
 
-        this.state.disciplineName = this.state.disciplines.find(disName => disName.id == this.state.discipline).disName;
-        this.setState({})
-
     }
-
 
     componentDidMount() {
 
-
+        get('search/univGroups/formOfStudy/1').then(res => { //получение заочных групп
+            const groups = res.data;
+            this.setState({groups});
+            console.log(groups)
+            this.setState({pageLoaded: true})
+        })
 
     }
 
@@ -190,9 +160,9 @@ export default class Doc1_2 extends React.Component {
                         <div className='col-md-3 pad'>
                             <Autocomplete
                                 id="group"
-                                getOptionLabel={(option) => option.GroupName}
+                                getOptionLabel={(option) => option.groupName}
                                 options={this.state.groups}
-                                onChange={(e, v) => this.onAutocompleteChange(v, "group")}
+                                onChange={(e, v) => this.onAutoGroup(v, "group")}
                                 style={{width: 200}}
                                 renderInput={(params) => <TextField  {...params} label='Группа'
                                                                      variant="outlined"/>}
@@ -209,9 +179,11 @@ export default class Doc1_2 extends React.Component {
                         </div>
                         <div className='col-md-3'>
                             <Autocomplete
+                                value={this.state.fullName}
                                 id="studentName"
-                                onChange={(e, v) => this.onAutocompleteChange(v, "studentName")}
-                                options={this.state.students.map(studentName => studentName.Name)}
+                                getOptionLabel={(option) => option.name}
+                                onChange={(e, v) => this.onAutocompleteChange(v, "studentName", 'fullName')}
+                                options={this.state.studentsName}
                                 style={{width: 200}}
                                 renderInput={(params) => <TextField  {...params} label='ФИО студента'
                                                                      variant="outlined"/>}
@@ -224,7 +196,7 @@ export default class Doc1_2 extends React.Component {
                                     variant="contained"
                                     color="primary"
                                     className="btn btn-primary btnFind"
-                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
+                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.course}>
                                     <span>Найти</span>
                                 </Button>
                             </div>
@@ -236,10 +208,19 @@ export default class Doc1_2 extends React.Component {
                 <div className='row topTable nav'>
                     <div className='col-md-12 pad padRig'>
                         <Table1_3
-                            disciplineName={this.state.disciplineName}
-                            reports={this.state.reports}
+                            courseworks={this.state.courseworks}
+                            currentGroup={this.state.currentGroup}
+                            verificationResult={this.state.verificationResult}
+                            state={this.state.open}
+                            handleChange={this.handleChange}
+                            onSave={this.onSave}
+                            print={this.onPrint}
+                            printLoad={this.state.printLoad}
+                            professors={this.state.professors}
+                            students={this.state.studentsName}
+                            onSubmit={this.onSubmit}
                             onOpenModal={this.onOpenModal}
-                            clouse={this.onClouseModal}/>
+                            close={this.onClouseModal}/>
                     </div>
                 </div>
             </div>

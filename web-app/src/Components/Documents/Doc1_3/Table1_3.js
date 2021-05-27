@@ -3,68 +3,88 @@ import '../../App.css'
 import ModalWin from "./ModalWin1_3";
 import print from '../print.svg';
 import edit from '../edit.svg';
+import {get} from "../axios";
 
 
-function Table1_3(props) {
+class Table1_3 extends React.Component {
 
-    if (true) {
-        return (
-            <table className="table table-striped">
-                <thead className='headTable'>
-                <tr>
-                    <th>№</th>
-                    <th>ФИО студента</th>
-                    <th>Группа</th>
-                    <th>Курс</th>
-                    <th>База практики</th>
-                    <th>Дата поступления</th>
-                    <th>Преподаватель</th>
-                    <th>Дата проверки</th>
-                    <th>Результаты проверки</th>
-                    <th>
-                        <div className='cursor' onClick={props.print}><img src={print}/></div>
-                    </th>
-                </tr>
-                </thead>
-                {/* <tbody>
-                {props.courseworks.map((coursework, index) => (
+    constructor(props) {
+        super(props);
+        this.state = {
+            fileName:''
+
+        }
+    }
+
+    onFile = event => {
+
+        get(`/${this.props.currentGroup.id}`).then(res => {
+            const fileName = res.data;
+            this.setState({fileName});
+            console.log(fileName)
+        })
+    }
+
+
+    render() {
+
+        if (this.props.courseworks.length > 0) {
+            return (
+                <table className="table table-striped">
+                    <thead className='headTable'>
                     <tr>
-                        <td>{index + 1}</td>
-                        <td>{coursework.Name}</td>
-                        <td className='text-center'>{coursework.course}</td>
-                        <td>{coursework.groupName}</td>
-                        <td className='w'>{coursework.incomingDate}</td>
-                        <td>{coursework.profName}</td>
-                        <td className='w'>{coursework.checkingDate}</td>
-                        <td className='w'>{coursework.result}</td>
-                        <td>Открыть</td>
-                        <td width='50px'>
-                            <div onClick={() => props.onOpenModal(coursework)} className='cursor'><img src={edit}/>
-                            </div>
-                            <ModalWin
-                                verificationResult={props.verificationResult}
-                                clouse={props.clouse}
-                                state={props.state}
-                                handleChange={props.handleChange}
-                                courseworks={props.courseworks}
-                                currentGroup={props.currentGroup}
-                                onSave={props.onSave}/>
-                        </td>
-                        <td></td>
+                        <th>№</th>
+                        <th>ФИО студента</th>
+                        <th>Группа</th>
+                        <th>Курс</th>
+                        <th>База практики</th>
+                        <th>Дата поступления</th>
+                        <th>Преподаватель</th>
+                        <th>Дата проверки</th>
+                        <th>Результаты проверки</th>
+                        <th></th>
                     </tr>
-                ))}
-                </tbody>*/}
-            </table>
-        );
-    } else {
-        return (
-            <div className='row '>
-                <div className='col-md-12'>
-                    <div className='block'> Ничего не найдено </div>
+                    </thead>
+                    <tbody>
+                    {this.props.courseworks.map((coursework, index) => (
+                        <tr>
+                            <td>{index + 1}</td>
+                            <td>{coursework.Name}</td>
+                            <td className='text-center'>{coursework.course}</td>
+                            <td>{coursework.groupName}</td>
+                            <td className='w'>{coursework.incomingDate}</td>
+                            <td>{coursework.profName}</td>
+                            <td className='w'>{coursework.checkingDate}</td>
+                            <td className='w'>{coursework.result}</td>
+                            <td>Открыть</td>
+                            <td width='50px'>
+                                <div onClick={() => this.props.onOpenModal(coursework)} className='cursor'><img src={edit}/>
+                                </div>
+                                <ModalWin
+                                    verificationResult={this.props.verificationResult}
+                                    clouse={this.props.clouse}
+                                    state={this.props.state}
+                                    handleChange={this.props.handleChange}
+                                    courseworks={this.props.courseworks}
+                                    currentGroup={this.props.currentGroup}
+                                    onSave={this.props.onSave}/>
+                            </td>
+                            <td></td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            );
+        } else {
+            return (
+                <div className='row '>
+                    <div className='col-md-12'>
+                        <div className='block'> Ничего не найдено</div>
+                    </div>
                 </div>
-            </div>
-        );
+            );
 
+        }
     }
 }
 

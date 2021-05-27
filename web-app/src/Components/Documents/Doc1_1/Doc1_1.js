@@ -144,10 +144,15 @@ export default class Doc1_1 extends React.Component {
     }
 
     componentDidMount() {
-        get('search/univGroups/formOfStudy/2').then(res => { //получение заочных групп
+        get('search/univGroups/formOfStudy/2').then(res => {
             const groups = res.data;
             this.setState({groups});
             console.log(groups)
+        })
+        get('search/disciplines/univGroup/2').then(res => {
+            const disciplines = res.data;
+            this.setState({disciplines});
+            console.log(disciplines)
         })
     }
 
@@ -166,30 +171,19 @@ export default class Doc1_1 extends React.Component {
                 <div className='lineBlack row'></div>
                 <form className='nav container main'>
                     <div className="form-row row center-block form">
-                        <div className='col-md-3 pad'>
-                            <Autocomplete
-                                id="group"
-                                getOptionLabel={(option) => option.groupName}
-                                options={this.state.groups}
-                                onChange={(e, v) => this.onAutoGroup(v, "group")}
-                                style={{width: 200}}
-                                renderInput={(params) => <TextField  {...params} label='Группа'
-                                                                     variant="outlined"/>}
-                            />
-                        </div>
-                        <div className='col-md-3'>
-                            <Autocomplete
-                                value={this.state.fullDiscipline}
-                                id="discipline"
-                                getOptionLabel={(option) => option.disName}
-                                options={this.state.disciplines}
-                                onChange={(e, v) => this.onAutocompleteChange(v, "discipline", 'fullDiscipline')}
-                                style={{width: 200}}
-                                renderInput={(params) => <TextField {...params} label='Дисциплина'
-                                                                    variant="outlined"/>}
-                            />
-                        </div>
-                        <div className='col-md-3'>
+                        <div className='col-md-4 pad'>
+                                <Autocomplete
+                                    value={this.state.fullDiscipline}
+                                    id="discipline"
+                                    getOptionLabel={(option) => option.disName}
+                                    options={this.state.disciplines}
+                                    onChange={(e, v) => this.onAutocompleteChange(v, "discipline", 'fullDiscipline')}
+                                    style={{width: 200}}
+                                    renderInput={(params) => <TextField {...params} label='Дисциплина'
+                                                                        variant="outlined"/>}
+                                />
+                            </div>
+                        <div className='col-md-4'>
                             <Autocomplete
                                 value={this.state.fullName}
                                 id="studentName"
@@ -200,7 +194,10 @@ export default class Doc1_1 extends React.Component {
                                 renderInput={(params) => <TextField  {...params} label='ФИО студента'
                                                                      variant="outlined"/>}
                             />
+
                         </div>
+                        <div className='col-md-1'></div>
+
                         <div className='col-md-3'>
                             <div className='b'>
                                 <Button
@@ -208,7 +205,7 @@ export default class Doc1_1 extends React.Component {
                                     variant="contained"
                                     color="primary"
                                     className="btn btn-primary btnFind"
-                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.discipline}>
+                                    onClick={this.onSubmit} disabled={!this.state.discipline}>
                                     <span>Найти</span>
                                 </Button>
                             </div>

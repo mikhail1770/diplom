@@ -384,7 +384,15 @@ html {
     display: inline-block!important;
     width: 20px;
 }
-
+.r{
+    position: fixed!important;
+    bottom: 500px!important;
+    right: 30px!important;
+    cursor: pointer!important;
+    transitionDuration: 0.2s!important;
+    transitionTimingFunction: linear!important;
+    transitionDelay: 0s!important;
+}
 
 .navs{
     position: fixed;

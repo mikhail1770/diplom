@@ -10,7 +10,7 @@ import top from "../top.svg";
 import printBig from "../printBig.svg";
 import {Link} from "react-router-dom";
 import gif from '../1.gif';
-
+import ScrollToTop from 'react-scroll-up'
 
 export default class Doc1_2 extends React.Component {
     constructor(props) {
@@ -127,14 +127,6 @@ export default class Doc1_2 extends React.Component {
     }
 
     onSubmit = event => {
-        event.preventDefault();
-        const coursework = {
-            disciplines: this.state.disciplines,
-            studentName: this.state.studentName,
-            group: this.state.group,
-            dateOfReceipt: this.state.dateOfReceipt,
-            verificationResult: this.state.verificationResult,
-        };
 
         get('search/courseworks/disciplines/univGroup', {
             params: {
@@ -147,6 +139,7 @@ export default class Doc1_2 extends React.Component {
             const courseworks = res.data;
             this.setState({courseworks});
             console.log(courseworks)
+            this.onCloseModal()
         })
         this.state.disciplineName = this.state.disciplines.find(disName => disName.id == this.state.discipline).disName;
         this.setState({})
@@ -251,11 +244,12 @@ export default class Doc1_2 extends React.Component {
                             print={this.onPrint}
                             printLoad={this.state.printLoad}
                             professors={this.state.professors}
-                            students={this.state.studentsName}/>
+                            students={this.state.studentsName}
+                            onSubmit={this.onSubmit}/>
                     </div>
                     <div className='navs'>
-                        <Link to={'/'}><img src={main} title="Вернуться к документам" className='btnRight'/></Link>
-                        <img src={top} title="Вернуться к документам" className='btnRight1'/>
+                      <Link to={'/'} ><img src={main} className='cursor' title="Вернуться к документам" className='btnRight'/></Link>
+                        <Link to={'/2'} ><div className='cursor btnRight1'><img src={top} title="Вернуться к документам" /></div></Link>
                         {!this.state.printLoad ? <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> : <img src={gif} className='wid' />}
                     </div>
                 </div>

@@ -49,7 +49,7 @@ class App extends React.Component {
                         <Header onExit={this.onExit}/>
                         <div className="content">
                             <Switch>
-                                <Route exact path="/" component={Navigation}/>
+                               <Route exact path="/" component={Navigation}/>
                                 <Route exact path="/:documentId" component={DocumentRender}/>
                             </Switch>
                         </div>

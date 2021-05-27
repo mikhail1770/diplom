@@ -21,24 +21,18 @@
   <component name="ChangeListManager">
     <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/exit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/exit.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/Doc1_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/Doc1_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/Table1_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/Table1_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/Doc3_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/Doc3_1.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +134,9 @@
       <workItem from="1621654017530" duration="16552000" />
       <workItem from="1621769616723" duration="4955000" />
       <workItem from="1621820653050" duration="19471000" />
-      <workItem from="1621932412321" duration="3738000" />
+      <workItem from="1621932412321" duration="29500000" />
+      <workItem from="1622086557995" duration="7871000" />
+      <workItem from="1622096577628" duration="2991000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618563930188</created>
@@ -187,6 +183,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="new comp" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="586" y="198" key="#Inspections" timestamp="1622009850665">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="586" y="198" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1622009850665" />
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620818155699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -207,16 +207,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1621854073206" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js</url>
-          <line>52</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

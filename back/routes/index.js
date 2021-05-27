@@ -88,7 +88,7 @@ if(req.query.byGroupID != null){ //поиск по id группы
   sql = sql + ' AND univgroups.id=?';
   params.push(parseInt(req.query.byGroupID))
 }
-if(req.query.byCourse != null){ //поиск по id дисциплины
+if(req.query.byCourse != null){ //поиск по id курса
   sql = sql + ' AND univgroups.course=?';
   params.push(parseInt(req.query.byCourse))
 }
