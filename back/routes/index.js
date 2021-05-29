@@ -162,11 +162,20 @@ router.get('/search/studnets/univGroup/:id', function(req, res, next){ //зап�
   });  
 })
 
-router.get('/search/studnets/disciplines/formOfStudy/:id', function(req, res, next){ //запрос на получение списка студентов группы
-  connection.query('SELECT DISTINCT students.name, students.id FROM students JOIN univgroups ON students.univGroup = univgroups.id JOIN studyPlan ON studyPlan.groupId = univgroups.id JOIN disciplines ON disciplines.id = studyPlan.disciplineID WHERE studyPlan.formOfStudy = ?', 
-  [req.params.id], function (error, results, fields) {
+router.get('/search/studnets/disciplines/formOfStudy/', function(req, res, next){ //запрос на получение списка студентов группы
+  let sql='SELECT DISTINCT students.name, students.id FROM students JOIN univgroups ON students.univGroup = univgroups.id JOIN studyPlan ON studyPlan.groupId = univgroups.id JOIN disciplines ON disciplines.id = studyPlan.disciplineID WHERE  1 '
+  let params = []
+  if(req.query.byDiscipline != null){ //поиск по id группы
+    sql = sql + ' AND disciplines.id = ?';
+    params.push(parseInt(req.query.byDiscipline))
+  }
+  if(req.query.formOfStudy != null){ //поиск по id группы
+    sql = sql + ' AND studyPlan.formOfStudy = ?';
+    params.push(parseInt(req.query.formOfStudy))
+  }
+  connection.query(sql,params, function (error, results, fields) {
     if (error) throw error;
-    console.log(req.params)
+    console.log(params)
     res.json(results);
   });  
 })
