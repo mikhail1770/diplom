@@ -368,7 +368,7 @@ html {
 }
 
 .bot2{
-    margin-bottom: 250px;
+    margin-bottom: 0px; /*отступ от кнопки плюсик у таблицы*/
 }
 
 .btnRight{
@@ -416,4 +416,16 @@ html {
 }
 .m1{
     margin-left: 275px;
+}
+.colorOpen:hover{
+    font-size: 13px;
+}
+.colorOpen{
+    color: #60259A;
+}
+.gifCenter{
+    width: 30px;
+    margin-left: 48%;
+    margin-top: 150px;
+
 }

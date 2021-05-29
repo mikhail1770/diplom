@@ -66,7 +66,7 @@ class Table1_2 extends React.Component {
                                 <td className='w text-center'>{moment(moment(coursework.checkingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
                                 <td className='w'>{coursework.result}</td>
                                 <td>
-                                    <div onClick={() => this.onFile(coursework.id)} className='cursor'>Открыть</div>
+                                    <div onClick={() => this.onFile(coursework.id)} className='cursor colorOpen'>Открыть</div>
                                 </td>
                                 <td width='50px'>
                                     <div onClick={() => this.props.onOpenModal(coursework)} className='cursor'><img
@@ -94,7 +94,6 @@ class Table1_2 extends React.Component {
                                 students={this.props.students}
                                 onSubmit={this.props.onSubmit}/>
                         }
-
                     </table>
                     <div className='bot2'>
                         <div onClick={this.props.onOpenModal} className='cursor'><img className='block-right' src={plus}/>
