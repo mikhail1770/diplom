@@ -119,7 +119,7 @@ router.get('/search/univGroups/formOfStudy/', function(req, res, next){ //зап
 })
 
 router.get('/search/practiceReport/course/formOfStudy', function(req, res, next){ //запрос на получение списка практик
-let sql = 'SELECT practice.id, univgroups.groupName,practice.filelink, practice.regId, univgroups.course, courseworkresult.result, courseworkresult.id AS courseWorkResID, students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
+let sql = 'SELECT practice.id, univgroups.groupName,practice.filelink, practice.regId, univgroups.id as gid, professor.id as pid, students.id as sid, univgroups.course, courseworkresult.result, courseworkresult.id AS courseWorkResID, students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
 let params = []
 if(req.query.byGroupID != null){ //поиск по id группы
   sql = sql + ' AND univgroups.id=?';
@@ -160,8 +160,35 @@ connection.query(sql, params, function (error, results, fields) {
       });
     }
   }else{
-    res.json(results);
+    let echoresult = [];
+    results.map(i => {
+      let ritem = {
+        id: i.id,
+        regId: i.regId,
+        group: {
+          name: i.groupName,
+          id: i.gid
+        },
+        checkingDate: i.checkingDate,
+        incomingDate: i.incomingDate,
+        course: i.course,
+        result: i.result,
+        courseWorkResID: i.courseWorkResID,
+        filelink: i.filelink,
+        student: {
+          name: i.name,
+          id: i.sid
+        },
+        professor: {
+          id: i.pid,
+          name: i.profName
+        }
+      }
+      echoresult.push(ritem);
+    })
+    res.json(echoresult);
   }
+  
   if (error) throw error;
   });  
 })
@@ -212,7 +239,7 @@ router.get('/search/studnets/disciplines/formOfStudy/', function(req, res, next)
 })
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
-  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId,   univgroups.groupName, courseworks.filelink, univgroups.id as gid, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, students.id as sid, professor.profName, professor.id as pid FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
+  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId, univgroups.groupName, courseworks.filelink, univgroups.id as gid, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, students.id as sid, professor.profName, professor.id as pid FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
   let params = []
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -329,7 +356,34 @@ router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res,
         });
       }
     }else{
-      res.json(results);
+      let echoresult = [];
+      results.map(i => {
+        let ritem = {
+          name: i.name,
+          id: i.id,
+          regId: i.regId,
+          group: {
+            name: i.groupName,
+            id: i.gid
+          },
+          checkingDate: i.checkingDate,
+          incomingDate: i.incomingDate,
+          course: i.course,
+          result: i.result,
+          courseWorkResID: i.courseWorkResID,
+          filelink: i.filelink,
+          student: {
+            name: i.Name,
+            id: i.sid
+          },
+          professor: {
+            id: i.pid,
+            name: i.profName
+          }
+        }
+        echoresult.push(ritem);
+      })
+      res.json(echoresult);
     }
     if (error) throw error;
     
