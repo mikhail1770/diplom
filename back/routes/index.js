@@ -268,7 +268,7 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
           course: i.course,
           result: i.result,
           courseWorkResID: i.courseWorkResID,
-          filelink = i.filelink,
+          filelink: i.filelink,
           student: {
             name: i.Name,
             id: i.sid
