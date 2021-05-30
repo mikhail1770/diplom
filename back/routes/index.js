@@ -88,7 +88,7 @@ router.get('/search/univGroups/formOfStudy/', function(req, res, next){ //зап
 })
 
 router.get('/search/practiceReport/course/formOfStudy', function(req, res, next){ //запрос на получение списка практик
-let sql = 'SELECT practice.id, univgroups.groupName, practice.regId, univgroups.course, courseworkresult.result, courseworkresult.id AS courseWorkResID, students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
+let sql = 'SELECT practice.id, univgroups.groupName,practice.filelink, practice.regId, univgroups.course, courseworkresult.result, courseworkresult.id AS courseWorkResID, students.name, practice.basePractic, practice.incomingDate, practice.checkingDate, professor.profName FROM `practice` JOIN univgroups ON practice.univGroup = univgroups.id JOIN students ON students.id = practice.student JOIN professor ON professor.id = practice.professor JOIN courseworkresult ON courseworkresult.id = practice.practiceRes WHERE 1'
 let params = []
 if(req.query.byGroupID != null){ //поиск по id группы
   sql = sql + ' AND univgroups.id=?';
@@ -181,7 +181,7 @@ router.get('/search/studnets/disciplines/formOfStudy/', function(req, res, next)
 })
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
-  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId,   univgroups.groupName, univgroups.id as gid, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, students.id as sid, professor.profName, professor.id as pid FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
+  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId,   univgroups.groupName, coursworks.filelink, univgroups.id as gid, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, students.id as sid, professor.profName, professor.id as pid FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
   let params = []
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -255,7 +255,7 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
 })
 
 router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых заочников
-   let sql = 'SELECT disciplines.name, courseworkszaoch.id,courseworkszaoch.regId, univgroups.groupName, courseworkszaoch.checkingDate, courseworkszaoch.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name,students.id AS sid FROM courseworkszaoch JOIN univgroups ON courseworkszaoch.univGroups = univgroups.id JOIN students ON courseworkszaoch.student = students.id JOIN disciplines ON courseworkszaoch.disciplines = disciplines.id JOIN courseworkresult ON courseworkszaoch.courseworkresult = courseworkresult.id WHERE univgroups.formOfStudy = 2'
+   let sql = 'SELECT disciplines.name, courseworkszaoch.id,courseworkszaoch.regId,courseworkszaoch.filelink, univgroups.groupName, courseworkszaoch.checkingDate, courseworkszaoch.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name,students.id AS sid FROM courseworkszaoch JOIN univgroups ON courseworkszaoch.univGroups = univgroups.id JOIN students ON courseworkszaoch.student = students.id JOIN disciplines ON courseworkszaoch.disciplines = disciplines.id JOIN courseworkresult ON courseworkszaoch.courseworkresult = courseworkresult.id WHERE univgroups.formOfStudy = 2'
   let params = [];
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
