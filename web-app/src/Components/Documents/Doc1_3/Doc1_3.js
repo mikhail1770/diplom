@@ -16,12 +16,11 @@ import printBig from "../printBig.svg";
 import gif from "../1.gif";
 
 
-
 export default class Doc1_2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: ['1','2','3','4'],
+            courses: ['1', '2', '3', '4'],
             course: '',
             verificationResults: ['к защите', 'к доработке'],
             students: [],
@@ -48,7 +47,7 @@ export default class Doc1_2 extends React.Component {
             name: 'rere[f',
             professors: [],
             printLoad: false,
-            pageLoaded:''
+            pageLoaded: ''
 
         };
 
@@ -59,13 +58,12 @@ export default class Doc1_2 extends React.Component {
     }
 
 
-    handleChange = event => { //для того, чтобы использовать несколько input
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+    handleChange = (event, name) => { //для того, чтобы использовать несколько input
+        console.log(event)
         this.setState({
-            [name]: value,
+            [name]: event,
         });
+        console.log(event)
     }
 
     onAutoGroup = (value, name) => {
@@ -145,7 +143,6 @@ export default class Doc1_2 extends React.Component {
     }
 
     componentDidMount() {
-
         get('search/univGroups/formOfStudy').then(res => { //получение заочных групп
             const groups = res.data;
             this.setState({groups});
@@ -157,101 +154,106 @@ export default class Doc1_2 extends React.Component {
     render() {
 
 
-            return (
-                <div>
-                    <div className='line row'>
-                        <div className='nameDepartment col-md-6'>
-                            <span>Кафедра информационных систем и технологий</span>
-                        </div>
-                        <div className='listDoc col-md-6'>
-                            <span>Учет отчетов по практике</span>
-                        </div>
+        return (
+            <div>
+                <div className='line row'>
+                    <div className='nameDepartment col-md-6'>
+                        <span>Кафедра информационных систем и технологий</span>
                     </div>
-                    <div className='lineBlack row'></div>
-                    <form className='nav container main'>
-                        <div className='form-row row center-block form'>
-                            <div className='col-md-3 pad'>
-                                <Autocomplete
-                                    id="group"
-                                    getOptionLabel={(option) => option.groupName}
-                                    options={this.state.groups}
-                                    onChange={(e, v) => this.onAutoGroup(v, "group")}
-                                    style={{width: 200}}
-                                    renderInput={(params) => <TextField  {...params} label='Группа'
-                                                                         variant="outlined"/>}
-                                />
-                            </div>
-                            <div className='col-md-3'>
-                                <Autocomplete
-                                    id="course"
-                                    options={this.state.courses.map(course => course)}
-                                    onChange={(e, v) => this.onAutocompleteChange(v, "course")}
-                                    style={{width: 200}}
-                                    renderInput={(params) => <TextField {...params} label='Курс' variant="outlined"/>}
-                                />
-                            </div>
-                            <div className='col-md-3'>
-                                <Autocomplete
-                                    value={this.state.fullName}
-                                    id="studentName"
-                                    getOptionLabel={(option) => option.name}
-                                    onChange={(e, v) => this.onAutocompleteChange(v, "studentName", 'fullName')}
-                                    options={this.state.studentsName}
-                                    style={{width: 200}}
-                                    renderInput={(params) => <TextField  {...params} label='ФИО студента'
-                                                                         variant="outlined"/>}
-                                />
-                            </div>
-                            <div className='col-md-3'>
-                                <div className='b'>
-                                    <Button
-                                        className='b'
-                                        variant="contained"
-                                        color="primary"
-                                        className="btn btn-primary btnFind"
-                                        onClick={this.onSubmit} disabled={!this.state.group || !this.state.course}>
-                                        <span>Найти</span>
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
-
-                    <div className='row topTable nav'>
-                        <div className='col-md-12 pad padRig'>
-                            <Table1_3
-                                courseworks={this.state.courseworks}
-                                currentGroup={this.state.currentGroup}
-                                verificationResult={this.state.verificationResult}
-                                state={this.state.open}
-                                handleChange={this.handleChange}
-                                onSave={this.onSave}
-                                print={this.onPrint}
-                                printLoad={this.state.printLoad}
-                                professors={this.state.professors}
-                                students={this.state.studentsName}
-                                onSubmit={this.onSubmit}
-                                onOpenModal={this.onOpenModal}
-                                close={this.onClouseModal}/>
-                        </div>
-                        <div className='navs'>
-                            <Link to={'/'}><img src={main} className='cursor' title="Вернуться к документам"
-                                                className='btnRight'/></Link>
-                            <Link to={'/2'}>
-                                <div className='cursor btnRight1'><img src={top} title="Вернуться к документам"/></div>
-                            </Link>
-                            {!this.state.printLoad ?
-                                <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> :
-                                <img src={gif} className='wid'/>}
-                        </div>
+                    <div className='listDoc col-md-6'>
+                        <span>Учет отчетов по практике</span>
                     </div>
                 </div>
+                <div className='lineBlack row'></div>
+                {this.state.pageLoaded ?
+                    <div>
+                        <form className='nav container main'>
+                            <div className='form-row row center-block form'>
+                                <div className='col-md-3 pad'>
+                                    <Autocomplete
+                                        id="group"
+                                        getOptionLabel={(option) => option.groupName}
+                                        options={this.state.groups}
+                                        onChange={(e, v) => this.onAutoGroup(v, "group")}
+                                        style={{width: 200}}
+                                        renderInput={(params) => <TextField  {...params} label='Группа'
+                                                                             variant="outlined"/>}
+                                    />
+                                </div>
+                                <div className='col-md-3'>
+                                    <Autocomplete
+                                        id="course"
+                                        options={this.state.courses.map(course => course)}
+                                        onChange={(e, v) => this.handleChange(v, "course")}
+                                        style={{width: 200}}
+                                        renderInput={(params) => <TextField {...params} label='Курс'
+                                                                            variant="outlined"/>}
+                                    />
+                                </div>
+                                <div className='col-md-3'>
+                                    <Autocomplete
+                                        value={this.state.fullName}
+                                        id="studentName"
+                                        getOptionLabel={(option) => option.name}
+                                        onChange={(e, v) => this.onAutocompleteChange(v, "studentName", 'fullName')}
+                                        options={this.state.studentsName}
+                                        style={{width: 200}}
+                                        renderInput={(params) => <TextField  {...params} label='ФИО студента'
+                                                                             variant="outlined"/>}
+                                    />
+                                </div>
+                                <div className='col-md-3'>
+                                    <div className='b'>
+                                        <Button
+                                            className='b'
+                                            variant="contained"
+                                            color="primary"
+                                            className="btn btn-primary btnFind"
+                                            onClick={this.onSubmit} disabled={!this.state.group || !this.state.course}>
+                                            <span>Найти</span>
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                            {this.state.course}
+                            {this.state.group}
+                        </form>
 
+                        <div className='row topTable nav'>
+                            <div className='col-md-12 pad padRig'>
+                                <Table1_3
+                                    courseworks={this.state.courseworks}
+                                    currentGroup={this.state.currentGroup}
+                                    verificationResult={this.state.verificationResult}
+                                    state={this.state.open}
+                                    handleChange={this.handleChange}
+                                    onSave={this.onSave}
+                                    print={this.onPrint}
+                                    printLoad={this.state.printLoad}
+                                    professors={this.state.professors}
+                                    students={this.state.studentsName}
+                                    onSubmit={this.onSubmit}
+                                    onOpenModal={this.onOpenModal}
+                                    close={this.onClouseModal}/>
+                            </div>
+                            <div className='navs'>
+                                <Link to={'/'}><img src={main} className='cursor' title="Вернуться к документам"
+                                                    className='btnRight'/></Link>
+                                <Link to={'/2'}>
+                                    <div className='cursor btnRight1'><img src={top} title="Вернуться к документам"/>
+                                    </div>
+                                </Link>
+                                {!this.state.printLoad ?
+                                    <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> :
+                                    <img src={gif} className='wid'/>}
+                            </div>
+                        </div>
+                    </div> : <img src={gif} className='gifCenter'/>}
+                    </div>
 
-            )
-        }
-}
+                    )
+                }
+                }
 
 
 

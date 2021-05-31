@@ -429,3 +429,22 @@ html {
     margin-top: 150px;
 
 }
+.form-control{
+    border: none !important;
+}
+.cope_text {
+    overflow: hidden;
+    line-height: 20px;
+    text-overflow: ellipsis;
+}
+.cope_text p {
+    margin: 0 0 0 0;
+}
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.opac{
+    opacity: 0.3;
+}

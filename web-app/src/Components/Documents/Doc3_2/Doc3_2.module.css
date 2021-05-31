@@ -23,3 +23,12 @@
     margin: 25px auto 25px auto;
     width: 110px;
 }
+.paper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 550px;
+    background-color: white;
+}

@@ -10,6 +10,7 @@ import {Link} from "react-router-dom";
 import main from "../main.svg";
 import printBig from "../printBig.svg";
 import gif from "../1.gif";
+import Table1_2 from "../Doc1_2/Table1_2";
 
 
 export default class Doc1_1 extends React.Component {
@@ -67,7 +68,13 @@ export default class Doc1_1 extends React.Component {
                     fullName: null,
                     studentName: null,
                 });
-                get(`search/studnets/disciplines/formOfStudy/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+                get(`search/studnets/disciplines/formOfStudy`, {
+                    params: {
+                        byDiscipline: this.state.discipline,
+                        formOfStudy: 2,
+                        sortIncomingDate: 'ASC'
+                    }
+                    }).then(res => {  //Запрос на получение дисциплин определенной группы
                     const studentsName = res.data;
                     this.setState({studentsName});
                     console.log(studentsName)
@@ -178,7 +185,6 @@ export default class Doc1_1 extends React.Component {
                                         renderInput={(params) => <TextField  {...params} label='ФИО студента'
                                                                              variant="outlined"/>}
                                     />
-
                                 </div>
                                 <div className='col-md-1'></div>
 
@@ -208,7 +214,8 @@ export default class Doc1_1 extends React.Component {
                                     handleChange={this.handleChange}
                                     onSave={this.onSave}
                                     print={this.onPrint}
-                                    printLoad={this.state.printLoad}/>
+                                    printLoad={this.state.printLoad}
+                                    students={this.state.studentsName}/>
                             </div>
                             <div className='navs'>
                                 <Link to={'/'}><img src={main} className='cursor' title="Вернуться к документам"

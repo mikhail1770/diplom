@@ -6,14 +6,15 @@ import plus from '../plus.svg';
 import delet from '../delete.svg';
 import moment from "moment"
 import {get} from "../axios";
-
+import ModalWinNew from "./ModalWinNew1_2"
 
 class Table1_2 extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            fileName:''
+            fileName: '',
+            open: false
 
         }
     }
@@ -25,12 +26,23 @@ class Table1_2 extends React.Component {
             this.setState({fileName});
         }).then(res => {
             console.log(this.state.fileName[0].filelink)
-            window.open('http://localhost:3001/' + this.state.fileName[0].filelink,'_blank').focus();
+            window.open('http://localhost:3001/' + this.state.fileName[0].filelink, '_blank').focus();
             this.setState({printLoad: false})
         })
         console.log(event)
     }
 
+    onOpenModalNew = () => {
+        this.setState({
+            open: true
+        });
+    }
+
+    onCloseModalNew = () => {
+        this.setState({
+            open: false
+        });
+    }
 
     render() {
 
@@ -41,7 +53,7 @@ class Table1_2 extends React.Component {
                         <thead className='headTable'>
                         <tr>
                             <th>№</th>
-                            <th>ФИО студента</th>
+                            <th >ФИО студента</th>
                             <th>Курс</th>
                             <th>Группа</th>
                             <th>Дата поступления</th>
@@ -66,7 +78,9 @@ class Table1_2 extends React.Component {
                                 <td className='w text-center'>{moment(moment(coursework.checkingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
                                 <td className='w'>{coursework.result}</td>
                                 <td>
-                                    <div onClick={() => this.onFile(coursework.id)} className='cursor colorOpen'>Открыть</div>
+                                    {coursework.filelink ? <div onClick={() => this.onFile(coursework.id)}
+                                         className='cursor colorOpen'>Открыть
+                                    </div>: ''}
                                 </td>
                                 <td width='50px'>
                                     <div onClick={() => this.props.onOpenModal(coursework)} className='cursor'><img
@@ -82,8 +96,7 @@ class Table1_2 extends React.Component {
                         ))}
                         </tbody>
                         {
-                            this.props.state && <ModalWin
-
+                             this.props.state && <ModalWin
                                 verificationResult={this.props.verificationResult}
                                 close={this.props.close}
                                 state={this.props.state}
@@ -96,8 +109,19 @@ class Table1_2 extends React.Component {
                         }
                     </table>
                     <div className='bot2'>
-                        <div onClick={this.props.onOpenModal} className='cursor'><img className='block-right' src={plus}/>
+                        <div onClick={this.onOpenModalNew} className='cursor'><img className='block-right' src={plus}/>
                         </div>
+                            <ModalWinNew
+                                close={this.onCloseModalNew}
+                                state={this.state.open}
+                                handleChange={this.props.handleChange}
+                                professors={this.props.professors}
+                                students={this.props.students}
+                                onSubmit={this.props.onSubmit}
+                                univGroups={this.props.univGroups}
+                                disciplines={this.props.disciplines}
+                                course={this.props.course}
+                               />
                     </div>
                 </div>
 
@@ -115,5 +139,5 @@ class Table1_2 extends React.Component {
     }
 }
 
-    export default Table1_2;
+export default Table1_2;
 

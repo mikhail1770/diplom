@@ -402,8 +402,8 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
 {/* POST запросы */
   router.post('/courseworks/add', function(req, res, next){
     console.log(req.body)
-    connection.query('INSERT INTO courseworks (disciplines, regId, univGroups, cours, student, incomingDate, checkingDate, professor, courseworkresult, filelink) VALUES(?,?,?,?,?,?,?,?,?,?);',
-    [req.body.disciplines,req.body.regId, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.filelink],
+    connection.query('INSERT INTO courseworks (disciplines,  univGroups, cours, student, incomingDate, checkingDate, professor, courseworkresult, filelink) VALUES(?,?,?,?,?,?,?,?,?);',
+    [req.body.disciplines, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.filelink],
      function (err, results, fields){
        if(err) throw err;    
        res.json(results);

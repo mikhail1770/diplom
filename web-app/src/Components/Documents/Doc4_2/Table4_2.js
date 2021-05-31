@@ -1,6 +1,6 @@
 import React from "react";
 import '../../App.css'
-import ModalWin from "./ModalWin3_1";
+import ModalWin from "./ModalWin4_2";
 import edit from '../edit.svg';
 import plus from '../plus.svg';
 import delet from '../delete.svg';
@@ -16,6 +16,8 @@ class Table3_1 extends React.Component {
                         <thead className='headTable'>
                         <tr>
                             <th className='text-center'>ФИО преподавателя</th>
+                            <th className='text-center'>Наименование мероприятия</th>
+                            <th className='text-center'>Дата мероприятия</th>
                             <th className='text-center'>Наименование мероприятия</th>
                             <th className='text-center'>Дата мероприятия</th>
                             <th></th>

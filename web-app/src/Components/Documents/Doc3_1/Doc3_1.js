@@ -19,12 +19,11 @@ export default class Doc1_2 extends React.Component {
         this.state = {
             open: false,
             fullNameProf: null,
-            incomingDate: '',
-            checkingDate: '',
+            date: '',
             professor: '',
             professors: [],
             printLoad: false,
-            profName:''
+            profName:''       //id препода
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -146,7 +145,7 @@ export default class Doc1_2 extends React.Component {
                                     variant="contained"
                                     color="primary"
                                     className="btn btn-primary btnFind"
-                                    onClick={this.onSubmit} disabled={!this.state.group || !this.state.course}>
+                                    onClick={this.onSubmit} disabled={!this.state.profName}>
                                     <span>Найти</span>
                                 </Button>
                             </div>

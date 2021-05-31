@@ -6,31 +6,15 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
-import s from "../Doc1_2/Doc1_2.module.css";
+import s from "../Doc3_2/Doc3_2.module.css";
 import axios from "axios";
 import {get} from "../axios";
 
-class ModalWin1_2 extends React.Component {
+class ModalWin3_2 extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            currentGroup: {
-                student:{
-                  name:'Не выбрано',
-                    id:''
-                },
-                professor:{
-                    name:''
-                },
-                Name: '',
-                profName: '',
-                checkingDate: '',
-                result: '',
-                incomingDate: '',
-                id: null,
-                nameFail: '',
-            },
             courseWorkResID: '',
             selectedFile: '',
         }
@@ -54,19 +38,18 @@ class ModalWin1_2 extends React.Component {
 
 
     }
-    ChangeSelectedIncomingDate(e) {
+
+    ChangeSelectedDate(e) {     // Для даты
         this.state.currentGroup.incomingDate = e.target.value;
 
     }
 
-    ChangeSelectedcheckingDate(e) {
-        this.state.currentGroup.checkingDate = e.target.value;
-    }
+
 
     ChangeSelectedResult(e) {
         if (e.target.value == 'к защите') {
             this.setState({courseWorkResID: 1})
-            }
+        }
         else if(e.target.value == 'к доработке'){
             this.setState({courseWorkResID: 2})
         }
@@ -97,7 +80,7 @@ class ModalWin1_2 extends React.Component {
             .then(res => {
             })
 
-       this.props.onSubmit();
+        this.props.onSubmit();
 
         const data = new FormData()
         data.append('file', this.state.selectedFile)
@@ -129,45 +112,37 @@ class ModalWin1_2 extends React.Component {
                 onClose={this.props.close}
 
             >
-                <div className='paper modalForm modal-content'>
+                <div className={`${s.paper} modalForm modal-content`}>
                     <div className="modal-header">
                         <span className="modal-title">Окно редактирования</span>
                         <img onClick={this.props.close} className='cursor' src={cross}/>
                     </div>
                     <div className='modal-body'>
-                        <div className='row modalRow'>
+                        <div className='row modalRow '>
                             <div className='col-6 titleModal v'>
-                                <span>ФИО студента:</span>
+                                <span>Дата:</span>
                             </div>
-                            <div className='col-6 v propsModal'>
-                                <FormControl className='formControl'>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        value={this.state.currentGroup.student.name}
-                                        onChange={(e) => this.ChangeSelectedStudent(e)}
-                                    >
-                                        {this.props.students.map(student => <MenuItem
-                                            value={student.name}>  {student.name ? student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''} </MenuItem>)}
-
-                                    </Select>
-                                </FormControl>
+                            <div className='col-6 v propsModal date'>
+                                <TextField
+                                    name="date"
+                                    type='date'
+                                    onChange={(e) => this.ChangeSelectedDate(e)}
+                                />
                             </div>
                         </div>
                         <div className='row modalRow '>
                             <div className='col-6 titleModal v'>
-                                <span>ФИО преподавателя:</span>
+                                <span>Провел(а) занятие:</span>
                             </div>
                             <div className='col-6 v propsModal'>
                                 <FormControl className='formControl'>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={this.state.currentGroup.professor.name}
                                         onChange={(e) => this.ChangeSelectedProffesor(e)}
                                     >
-                                        {this.props.professors.map(professor => <MenuItem
-                                            value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}
-
+                                        {/*{this.props.professors.map(professor => <MenuItem*/}
+                                        {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
                                     </Select>
                                 </FormControl>
 
@@ -175,52 +150,72 @@ class ModalWin1_2 extends React.Component {
                         </div>
                         <div className='row modalRow '>
                             <div className='col-6 titleModal v'>
-                                <span>Дата поступления:</span>
-                            </div>
-                            <div className='col-6 v propsModal date'>
-                                <TextField
-                                    name="incomingDate"
-                                    type='date'
-                                    defaultValue={this.state.currentGroup.incomingDate}
-                                    onChange={(e) => this.ChangeSelectedIncomingDate(e)}
-                                    />
-                            </div>
-                        </div>
-                        <div className='row modalRow date'>
-                            <div className='col-6 titleModal v'>
-                                <span className='v'>Дата проверки:</span>
+                                <span>Тема занятия:</span>
                             </div>
                             <div className='col-6 v propsModal'>
-                                <TextField
-                                    name="checkingDate"
-                                    type='date'
-                                    defaultValue={this.state.currentGroup.checkingDate}
-                                    onChange={(e) => this.ChangeSelectedcheckingDate(e)}
-                                />
+                                <input className="form-control form-control-sm" type="text"
+                                       placeholder="Введите текст"/>
                             </div>
                         </div>
                         <div className='row modalRow '>
                             <div className='col-6 titleModal v'>
-                                <span>Результат проверки:</span>
+                                <span>Вид занятия:</span>
                             </div>
-                            <div className='col-6  v propsModal'>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    defaultValue={this.state.currentGroup.result}
-                                    onChange={(e) => this.ChangeSelectedResult(e)}
-                                >
-                                    <MenuItem value={'к защите'}>к защите</MenuItem>
-                                    <MenuItem value={'к доработке'}>к доработке</MenuItem>
-                                </Select>
+                            <div className='col-6 v propsModal'>
+                                <FormControl className='formControl'>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        onChange={(e) => this.ChangeSelectedProffesor(e)}
+                                    >
+                                        {/*{this.props.professors.map(professor => <MenuItem*/}
+                                        {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
+                                    </Select>
+                                </FormControl>
+
                             </div>
                         </div>
-                        <div className='row modalRow v'>
-                            <div className='col-6 titleModal'>
-                                <span>Курсовая работа:</span>
+                        <div className='row modalRow '>
+                            <div className='col-6 titleModal v'>
+                                <span>Посетил(а) занятие:</span>
                             </div>
-                            <div className='col-6 v  propsModal'>
-                                <input type='file' onChange={this.onChangeHandler}/>
+                            <div className='col-6 v propsModal'>
+                                <FormControl className='formControl'>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        onChange={(e) => this.ChangeSelectedProffesor(e)}
+                                    >
+                                        {/*{this.props.professors.map(professor => <MenuItem*/}
+                                        {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
+                                    </Select>
+                                </FormControl>
+                            </div>
+                        </div>
+                        <div className='row modalRow '>
+                            <div className='col-6 titleModal v'>
+                                <span>Должность:</span>
+                            </div>
+                            <div className='col-6 v propsModal'>
+                                <FormControl className='formControl'>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        onChange={(e) => this.ChangeSelectedProffesor(e)}
+                                    >
+                                        {/*{this.props.professors.map(professor => <MenuItem*/}
+                                        {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
+                                    </Select>
+                                </FormControl>
+                            </div>
+                        </div>
+                        <div className='row modalRow '>
+                            <div className='col-6 titleModal v'>
+                                <span>Рецензия:</span>
+                            </div>
+                            <div className='col-6 v propsModal'>
+                                <input className="form-control form-control-sm" type="text"
+                                       placeholder="Введите текст"/>
                             </div>
                         </div>
                         <div className={`${s.positionSave} f`}>
@@ -236,4 +231,4 @@ class ModalWin1_2 extends React.Component {
 
 }
 
-export default ModalWin1_2;
+export default ModalWin3_2;

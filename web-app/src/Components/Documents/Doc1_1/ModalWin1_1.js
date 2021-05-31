@@ -8,27 +8,34 @@ import MenuItem from "@material-ui/core/MenuItem";
 import s from './Doc1_1.module.css';
 import {post} from "../axios";
 import axios from "axios";
+import FormControl from "@material-ui/core/FormControl";
 
 class ModalWin1_1 extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            currentGroup: {
-                Name: '',
-                checkingDate: '',
-                result: '',
-                incomingDate: '',
-                id: null,
-                selectedFile: '',
-                nameFail: '',
-                verificationResults: ['к защите', 'к доработке']
-            }
+            currentGroup: props.currentGroup,
+            courseWorkResID: '',
+            selectedFile: '',
+            number: '',
+            nameFile:this.props ? this.props.filelink: '',
+            fileSelected: 0,
+            studentName:''
+
         }
         this.setStateGroupInfo = this.setStateGroupInfo.bind(this);
-        this.onChangeHandler = this.onChangeHandler.bind(this);
+
     }
 
+    ChangeSelectedStudent(e) {
+        let current = this.state.currentGroup;
+        current.student.name = e.target.value.name;
+        current.student.id = e.target.value.id;
+        this.setState({current})
+        console.log(this.state.currentGroup)
+
+    }
 
     ChangeSelectedIncomingDate(e) {
         this.state.currentGroup.incomingDate = e.target.value;
@@ -71,18 +78,6 @@ class ModalWin1_1 extends React.Component {
         console.log(this.state.currentGroup)
     }
 
-    onChangeHandler = event => {
-        console.log(event.target.files[0])
-        this.setState({selectedFile: event.target.files[0]}, () => {
-            console.log(this.state.selectedFile)
-        })
-
-    }
-
-    componentDidMount() {
-        this.setStateGroupInfo(this.props)
-    }
-
 
     render() {
         return (
@@ -101,7 +96,16 @@ class ModalWin1_1 extends React.Component {
                                 <span>ФИО студента:</span>
                             </div>
                             <div className='col-6 v propsModal'>
-                                {this.state.currentGroup.Name ? this.state.currentGroup.Name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''}
+                                <FormControl className='formControl'>
+                                    <Select
+                                        value={this.state.currentGroup.student}
+                                        renderValue={(student) => student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}
+                                        onChange={(e) => this.ChangeSelectedStudent(e)}
+                                    >
+                                        {this.props.students.map(student => <MenuItem
+                                            value={student}> {student.name ? student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''} </MenuItem>)}
+                                    </Select>
+                                </FormControl>
                             </div>
                         </div>
                         <div className='row modalRow date'>
