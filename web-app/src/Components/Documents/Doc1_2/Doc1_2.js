@@ -42,8 +42,6 @@ export default class Doc1_2 extends React.Component {
             name: 'rere[f',
             professors: [],
             printLoad: false,
-
-
         };
         this.handleChange = this.handleChange.bind(this);
         this.onAutoGroup = this.onAutoGroup.bind(this);
@@ -83,7 +81,6 @@ export default class Doc1_2 extends React.Component {
                 get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
                     const studentsName = res.data;
                     this.setState({studentsName});
-                    console.log(studentsName)
                 })
             }
         }
@@ -169,7 +166,6 @@ export default class Doc1_2 extends React.Component {
         return (
             <div>
                 <div className='line row'>
-
                     <div className='nameDepartment col-md-6'>
                         <span>Кафедра информационных систем и технологий</span>
                     </div>
@@ -257,7 +253,6 @@ export default class Doc1_2 extends React.Component {
                                     univGroups={this.state.group}
                                     disciplines={this.state.discipline}
                                     course={this.state.course}
-                                    test={this.state.test}
                                 />
                             </div>
                             <div className='navs'>
@@ -267,9 +262,11 @@ export default class Doc1_2 extends React.Component {
                                     <div className='cursor btnRight1'><img src={top} title="Вернуться к документам"/>
                                     </div>
                                 </Link>
-                                {!this.state.printLoad && this.state.discipline?
-                                    <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> : (this.state.printLoad) ?
-                                    <img src={gif} className='wid'/> : <div className='q opac'><img src={printBig}/></div>}
+                                {!this.state.printLoad && this.state.discipline ?
+                                    <div className='cursor q' onClick={this.onPrint}><img src={printBig}/>
+                                    </div> : (this.state.printLoad) ?
+                                        <img src={gif} className='wid'/> :
+                                        <div className='q opac'><img src={printBig}/></div>}
                             </div>
                         </div>
                     </div> : <img src={gif} className='gifCenter'/>}

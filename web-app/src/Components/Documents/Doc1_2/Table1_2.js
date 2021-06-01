@@ -15,7 +15,6 @@ class Table1_2 extends React.Component {
         this.state = {
             fileName: '',
             open: false
-
         }
     }
 
@@ -45,7 +44,6 @@ class Table1_2 extends React.Component {
     }
 
     render() {
-
         if (this.props.courseworks.length > 0) {
             return (
                 <div>
@@ -124,7 +122,6 @@ class Table1_2 extends React.Component {
                                />
                     </div>
                 </div>
-
             );
         } else {
             return (
@@ -134,7 +131,6 @@ class Table1_2 extends React.Component {
                     </div>
                 </div>
             );
-
         }
     }
 }

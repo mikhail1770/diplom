@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Modal from "@material-ui/core/Modal";
 import '../../App.css'
 import TextField from "@material-ui/core/TextField";
@@ -16,7 +16,7 @@ class ModalWinNew1_2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            studentName: 'sdds',
+            studentName: '',
             studentId: '',
             checkingDate: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
             incomingDate: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
@@ -25,38 +25,24 @@ class ModalWinNew1_2 extends React.Component {
             nameFile: '',
             professorId: '',
             professorName: '',
-            test: this.props.test
-
-
         }
-
 
     }
 
     ChangeSelectedProfessor(e) {
-
         this.setState({professorName: e.target.value.name, professorId: e.target.value.id})
-        console.log(e.target)
     }
 
     ChangeSelectedIncomingDate(e) {
         this.setState({incomingDate: e.target.value})
-        console.log(e.target.value)
-
     }
 
     ChangeSelectedCheckingDate(e) {
-
         this.setState({checkingDate: e.target.value})
-        console.log(e.target.value)
-
     }
-
 
     ChangeSelectedStudent(e) {
         this.setState({studentName: e.target.value.name, studentId: e.target.value.id})
-        console.log(e.target)
-
     }
 
     ChangeSelectedResult(e) {
@@ -64,14 +50,10 @@ class ModalWinNew1_2 extends React.Component {
             this.setState({resultID: 1})
         } else if (e.target.value == 'к доработке') {
             this.setState({resultID: 2})
-        } else return 3
-        console.log(this.props.onSubmit)
+        } else return
     }
 
-
     onSave = () => {
-
-
         const data = new FormData()
         data.append('file', this.state.selectedFile)
         axios.post("http://localhost:3002/upload", data, {})
@@ -93,33 +75,18 @@ class ModalWinNew1_2 extends React.Component {
                         })
                     } else {
                         alert("Заполните все поля")
-
-
                     }
-
                 })
             })
     }
 
     onChangeHandler = event => {  // загрузка файла
-        this.setState({selectedFile: event.target.files[0]}, () => {
-            console.log(this.state.selectedFile)
-        })
+        this.setState({selectedFile: event.target.files[0]})
     }
-
-
-    componentDidMount() {
-        console.log(this.props.students)
-    }
-
 
     render() {
         return (
-            <Modal
-                open={this.props.state}
-                onClose={this.props.close}
-
-            >
+            <Modal open={this.props.state} onClose={this.props.close}>
                 <div className='paper modalForm modal-content'>
                     <div className="modal-header">
                         <span className="modal-title">Новая запись</span>
@@ -134,9 +101,7 @@ class ModalWinNew1_2 extends React.Component {
                                 <FormControl className='formControl'>
                                     <Select
                                         onChange={(e) => this.ChangeSelectedStudent(e)}
-
                                     >
-
                                         {this.props.students.map(student => <MenuItem
                                             value={student}> {student.name ? student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''} </MenuItem>)}
                                     </Select>
@@ -219,7 +184,6 @@ class ModalWinNew1_2 extends React.Component {
             </Modal>
         );
     }
-
 }
 
 export default ModalWinNew1_2;

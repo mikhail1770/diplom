@@ -51,8 +51,8 @@ class Table1_1 extends React.Component {
                         {this.props.courseworks.map((coursework, index) => (
                             <tr>
                                 <td width='30px'>{index + 1}</td>
-                                <td width='160px'>{coursework.Name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
-                                <td width='100px'>{coursework.groupName}</td>
+                                <td width='160px'>{coursework.student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
+                                <td width='100px'>{coursework.group.name}</td>
                                 <td width='150px'>{coursework.incomingDate}</td>
                                 <td width='150px'>{coursework.result}</td>
                                 <td width='150px'>{coursework.checkingDate}</td>

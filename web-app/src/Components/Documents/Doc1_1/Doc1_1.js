@@ -141,6 +141,7 @@ export default class Doc1_1 extends React.Component {
             console.log(disciplines)
             this.setState({pageLoaded: true})
         })
+
     }
 
     render() {
@@ -215,7 +216,11 @@ export default class Doc1_1 extends React.Component {
                                     onSave={this.onSave}
                                     print={this.onPrint}
                                     printLoad={this.state.printLoad}
-                                    students={this.state.studentsName}/>
+                                    students={this.state.studentsName}
+                                    onSubmit={this.onSubmit}
+                                    univGroups={this.state.group}
+                                    disciplines={this.state.discipline}
+                                    />
                             </div>
                             <div className='navs'>
                                 <Link to={'/'}><img src={main} className='cursor' title="Вернуться к документам"
@@ -224,9 +229,11 @@ export default class Doc1_1 extends React.Component {
                                     <div className='cursor btnRight1'><img src={top} title="Вернуться к документам"/>
                                     </div>
                                 </Link>
-                                {!this.state.printLoad ?
-                                    <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> :
-                                    <img src={gif} className='wid'/>}
+                                {!this.state.printLoad && this.state.discipline ?
+                                    <div className='cursor q' onClick={this.onPrint}><img src={printBig}/>
+                                    </div> : (this.state.printLoad) ?
+                                        <img src={gif} className='wid'/> :
+                                        <div className='q opac'><img src={printBig}/></div>}
                             </div>
                         </div>
                     </div> : <img src={gif} className='gifCenter'/>

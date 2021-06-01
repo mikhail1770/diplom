@@ -63,19 +63,36 @@ class ModalWin1_1 extends React.Component {
     }
 
     onSave = () => {
-        post(`edit/courseworks/${this.state.currentGroup.id}`, {params: this.state.currentGroup})
-            .then(res => {
+        if (this.state.courseWorkResID == '') {
+            this.state.courseWorkResID = this.state.currentGroup.courseWorkResID;
+        } else {
+            console.log(1)
+        }
 
-            })
-
-        if (this.state.selectedFile) {this.setState({nameFail: this.state.selectedFile.name})}
         const data = new FormData()
         data.append('file', this.state.selectedFile)
         axios.post("http://localhost:3002/upload", data, {})
             .then(res => {
-                console.log(res.statusText)
+                this.setState({nameFile: res.data.filename}, () => {
+                    axios.put(`http://localhost:3001/edit/courseworks/${this.state.currentGroup.id}`, {
+                        checkingDate: this.state.currentGroup.checkingDate,
+                        incomingDate: this.state.currentGroup.incomingDate,
+                        courseworkresult: this.state.courseWorkResID,
+                        filelink: this.state.nameFile,
+                        student: this.state.currentGroup.student.id,
+                    }, () => {
+                        console.log(this.state.nameFile)
+                    })
+                        .then(res => {
+                            this.props.onSubmit();
+                        })
+                })
             })
         console.log(this.state.currentGroup)
+    }
+
+    onChangeHandler = event => {  // загрузка файла
+        this.setState({selectedFile: event.target.files[0]})
     }
 
 
