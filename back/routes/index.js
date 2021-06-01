@@ -189,7 +189,7 @@ router.get('/search/studnets/univGroup/:id', function(req, res, next){ //зап�
 })
 
 router.get('/search/studnets/disciplines/formOfStudy/', function(req, res, next){ //запрос на получение списка студентов группы
-  let sql='SELECT DISTINCT students.name, students.id FROM students JOIN univgroups ON students.univGroup = univgroups.id JOIN studyPlan ON studyPlan.groupId = univgroups.id JOIN disciplines ON disciplines.id = studyPlan.disciplineID WHERE  1 '
+  let sql='SELECT DISTINCT students.name, students.id, univgroups.id, univgroups.name FROM students JOIN univgroups ON students.univGroup = univgroups.id JOIN studyPlan ON studyPlan.groupId = univgroups.id JOIN disciplines ON disciplines.id = studyPlan.disciplineID WHERE  1 '
   let params = []
   if(req.query.byDiscipline != null){ //поиск по id группы
     sql = sql + ' AND disciplines.id = ?';
