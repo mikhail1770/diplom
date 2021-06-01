@@ -71,7 +71,7 @@ class ModalWin1_1 extends React.Component {
         if (this.state.selectedFile) {this.setState({nameFail: this.state.selectedFile.name})}
         const data = new FormData()
         data.append('file', this.state.selectedFile)
-        axios.post("http://localhost:3002/upload", data, {})
+        axios.post("http://localhost:3001/upload", data, {})
             .then(res => {
                 console.log(res.statusText)
             })
