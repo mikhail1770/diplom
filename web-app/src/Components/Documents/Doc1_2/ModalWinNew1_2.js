@@ -69,7 +69,8 @@ class ModalWinNew1_2 extends React.Component {
                             checkingDate: this.state.checkingDate,
                             professor: this.state.professorId,
                             courseworkresult: this.state.resultID,
-                            filelink: this.state.nameFile
+                            filelink: this.state.nameFile,
+                            regId:'1'
                         }).then(res => {
                             this.props.onSubmit();
                         })
