@@ -60,7 +60,7 @@ class ModalWinNew1_2 extends React.Component {
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
                     if (this.state.studentId !== '' && this.state.professorId !== '') {
-                        axios.post(`http://localhost:3001/courseworks/add`, {
+                        axios.post(`http://localhost:3001/add/courseworks/`, {
                             incomingDate: this.state.incomingDate,
                             disciplines: this.props.disciplines,
                             univGroups: this.props.univGroups,

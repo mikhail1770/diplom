@@ -7,6 +7,7 @@ import delet from '../delete.svg';
 import moment from "moment"
 import {get} from "../axios";
 import ModalWinNew from "./ModalWinNew1_2"
+import axios from "axios";
 
 class Table1_2 extends React.Component {
 
@@ -43,6 +44,12 @@ class Table1_2 extends React.Component {
         });
     }
 
+    onDelete = (id) => {
+        console.log(id)
+        axios.delete(`http://localhost:3001/delete/courseworks/${id}`).then(res => { this.props.onSubmit()
+        })
+
+    }
     render() {
         if (this.props.courseworks.length > 0) {
             return (
@@ -87,7 +94,7 @@ class Table1_2 extends React.Component {
 
                                 </td>
                                 <td className='text-center'>
-                                    <div onClick={() => this.props.onOpenModal(coursework)} className='cursor'><img
+                                    <div onClick={() => this.onDelete(coursework.id)}  className='cursor'><img
                                         src={delet}/></div>
                                 </td>
                             </tr>
