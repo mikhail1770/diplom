@@ -135,10 +135,10 @@ export default class Doc1_2 extends React.Component {
                 sortIncomingDate: 'ASC'
             }
         }).then(res => {  //получение дисциплин
+            this.onCloseModal()
             const courseworks = res.data;
             this.setState({courseworks});
-            console.log(courseworks)
-            this.onCloseModal()
+
         })
         this.state.disciplineName = this.state.disciplines.find(disName => disName.id == this.state.discipline).disName;
         this.setState({})

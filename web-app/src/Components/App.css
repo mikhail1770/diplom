@@ -448,3 +448,7 @@ html {
 .opac{
     opacity: 0.3;
 }
+
+.f .btn-primary:disabled{
+    background-color: #60259A!important;
+}

@@ -15,7 +15,8 @@ class Table1_2 extends React.Component {
         super(props);
         this.state = {
             fileName: '',
-            open: false
+            open: false,
+            test: false
         }
     }
 
@@ -40,7 +41,8 @@ class Table1_2 extends React.Component {
 
     onCloseModalNew = () => {
         this.setState({
-            open: false
+            open: false,
+            test: false
         });
     }
 
@@ -126,6 +128,7 @@ class Table1_2 extends React.Component {
                                 univGroups={this.props.univGroups}
                                 disciplines={this.props.disciplines}
                                 course={this.props.course}
+                                test = {this.state.test}
                                />
                     </div>
                 </div>

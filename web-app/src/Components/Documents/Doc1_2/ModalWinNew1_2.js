@@ -9,6 +9,7 @@ import cross from "../cross.svg"
 import s from "../Doc1_2/Doc1_2.module.css";
 import axios from "axios";
 import moment from "moment";
+import Button from "@material-ui/core/Button";
 
 
 class ModalWinNew1_2 extends React.Component {
@@ -25,6 +26,7 @@ class ModalWinNew1_2 extends React.Component {
             nameFile: '',
             professorId: '',
             professorName: '',
+            fail:false
         }
 
     }
@@ -59,7 +61,7 @@ class ModalWinNew1_2 extends React.Component {
         axios.post("http://localhost:3001/upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
-                    if (this.state.studentId !== '' && this.state.professorId !== '') {
+                    if (this.state.studentId !== '' && this.state.professorId !== '' && this.state.professorId !== '') {
                         axios.post(`http://localhost:3001/add/courseworks/`, {
                             incomingDate: this.state.incomingDate,
                             disciplines: this.props.disciplines,
@@ -72,17 +74,20 @@ class ModalWinNew1_2 extends React.Component {
                             filelink: this.state.nameFile,
                             regId:'1'
                         }).then(res => {
-                            this.props.onSubmit();
+                            this.props.onSubmit()
+                            this.props.close()
+
                         })
                     } else {
                         alert("Заполните все поля")
                     }
+
                 })
             })
     }
 
     onChangeHandler = event => {  // загрузка файла
-        this.setState({selectedFile: event.target.files[0]})
+        this.setState({selectedFile: event.target.files[0], fail:true})
     }
 
     render() {
@@ -101,6 +106,7 @@ class ModalWinNew1_2 extends React.Component {
                             <div className='col-6 v propsModal'>
                                 <FormControl className='formControl'>
                                     <Select
+                                        defaultValue={this.state.studentName}
                                         onChange={(e) => this.ChangeSelectedStudent(e)}
                                     >
                                         {this.props.students.map(student => <MenuItem
@@ -175,7 +181,7 @@ class ModalWinNew1_2 extends React.Component {
                             </div>
                         </div>
                         <div className={`${s.positionSave} f`}>
-                            <button type="button" className="btn btn-primary save block-center"
+                            <button type="button" className="btn btn-primary save block-center" disabled={!this.state.studentId || !this.state.professorId}
                                     onClick={this.onSave}>Сохранить
                             </button>
                         </div>
