@@ -5,12 +5,17 @@ import ModalWin from "../Doc1_1/ModalWin1_1";
 import {get} from "../axios";
 import plus from "../plus.svg";
 import delet from "../delete.svg";
+import axios from "axios";
+import moment from "moment";
+import ModalWinNew from "../Doc1_1/ModalWinNew1_1";
 
 class Table1_1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fileName: ''
+            fileName: '',
+            open: false,
+
 
         }
     }
@@ -27,7 +32,24 @@ class Table1_1 extends React.Component {
         })
         console.log(event)
     }
+    onOpenModalNew = () => {
+        this.setState({
+            open: true
+        });
+    }
 
+    onCloseModalNew = () => {
+        this.setState({
+            open: false,
+            test: false
+        });
+    }
+    onDelete = (id) => {
+        console.log(id)
+        axios.delete(`http://localhost:3001/delete/courseworkszaoch/${id}`).then(res => { this.props.onSubmit()
+        })
+
+    }
     render() {
 
         if (this.props.courseworks.length > 0) {
@@ -36,13 +58,13 @@ class Table1_1 extends React.Component {
                     <table className="table table-striped">
                         <thead className='headTable'>
                         <tr>
-                            <th>№</th>
-                            <th>ФИО студента</th>
-                            <th>Группа</th>
-                            <th>Дата поступления</th>
-                            <th>Результат проверки</th>
-                            <th>Срок возврата</th>
-                            <th>Курсовая работа</th>
+                            <th className='text-center'>№</th>
+                            <th className='text-center'>ФИО студента</th>
+                            <th className='text-center'>Группа</th>
+                            <th className='text-center'>Дата поступления</th>
+                            <th className='text-center'>Результат проверки</th>
+                            <th className='text-center'> Срок возврата</th>
+                            <th className='text-center'>Курсовая работа</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -50,22 +72,23 @@ class Table1_1 extends React.Component {
                         <tbody className='fontSize'>
                         {this.props.courseworks.map((coursework, index) => (
                             <tr>
-                                <td width='30px'>{index + 1}</td>
-                                <td width='160px'>{coursework.student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
-                                <td width='100px'>{coursework.group.name}</td>
-                                <td width='150px'>{coursework.incomingDate}</td>
-                                <td width='150px'>{coursework.result}</td>
-                                <td width='150px'>{coursework.checkingDate}</td>
-                                <td width='150px'>
-                                    <div onClick={() => this.onFile(coursework.id)} className='cursor colorOpen'>Открыть
-                                    </div>
+                                <td >{index + 1}</td>
+                                <td width='160px' className='text-center'>{coursework.student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
+                                <td width='100px' className='text-center'>{coursework.group.name}</td>
+                                <td width='150px' className='text-center'>{moment(moment(coursework.incomingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
+                                <td width='150px' className='text-center'>{coursework.result}</td>
+                                <td width='150px' className='text-center'>{moment(moment(coursework.checkingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
+                                <td width='150px' className='text-center'>
+                                    {coursework.filelink ? <div onClick={() => this.onFile(coursework.id)}
+                                                                className='cursor colorOpen'>Открыть
+                                    </div>: ''}
                                 </td>
                                 <td width='50px'>
                                     <div onClick={() => this.props.onOpenModal(coursework)} className='cursor'><img
                                         src={edit}/>
                                     </div>
                                 </td>
-                                <td><div onClick={() => this.props.onOpenModal(coursework)} className='cursor'><img
+                                <td><div onClick={() => this.onDelete(coursework.id)}  className='cursor'><img
                                     src={delet}/></div></td>
 
                             </tr>
@@ -84,9 +107,20 @@ class Table1_1 extends React.Component {
                         }
                     </table>
                     <div className='bot2'>
-                        <div onClick={this.props.onOpenModal} className='cursor'><img className='block-right'
-                                                                                      src={plus}/>
+                        <div onClick={this.onOpenModalNew} className='cursor'><img className='block-right' src={plus}/>
                         </div>
+                        <ModalWinNew
+                            close={this.onCloseModalNew}
+                            state={this.state.open}
+                            handleChange={this.props.handleChange}
+                            professors={this.props.professors}
+                            students={this.props.students}
+                            onSubmit={this.props.onSubmit}
+                            univGroups={this.props.univGroups}
+                            disciplines={this.props.disciplines}
+                            course={this.props.course}
+                            groups = {this.props.groups}
+                        />
                     </div>
                 </div>
 
@@ -95,7 +129,24 @@ class Table1_1 extends React.Component {
             return (
                 <div className='row'>
                     <div className='col-md-12'>
-                        <div className='block'> Ничего не найдено</div>
+                        <div className='block'> Ничего не найдено! <br/></div>
+                        { this.props.test ? <div>
+                            <div onClick={this.onOpenModalNew} className='cursor block'>Добавьте первую запись<img
+                                className='block-right2' src={plus}/></div>
+                            <ModalWinNew
+                                close={this.onCloseModalNew}
+                                state={this.state.open}
+                                handleChange={this.props.handleChange}
+                                professors={this.props.professors}
+                                students={this.props.students}
+                                onSubmit={this.props.onSubmit}
+                                univGroups={this.props.univGroups}
+                                disciplines={this.props.disciplines}
+                                course={this.props.course}
+                                groups={this.props.groups}
+                            />
+                        </div> : ''
+                        }
                     </div>
                 </div>
             );

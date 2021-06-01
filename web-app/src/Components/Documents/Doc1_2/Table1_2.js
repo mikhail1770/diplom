@@ -16,7 +16,7 @@ class Table1_2 extends React.Component {
         this.state = {
             fileName: '',
             open: false,
-            test: false
+
         }
     }
 
@@ -137,7 +137,24 @@ class Table1_2 extends React.Component {
             return (
                 <div className='row '>
                     <div className='col-md-12'>
-                        <div className='block'> Ничего не найдено</div>
+                        <div className='block'> Ничего не найдено! <br/></div>
+                        { this.props.test ? <div>
+                            <div onClick={this.onOpenModalNew} className='cursor block'>Добавьте первую запись<img
+                                className='block-right2' src={plus}/></div>
+                            <ModalWinNew
+                                close={this.onCloseModalNew}
+                                state={this.state.open}
+                                handleChange={this.props.handleChange}
+                                professors={this.props.professors}
+                                students={this.props.students}
+                                onSubmit={this.props.onSubmit}
+                                univGroups={this.props.univGroups}
+                                disciplines={this.props.disciplines}
+                                course={this.props.course}
+                                groups={this.props.groups}
+                            />
+                        </div> : ''
+                        }
                     </div>
                 </div>
             );

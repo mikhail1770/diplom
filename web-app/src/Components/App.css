@@ -276,8 +276,10 @@ html {
 
 .block { /*Надпись вместо таблицы*/
     margin: auto !important;
-    width: 150px;
+    width: 300px;
     padding-top: 20px;
+    text-align: center;
+
 }
 
 .table-striped tbody tr:nth-of-type(odd) { /*Цвет полосы в таблице*/
@@ -366,7 +368,10 @@ html {
     margin-right: 10px;
 
 }
+.block-right2{
+    margin-left: 10px;
 
+}
 .bot2{
     margin-bottom: 0px; /*отступ от кнопки плюсик у таблицы*/
 }

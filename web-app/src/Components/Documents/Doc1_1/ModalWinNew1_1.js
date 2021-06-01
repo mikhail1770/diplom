@@ -6,19 +6,20 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
-import s from "../Doc1_2/Doc1_2.module.css";
+import s from "../Doc1_1/Doc1_1.module.css";
 import axios from "axios";
 import moment from "moment";
 import Button from "@material-ui/core/Button";
 
 
-class ModalWinNew1_2 extends React.Component {
+class ModalWinNew1_1 extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             studentName: '',
             studentId: '',
+            studentGroup:'',
             checkingDate: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
             incomingDate: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
             result: 'к защите',
@@ -31,10 +32,6 @@ class ModalWinNew1_2 extends React.Component {
 
     }
 
-    ChangeSelectedProfessor(e) {
-        this.setState({professorName: e.target.value.name, professorId: e.target.value.id})
-    }
-
     ChangeSelectedIncomingDate(e) {
         this.setState({incomingDate: e.target.value})
     }
@@ -44,7 +41,7 @@ class ModalWinNew1_2 extends React.Component {
     }
 
     ChangeSelectedStudent(e) {
-        this.setState({studentName: e.target.value.name, studentId: e.target.value.id})
+        this.setState({studentName: e.target.value.name, studentId: e.target.value.id, studentGroup:''})
     }
 
     ChangeSelectedResult(e) {
@@ -61,22 +58,19 @@ class ModalWinNew1_2 extends React.Component {
         axios.post("http://localhost:3001/upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
-                    if (this.state.studentId !== '' && this.state.professorId !== '' && this.state.professorId !== '' && this.state.univGroups !== '' && this.state.course !== '' && this.state.disciplines !== '') {
-                        axios.post(`http://localhost:3001/add/courseworks/`, {
+                    if (this.state.studentId !== '' ) {
+                        axios.post(`http://localhost:3001/add/courseworkszaoch/`, {
                             incomingDate: this.state.incomingDate,
                             disciplines: this.props.disciplines,
-                            univGroups: this.props.univGroups,
-                            cours: this.props.course,
+                            univGroups: 6,
                             student: this.state.studentId,
                             checkingDate: this.state.checkingDate,
-                            professor: this.state.professorId,
                             courseworkresult: this.state.resultID,
                             filelink: this.state.nameFile,
                             regId:'1'
                         }).then(res => {
                             this.props.onSubmit()
                             this.props.close()
-
                         })
                     } else {
                         alert("Заполните все поля")
@@ -113,21 +107,6 @@ class ModalWinNew1_2 extends React.Component {
                                             value={student}> {student.name ? student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''} </MenuItem>)}
                                     </Select>
                                 </FormControl>
-                            </div>
-                        </div>
-                        <div className='row modalRow '>
-                            <div className='col-6 titleModal v'>
-                                <span>ФИО преподавателя:</span>
-                            </div>
-                            <div className='col-6 v propsModal'>
-                                <Select
-                                    onChange={(e) => this.ChangeSelectedProfessor(e)}
-                                >
-                                    {this.props.professors.map(professor => <MenuItem
-                                        value={professor}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}
-
-                                </Select>
-
                             </div>
                         </div>
                         <div className='row modalRow '>
@@ -181,7 +160,7 @@ class ModalWinNew1_2 extends React.Component {
                             </div>
                         </div>
                         <div className={`${s.positionSave} f`}>
-                            <button type="button" className="btn btn-primary save block-center" disabled={!this.state.studentId || !this.state.professorId}
+                            <button type="button" className="btn btn-primary save block-center" disabled={!this.state.studentId}
                                     onClick={this.onSave}>Сохранить
                             </button>
                         </div>
@@ -193,4 +172,4 @@ class ModalWinNew1_2 extends React.Component {
     }
 }
 
-export default ModalWinNew1_2;
+export default ModalWinNew1_1;

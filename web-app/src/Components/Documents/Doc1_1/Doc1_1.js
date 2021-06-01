@@ -38,7 +38,8 @@ export default class Doc1_1 extends React.Component {
             disciplineName: '',
             fullDiscipline: null,
             fullName: null,
-            printLoad: false
+            printLoad: false,
+            test:false
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -127,8 +128,9 @@ export default class Doc1_1 extends React.Component {
                 byStudent: this.state.studentName
             }
         }).then(res => {
+            this.onCloseModal()
             const courseworks = res.data;
-            this.setState({courseworks});
+            this.setState({courseworks, test: true});
             console.log(courseworks)
         })
         this.state.disciplineName = this.state.disciplines.find(name => name.id === this.state.discipline).name;
@@ -140,6 +142,17 @@ export default class Doc1_1 extends React.Component {
             this.setState({disciplines});
             console.log(disciplines)
             this.setState({pageLoaded: true})
+        })
+
+        get('search/univGroups/formOfStudy', {
+            params: {
+                formOfStudy: 2
+            }
+        }).then(res => { //получение заочных групп
+            const groups = res.data;
+            this.setState({groups});
+            this.setState({pageLoaded: true})
+            console.log(groups)
         })
 
     }
@@ -220,6 +233,8 @@ export default class Doc1_1 extends React.Component {
                                     onSubmit={this.onSubmit}
                                     univGroups={this.state.group}
                                     disciplines={this.state.discipline}
+                                    groups={this.state.groups}
+                                    test={this.state.test}
                                     />
                             </div>
                             <div className='navs'>

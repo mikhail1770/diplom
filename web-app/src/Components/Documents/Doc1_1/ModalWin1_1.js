@@ -15,16 +15,25 @@ class ModalWin1_1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentGroup: props.currentGroup,
+            currentGroup: {
+                checkingDate: this.props.currentGroup.checkingDate,
+                incomingDate: this.props.currentGroup.incomingDate,
+                student: {
+                    name: this.props.currentGroup.student.name,
+                    id: this.props.currentGroup.student.id
+                },
+                result: this.props.currentGroup.result,
+                id: this.props.currentGroup.id
+            },
             courseWorkResID: '',
             selectedFile: '',
             number: '',
-            nameFile:this.props ? this.props.filelink: '',
+            nameFile: this.props ? this.props.filelink : '',
             fileSelected: 0,
-            studentName:''
+            studentName: ''
 
         }
-        this.setStateGroupInfo = this.setStateGroupInfo.bind(this);
+
 
     }
 
@@ -33,33 +42,22 @@ class ModalWin1_1 extends React.Component {
         current.student.name = e.target.value.name;
         current.student.id = e.target.value.id;
         this.setState({current})
-        console.log(this.state.currentGroup)
-
     }
 
     ChangeSelectedIncomingDate(e) {
         this.state.currentGroup.incomingDate = e.target.value;
-
     }
 
     ChangeSelectedcheckingDate(e) {
         this.state.currentGroup.chekingDate = e.target.value;
-
     }
 
     ChangeSelectedResult(e) {
-        this.state.currentGroup.result = e.target.value;
-
-    }
-
-    setStateGroupInfo(props) {
-
-        if (Object.keys(props.currentGroup).length && props.currentGroup) {
-            console.log(Object.keys(props.currentGroup).length)
-            this.setState({currentGroup: props.currentGroup}, () => {
-                console.log(this.state)
-            })
-        }
+        if (e.target.value == 'к защите') {
+            this.setState({courseWorkResID: 1})
+        } else if (e.target.value == 'к доработке') {
+            this.setState({courseWorkResID: 2})
+        } else return 3
     }
 
     onSave = () => {
@@ -74,12 +72,12 @@ class ModalWin1_1 extends React.Component {
         axios.post("http://localhost:3001/upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
-                    axios.put(`http://localhost:3001/edit/courseworks/${this.state.currentGroup.id}`, {
+                    axios.put(`http://localhost:3001/edit/courseworkszaoch/${this.state.currentGroup.id}`, {
                         checkingDate: this.state.currentGroup.checkingDate,
                         incomingDate: this.state.currentGroup.incomingDate,
                         courseworkresult: this.state.courseWorkResID,
                         filelink: this.state.nameFile,
-                        student: this.state.currentGroup.student.id,
+                        student: this.state.currentGroup.student.id
                     }, () => {
                         console.log(this.state.nameFile)
                     })

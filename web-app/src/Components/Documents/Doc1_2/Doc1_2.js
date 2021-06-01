@@ -42,6 +42,7 @@ export default class Doc1_2 extends React.Component {
             name: 'rere[f',
             professors: [],
             printLoad: false,
+            test:false
         };
         this.handleChange = this.handleChange.bind(this);
         this.onAutoGroup = this.onAutoGroup.bind(this);
@@ -70,7 +71,8 @@ export default class Doc1_2 extends React.Component {
                     fullName: null,
                     discipline: null,
                     studentName: null,
-                    course: value.course
+                    course: value.course,
+                    test:false
                 });
                 get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
                     const disciplines = res.data;
@@ -137,7 +139,7 @@ export default class Doc1_2 extends React.Component {
         }).then(res => {  //получение дисциплин
             this.onCloseModal()
             const courseworks = res.data;
-            this.setState({courseworks});
+            this.setState({courseworks, test: true});
 
         })
         this.state.disciplineName = this.state.disciplines.find(disName => disName.id == this.state.discipline).disName;
@@ -253,6 +255,7 @@ export default class Doc1_2 extends React.Component {
                                     univGroups={this.state.group}
                                     disciplines={this.state.discipline}
                                     course={this.state.course}
+                                    test={this.state.test}
                                 />
                             </div>
                             <div className='navs'>

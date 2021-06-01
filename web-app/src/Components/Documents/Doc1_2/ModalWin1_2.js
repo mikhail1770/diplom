@@ -42,12 +42,6 @@ class ModalWin1_2 extends React.Component {
         this.ChangeSelectedResult = this.ChangeSelectedResult.bind(this);
     }
 
-    ChangeSelectedProfessor(e) {
-        let current = this.state.currentGroup;
-        current.professor.name = e.target.value.profName;
-        current.professor.id = e.target.value.id;
-    }
-
     ChangeSelectedStudent(e) {
         let current = this.state.currentGroup;
         current.student.name = e.target.value.name;
