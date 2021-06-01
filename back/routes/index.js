@@ -419,7 +419,7 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
     });
   })
 
-  router.put('/edit/practiceReport/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми заочников по id курсовой
+  router.put('/edit/practiceReport/:id', (req,res,next) => { //запрос на обновление данных в таблице с практиками по id курсовой
     connection.query('UPDATE practice SET ? WHERE id = ?', [req.body, req.params.id], 
     function (error, results, fields) {
       if (error) throw error;
@@ -436,34 +436,67 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
       console.log(req.body)
     });
   })
-  
-  router.put('/edit/courseworkszaoch/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми заочников по id курсовой
-    connection.query('UPDATE courseworkszoch SET ? WHERE id = ?', [req.body, req.params.id], 
-    function (error, results, fields) {
-      if (error) throw error;
-      res.json(results);
-      console.log(req.body)
-    });
-  })
 
   
 }
 
 {/* DELETE запросы */
+  router.delete('/delete/courseworks/:id', function(req, res, next){
+    connection.query('DELETE FROM courseworks WHERE id = ?',[req.params.id], 
+    function (error, results, fields){
+      if (error) throw error;
+      res.json(results);
+    });
+  })
 
+  router.delete('/delete/courseworkszaoch/:id', function(req, res, next){
+    connection.query('DELETE FROM courseworkszaoch WHERE id = ?',[req.params.id], 
+    function (error, results, fields){
+      if (error) throw error;
+      res.json(results);
+    });
+  })
+
+  router.delete('/delete/practiceReport/:id', function(req, res, next){
+    connection.query('DELETE FROM practice WHERE id = ?',[req.params.id], 
+    function (error, results, fields){
+      if (error) throw error;
+      res.json(results);
+    });
+  })
 }
 
 {/* POST запросы */
-  router.post('/courseworks/add', function(req, res, next){
+  router.post('/add/courseworks/', function(req, res, next){
     console.log(req.body)
-    connection.query('INSERT INTO courseworks (disciplines,  univGroups, cours, student, incomingDate, checkingDate, professor, courseworkresult, filelink) VALUES(?,?,?,?,?,?,?,?,?);',
-    [req.body.disciplines, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.filelink],
+    connection.query('INSERT INTO `courseworks` (`regId`, `disciplines`, `univGroups`, `cours`, `student`, `incomingDate`, `checkingDate`, `professor`, `courseworkresult`, `filelink`) VALUES (?,?,?,?,?,?,?,?,?,?);',
+    [req.body.regId, req.body.disciplines, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.filelink],
      function (err, results, fields){
        if(err) throw err;    
        res.json(results);
     });
   });
 
+  router.post('/add/courseworkszaoch/', function(req, res, next){
+    console.log(req.body)
+    connection.query('INSERT INTO `courseworkszaoch` (`regId`, `disciplines`, `univGroups`, `student`, `incomingDate`, `checkingDate`, `courseworkresult`, `filelink`) VALUES (?,?,?,?,?,?,?,?);',
+    [req.body.regId, req.body.disciplines, req.body.univGroups, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.courseworkresult, req.body.filelink],
+     function (err, results, fields){
+       if(err) throw err;    
+       res.json(results);
+    });
+  });
+
+  router.post('/add/practiceReport/', function(req, res, next){
+    console.log(req.body)
+    connection.query('INSERT INTO `practice` (`regId`, `univGroup`, `course`, `student`, `basePractic`, `incomingDate`, `professor`, `checkingDate`, `practiceRes`, `fileLink`) VALUES (?,?,?,?,?,?,?,?,?,?);',
+    [req.body.regId, req.body.univGroups, req.body.course, req.body.student, req.body.basePractic, req.body.incomingDate, req.body.professor, req.body.checkingDate, req.body.practiceRes, req.body.filelink],
+     function (err, results, fields){
+       if(err) throw err;    
+       res.json(results);
+    });
+  });
+  
 
 }
 module.exports = router;
