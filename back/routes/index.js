@@ -2,12 +2,12 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var mysql = require('mysql2');
-var multer = require('multer')
-var upload = multer({ dest: 'uploads/' })
-var pdf = require('../classes/pdf')
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' });
+var pdf = require('../classes/pdf');
 var moment = require('moment');
 var cors = require('cors');
-app.use(cors())
+app.use(cors());
 
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
@@ -16,7 +16,7 @@ const connection = mysql.createConnection({
   database: 'u0856139_univdoc'
 });
 
-var storage = multer.diskStorage({
+/*var storage = multer.diskStorage({
     destination: function (req, file, cb) {
     cb(null, 'public')
   },
@@ -45,7 +45,7 @@ app.listen(3002, function() {
 
     console.log('App running on port 3002');
 
-});
+});*/
 
 
 
