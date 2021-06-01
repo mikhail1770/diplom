@@ -2,12 +2,12 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var mysql = require('mysql2');
-var multer = require('multer')
-var upload = multer({ dest: 'uploads/' })
-var pdf = require('../classes/pdf')
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' });
+var pdf = require('../classes/pdf');
 var moment = require('moment');
 var cors = require('cors');
-app.use(cors())
+app.use(cors());
 
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
@@ -15,38 +15,6 @@ const connection = mysql.createConnection({
   password: 'UnivDoc71',
   database: 'u0856139_univdoc'
 });
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-    cb(null, 'public')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' +file.originalname )
-    
-  }
-})
-
-var upload = multer({ storage: storage }).single('file')
-
-app.post('/upload',function(req, res) {
-    upload(req, res, function (err) {
-           if (err instanceof multer.MulterError) {
-               return res.status(500).json(err)
-               
-           } else if (err) {
-               return res.status(500).json(err)
-           }
-      return res.status(200).send(req.file)
-    })
-console.log(req.filename)
-});
-
-app.listen(3002, function() {
-
-    console.log('App running on port 3002');
-
-});
-
 
 
 connection.connect();
@@ -419,7 +387,7 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
     });
   })
 
-  router.put('/edit/practiceReport/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми заочников по id курсовой
+  router.put('/edit/practiceReport/:id', (req,res,next) => { //запрос на обновление данных в таблице с практиками по id курсовой
     connection.query('UPDATE practice SET ? WHERE id = ?', [req.body, req.params.id], 
     function (error, results, fields) {
       if (error) throw error;
@@ -436,34 +404,67 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
       console.log(req.body)
     });
   })
-  
-  router.put('/edit/courseworkszaoch/:id', (req,res,next) => { //запрос на обновление данных в таблице с курсовыми заочников по id курсовой
-    connection.query('UPDATE courseworkszoch SET ? WHERE id = ?', [req.body, req.params.id], 
-    function (error, results, fields) {
-      if (error) throw error;
-      res.json(results);
-      console.log(req.body)
-    });
-  })
 
   
 }
 
 {/* DELETE запросы */
+  router.delete('/delete/courseworks/:id', function(req, res, next){
+    connection.query('DELETE FROM courseworks WHERE id = ?',[req.params.id], 
+    function (error, results, fields){
+      if (error) throw error;
+      res.json(results);
+    });
+  })
 
+  router.delete('/delete/courseworkszaoch/:id', function(req, res, next){
+    connection.query('DELETE FROM courseworkszaoch WHERE id = ?',[req.params.id], 
+    function (error, results, fields){
+      if (error) throw error;
+      res.json(results);
+    });
+  })
+
+  router.delete('/delete/practiceReport/:id', function(req, res, next){
+    connection.query('DELETE FROM practice WHERE id = ?',[req.params.id], 
+    function (error, results, fields){
+      if (error) throw error;
+      res.json(results);
+    });
+  })
 }
 
 {/* POST запросы */
-  router.post('/courseworks/add', function(req, res, next){
+  router.post('/add/courseworks/', function(req, res, next){
     console.log(req.body)
-    connection.query('INSERT INTO courseworks (disciplines,  univGroups, cours, student, incomingDate, checkingDate, professor, courseworkresult, filelink) VALUES(?,?,?,?,?,?,?,?,?);',
-    [req.body.disciplines, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.filelink],
+    connection.query('INSERT INTO `courseworks` (`regId`, `disciplines`, `univGroups`, `cours`, `student`, `incomingDate`, `checkingDate`, `professor`, `courseworkresult`, `filelink`) VALUES (?,?,?,?,?,?,?,?,?,?);',
+    [req.body.regId, req.body.disciplines, req.body.univGroups, req.body.cours, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.professor, req.body.courseworkresult, req.body.filelink],
      function (err, results, fields){
        if(err) throw err;    
        res.json(results);
     });
   });
 
+  router.post('/add/courseworkszaoch/', function(req, res, next){
+    console.log(req.body)
+    connection.query('INSERT INTO `courseworkszaoch` (`regId`, `disciplines`, `univGroups`, `student`, `incomingDate`, `checkingDate`, `courseworkresult`, `filelink`) VALUES (?,?,?,?,?,?,?,?);',
+    [req.body.regId, req.body.disciplines, req.body.univGroups, req.body.student, req.body.incomingDate, req.body.checkingDate, req.body.courseworkresult, req.body.filelink],
+     function (err, results, fields){
+       if(err) throw err;    
+       res.json(results);
+    });
+  });
+
+  router.post('/add/practiceReport/', function(req, res, next){
+    console.log(req.body)
+    connection.query('INSERT INTO `practice` (`regId`, `univGroup`, `course`, `student`, `basePractic`, `incomingDate`, `professor`, `checkingDate`, `practiceRes`, `fileLink`) VALUES (?,?,?,?,?,?,?,?,?,?);',
+    [req.body.regId, req.body.univGroups, req.body.course, req.body.student, req.body.basePractic, req.body.incomingDate, req.body.professor, req.body.checkingDate, req.body.practiceRes, req.body.filelink],
+     function (err, results, fields){
+       if(err) throw err;    
+       res.json(results);
+    });
+  });
+  
 
 }
 module.exports = router;

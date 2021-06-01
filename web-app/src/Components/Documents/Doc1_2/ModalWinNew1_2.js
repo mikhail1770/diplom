@@ -56,7 +56,7 @@ class ModalWinNew1_2 extends React.Component {
     onSave = () => {
         const data = new FormData()
         data.append('file', this.state.selectedFile)
-        axios.post("http://localhost:3002/upload", data, {})
+        axios.post("http://localhost:3001/upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
                     if (this.state.studentId !== '' && this.state.professorId !== '') {

@@ -71,7 +71,7 @@ class ModalWin1_1 extends React.Component {
 
         const data = new FormData()
         data.append('file', this.state.selectedFile)
-        axios.post("http://localhost:3002/upload", data, {})
+        axios.post("http://localhost:3001/upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
                     axios.put(`http://localhost:3001/edit/courseworks/${this.state.currentGroup.id}`, {
