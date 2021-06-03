@@ -64,9 +64,7 @@ console.log()
 // Тут идет проверка токена на каждый запрос
 app.use('*', (req,res, next) => {
   if(req.baseUrl != '/account/token'){
-    console.log('Тут проверяем токен');
     let token = req.headers.authorization.slice(7)
-    console.log(token)
     connection.query('SELECT * FROM tokens WHERE token = ?', [token], (err, token) => {
       if(err) throw err;
       if(token.length > 0){next()}else{

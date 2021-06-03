@@ -3,7 +3,7 @@ import axios from "axios";
 let host = 'http://localhost:3001/';
 
 function get(url, params) {
-    return axios.get(host + url, {params: params, headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => {
+    return axios.get(host + url, {...params, headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => {
         return new Promise((resolve, rej) => {
             resolve(res)
         })

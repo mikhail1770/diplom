@@ -74,7 +74,7 @@ connection.connect();
   } 
 
 
-router.get('/search/univGroups/formOfStudy/', function(req, res, next){ //запрос на получение списка групп 
+router.get('/search/univGroups/formOfStudy', function(req, res, next){ //запрос на получение списка групп 
   let sql = 'SELECT univgroups.id, univgroups.groupName AS groupName, univgroups.course FROM univgroups JOIN formOfStudy ON formOfStudy.id = univgroups.formOfStudy WHERE 1'
   let params = []
   if(req.query.formOfStudy != null){ //поиск по id группы
@@ -161,28 +161,6 @@ connection.query(sql, params, function (error, results, fields) {
   
   if (error) throw error;
   });  
-})
-
-
-router.post('/account/token', (req,res) => {
-  if(req.body.login.length == 0 || req.body.password.length == 0){
-    res.status('401');
-    res.json({error: true, detail: 'Ошибока произошла некоторая, почему не указали логин или пароль? Ай-яй-яй, они не могут быть пустыми'})
-  }else{
-    connection.query('SELECT * FROM users WHERE login = ? AND password = ?', [req.body.login, req.body.password], (err, result) => {
-      if(err) throw err;
-      console.log(result)
-      if(result.length == 0){
-        res.status('401');
-        res.json({error: true, detail: 'Неверный логин или пароль'})
-      }else{
-        console.log(result)
-        let token = jwt.sign({ id: result[0].id, fio: result[0].fio }, 'sekretkey');
-        res.json({error : false, detail: token});
-        connection.query('INSERT INTO tokens (token, userid) VALUES(?,?)', [token, result[0].id], (err, token) => {if(err) throw err})
-      }
-    })
-  }
 })
 
 router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //запрос на получение списка дисциплин группы
@@ -382,7 +360,6 @@ router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res,
   });  
 })
 
-
 router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //бесполезное говно, которое и делать то и не надо было запрос на получение списка дисциплин группы по форме обучения (очка, заочка..)
   connection.query('SELECT disciplines.Name, univgroups.GroupName, formOfStudy.formOfStudy, univgroups.id , disciplines.disID FROM studyPlan JOIN univgroups ON studyPlan.GroupId=univgroups.id JOIN disciplines ON studyPlan.disciplineID=disciplines.disID JOIN formOfStudy ON univgroups.formOfStudy=formOfStudy.formOfStudyId WHERE formOfStudy.formOfStudyId=?', 
   [req.params.id],  function (error, results, fields) {
@@ -488,6 +465,25 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
        res.json(results);
     });
   });
+
+  router.post('/account/token', (req,res) => {
+    if(req.body.login.length == 0 || req.body.password.length == 0){
+      res.status('401');
+      res.json({error: true, detail: 'Ошибока произошла некоторая, почему не указали логин или пароль? Ай-яй-яй, они не могут быть пустыми'})
+    }else{
+      connection.query('SELECT * FROM users WHERE login = ? AND password = ?', [req.body.login, req.body.password], (err, result) => {
+        if(err) throw err;
+        if(result.length == 0){
+          res.status('401');
+          res.json({error: true, detail: 'Неверный логин или пароль'})
+        }else{
+          let token = jwt.sign({ id: result[0].id, fio: result[0].fio }, 'sekretkey');
+          res.json({error : false, detail: token});
+          connection.query('INSERT INTO tokens (token, userid) VALUES(?,?)', [token, result[0].id], (err, token) => {if(err) throw err})
+        }
+      })
+    }
+  })
   
 
 }
