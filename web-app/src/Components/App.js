@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css';
 import Header from './Header/Header.js';
 import Navigation from './NewDocuments/Navigation.js';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 import DocumentRender from "./DocumentRender";
 import Authorization from "./Authorization/Authorization";
 import Registration from "./Registration/Registration";
-
+import {post} from "../Components/Documents/axios"
 
 
 class App extends React.Component {
@@ -20,14 +20,30 @@ class App extends React.Component {
         this.onAuthorization = this.onAuthorization.bind(this);
     }
 
-    onAuthorization = () => {
-        this.setState({isLogin: true})
-        console.log(this.state.isLogin);
+    componentWillMount(){
+        if(!localStorage.getItem('token')){
+            this.setState({isLogin: false})
+            this.props.history.push('/')
+        }else{
+            this.setState({isLogin: true})
+        }
+    }
+
+    onAuthorization = (data) => {
+        console.log('отправляем на сервер', data)
+        post(`account/token`, data).then(res => { 
+            //console.log(res.data.detail) 
+            localStorage.setItem('token', res.data.detail);
+            window.location.reload();
+        })
+        //this.setState({isLogin: true})
+        //console.log(this.state.isLogin);
 
     }
 
     onExit = () => {
         this.setState({isLogin: false})
+        localStorage.removeItem('token');
         console.log(this.state.isLogin);
 
     }
@@ -48,10 +64,10 @@ class App extends React.Component {
                     <div className="container App">
                         <Header onExit={this.onExit}/>
                         <div className="content">
-                            <Switch>
+                            
                                <Route exact path="/" component={Navigation}/>
                                 <Route exact path="/:documentId" component={DocumentRender}/>
-                            </Switch>
+                            
                         </div>
 
                     </div>
@@ -70,4 +86,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default withRouter(App);
