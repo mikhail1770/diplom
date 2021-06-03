@@ -56,7 +56,7 @@ app.post('/upload',function(req, res) {
         }
     return res.status(200).send(req.file)
   })
-console.log("req.filename")
+console.log()
 });
 
 
