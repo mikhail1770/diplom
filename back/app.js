@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var multer = require('multer');
 var upload = multer({ dest: 'uploads/' });
-
+var mysql = require('mysql2');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
   cb(null, 'public')
@@ -23,6 +23,24 @@ var upload = multer({ storage: storage }).single('file');
 
 var app = express();
 
+
+
+
+
+
+const connection = mysql.createConnection({
+  host: 'server9.hosting.reg.ru',
+  user: 'u0856139_univdoc',
+  password: 'UnivDoc71',
+  database: 'u0856139_univdoc'
+});
+connection.connect();
+
+
+
+
+
+
 // view engine setup
 const cors = require('cors');
 
@@ -38,8 +56,28 @@ app.post('/upload',function(req, res) {
         }
     return res.status(200).send(req.file)
   })
-console.log("req.filename")
+console.log()
 });
+
+
+
+// Тут идет проверка токена на каждый запрос
+app.use('*', (req,res, next) => {
+  if(req.baseUrl != '/account/token'){
+    let token = req.headers.authorization.slice(7)
+    connection.query('SELECT * FROM tokens WHERE token = ?', [token], (err, token) => {
+      if(err) throw err;
+      if(token.length > 0){next()}else{
+        res.status(401);
+        res.json({error: true, detail: 'Решил подменять токен в LocalStorage ??'})
+      }
+    })
+    //next();
+  }else{
+    next();
+  }
+  
+})
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

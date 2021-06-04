@@ -151,7 +151,7 @@ export default class Doc1_2 extends React.Component {
             params: {
                 formOfStudy: 1
             }
-        }).then(res => { //получение заочных групп
+        }).then(res => { //получение очных групп
             const groups = res.data;
             this.setState({groups});
             this.setState({pageLoaded: true})
@@ -161,7 +161,6 @@ export default class Doc1_2 extends React.Component {
             this.setState({professors});
             console.log(professors)
         })
-
     }
 
     render() {
