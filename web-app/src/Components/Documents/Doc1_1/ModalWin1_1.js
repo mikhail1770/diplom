@@ -33,8 +33,6 @@ class ModalWin1_1 extends React.Component {
             studentName: ''
 
         }
-
-
     }
 
     ChangeSelectedStudent(e) {

@@ -1,22 +1,19 @@
 import React from 'react';
 import '../../App.css';
-import axios from 'axios';
 import {get} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
-import ModalWin from "./ModalWin1_3";
-import Table1_3 from "./Table1_3";
-import {post} from "../axios";
-import Table1_2 from "../Doc1_2/Table1_2";
+import Table1_3 from "../Doc1_3/Table1_3";
 import {Link} from "react-router-dom";
 import main from "../main.svg";
 import top from "../top.svg";
 import printBig from "../printBig.svg";
 import gif from "../1.gif";
+import Table1_1 from "../Doc1_1/Table1_1";
 
 
-export default class Doc1_2 extends React.Component {
+export default class Doc1_3 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,8 +30,8 @@ export default class Doc1_2 extends React.Component {
             dateOfReceipt: '',
             verificationResult: 'к защите',
             open: false,
-            courseworks: [],
-            coursework: [],
+            reports: [],
+            report: [],
             studentsName: [],
             disciplineName: '',
             fullDiscipline: null,
@@ -47,7 +44,8 @@ export default class Doc1_2 extends React.Component {
             name: 'rere[f',
             professors: [],
             printLoad: false,
-            pageLoaded: ''
+            pageLoaded: '',
+            test: false
 
         };
 
@@ -56,7 +54,6 @@ export default class Doc1_2 extends React.Component {
 
 
     }
-
 
     handleChange = (event, name) => { //для того, чтобы использовать несколько input
         console.log(event)
@@ -77,6 +74,7 @@ export default class Doc1_2 extends React.Component {
                     fullName: null,
                     discipline: null,
                     studentName: null,
+                    test: false
                 });
 
                 get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
@@ -132,23 +130,28 @@ export default class Doc1_2 extends React.Component {
             params: {
                 byGroupID: this.state.group,
                 byCourse: this.state.course,
-                byStudent: this.state.studentName
+                byStudent: this.state.studentName,
+                sortIncomingDate: 'ASC'
             }
         }).then(res => {  //получение дисциплин
-            const courseworks = res.data;
-            this.setState({courseworks});
-            console.log(courseworks)
+            const reports = res.data;
+            this.setState({reports, test: true});
+            console.log(reports)
         })
-
+        console.log(this.state.reports)
     }
 
     componentDidMount() {
-        get('search/univGroups/formOfStudy').then(res => { //получение заочных групп
+        get('search/univGroups/formOfStudy').then(res => { //получение заочных и очных групп
             const groups = res.data;
             this.setState({groups});
             this.setState({pageLoaded: true})
         })
-
+        get('professor').then(res => {
+            const professors = res.data;
+            this.setState({professors});
+            console.log(professors)
+        })
     }
 
     render() {
@@ -215,14 +218,11 @@ export default class Doc1_2 extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {this.state.course}
-                            {this.state.group}
                         </form>
-
                         <div className='row topTable nav'>
                             <div className='col-md-12 pad padRig'>
                                 <Table1_3
-                                    courseworks={this.state.courseworks}
+                                    reports={this.state.reports}
                                     currentGroup={this.state.currentGroup}
                                     verificationResult={this.state.verificationResult}
                                     state={this.state.open}
@@ -234,7 +234,12 @@ export default class Doc1_2 extends React.Component {
                                     students={this.state.studentsName}
                                     onSubmit={this.onSubmit}
                                     onOpenModal={this.onOpenModal}
-                                    close={this.onClouseModal}/>
+                                    close={this.onClouseModal}
+                                    univGroups={this.state.group}
+                                    disciplines={this.state.discipline}
+                                    groups={this.state.groups}
+                                    test={this.state.test}
+                                    course={this.state.course}/>
                             </div>
                             <div className='navs'>
                                 <Link to={'/'}><img src={main} className='cursor' title="Вернуться к документам"
@@ -243,17 +248,18 @@ export default class Doc1_2 extends React.Component {
                                     <div className='cursor btnRight1'><img src={top} title="Вернуться к документам"/>
                                     </div>
                                 </Link>
-                                {!this.state.printLoad ?
-                                    <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> :
-                                    <img src={gif} className='wid'/>}
+                                {!this.state.printLoad && this.state.group && this.state.course ?
+                                    <div className='cursor q' onClick={this.onPrint}><img src={printBig}/>
+                                    </div> : (this.state.printLoad) ?
+                                        <img src={gif} className='wid'/> :
+                                        <div className='q opac'><img src={printBig}/></div>}
                             </div>
                         </div>
                     </div> : <img src={gif} className='gifCenter'/>}
-                    </div>
-
-                    )
-                }
-                }
+            </div>
+        )
+    }
+}
 
 
 

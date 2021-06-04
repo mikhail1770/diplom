@@ -125,7 +125,8 @@ export default class Doc1_1 extends React.Component {
         get('search/courseworkszaoch/disciplines/univGroup', {
             params: {
                 byDiscipline: this.state.discipline,
-                byStudent: this.state.studentName
+                byStudent: this.state.studentName,
+                sortIncomingDate: 'ASC'
             }
         }).then(res => {
             this.onCloseModal()

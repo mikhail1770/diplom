@@ -118,7 +118,7 @@ export default class Doc1_2 extends React.Component {
                         <span>Кафедра информационных систем и технологий</span>
                     </div>
                     <div className='listDoc col-md-6'>
-                        <span>Учет курсовых работ очной формы обучения</span>
+                        <span>Учет участия ППС в мероприятиях</span>
                     </div>
                 </div>
                 <div className='lineBlack row'></div>

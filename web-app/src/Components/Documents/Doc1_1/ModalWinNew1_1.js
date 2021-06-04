@@ -27,13 +27,15 @@ class ModalWinNew1_1 extends React.Component {
             nameFile: '',
             professorId: '',
             professorName: '',
-            fail:false
+            fail:false,
+            groupId:''
         }
 
     }
 
     ChangeSelectedIncomingDate(e) {
         this.setState({incomingDate: e.target.value})
+        console.log(this.props.students)
     }
 
     ChangeSelectedCheckingDate(e) {
@@ -41,7 +43,8 @@ class ModalWinNew1_1 extends React.Component {
     }
 
     ChangeSelectedStudent(e) {
-        this.setState({studentName: e.target.value.name, studentId: e.target.value.id, studentGroup:''})
+        console.log(e.target.value.id)
+        this.setState({studentName: e.target.value.name, studentId: e.target.value.id, studentGroup:e.target.value.id})
     }
 
     ChangeSelectedResult(e) {
@@ -62,7 +65,7 @@ class ModalWinNew1_1 extends React.Component {
                         axios.post(`http://localhost:3001/add/courseworkszaoch/`, {
                             incomingDate: this.state.incomingDate,
                             disciplines: this.props.disciplines,
-                            univGroups: 6,
+                            univGroups: '',
                             student: this.state.studentId,
                             checkingDate: this.state.checkingDate,
                             courseworkresult: this.state.resultID,

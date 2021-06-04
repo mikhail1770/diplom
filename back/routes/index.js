@@ -457,8 +457,8 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //Ð
 
   router.post('/add/practiceReport/', function(req, res, next){
     console.log(req.body)
-    connection.query('INSERT INTO `practice` (`regId`, `univGroup`, `course`, `student`, `basePractic`, `incomingDate`, `professor`, `checkingDate`, `practiceRes`, `fileLink`) VALUES (?,?,?,?,?,?,?,?,?,?);',
-    [req.body.regId, req.body.univGroups, req.body.course, req.body.student, req.body.basePractic, req.body.incomingDate, req.body.professor, req.body.checkingDate, req.body.practiceRes, req.body.filelink],
+    connection.query('INSERT INTO `practice` (`regId`, `univGroup`, `course`, `student`, `basePractic`, `incomingDate`, `professor`, `checkingDate`, `practiceRes`) VALUES (?,?,?,?,?,?,?,?,?);',
+    [req.body.regId, req.body.univGroups, req.body.course, req.body.student, req.body.basePractic, req.body.incomingDate, req.body.professor, req.body.checkingDate, req.body.practiceRes],
      function (err, results, fields){
        if(err) throw err;    
        res.json(results);

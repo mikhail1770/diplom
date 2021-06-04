@@ -214,6 +214,8 @@ html {
     text-transform: none !important;
 }
 
+
+
 .MuiInputLabel-outlined {
     z-index: 1;
     transform: translate(14px, 20px) scale(1);

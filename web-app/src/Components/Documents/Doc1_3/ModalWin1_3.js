@@ -1,21 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import Modal from "@material-ui/core/Modal";
 import '../../App.css'
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
-import axios from "axios";
-import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import Button from "@material-ui/core/Button";
-import Table1_1 from "../Doc1_1/Table1_1";
-import {Link} from "react-router-dom";
-import main from "../main.svg";
-import top from "../top.svg";
-import printBig from "../printBig.svg";
-import gif from "../1.gif";
+import FormControl from "@material-ui/core/FormControl";
+import cross from "../cross.svg"
+import s from "../Doc1_2/Doc1_2.module.css";
+import axios from "axios";
+import _ from "lodash"
 
-class ModalWin1_3 extends React.Component {
+class ModalWin1_2 extends React.Component {
 
     constructor(props) {
         super(props);
@@ -23,6 +18,7 @@ class ModalWin1_3 extends React.Component {
             currentGroup: {
                 checkingDate: this.props.currentGroup.checkingDate,
                 incomingDate: this.props.currentGroup.incomingDate,
+                basePractice:'',
                 student: {
                     name: this.props.currentGroup.student.name,
                     id: this.props.currentGroup.student.id
@@ -42,22 +38,16 @@ class ModalWin1_3 extends React.Component {
             profName: '',
             idProf: '',
             studentName: ''
-
         }
 
-        this.onChangeHandler = this.onChangeHandler.bind(this);
         this.ChangeSelectedResult = this.ChangeSelectedResult.bind(this);
     }
 
 
     ChangeSelectedProfessor(e) {
-
         let current = this.state.currentGroup;
         current.professor.name = e.target.value.profName;
         current.professor.id = e.target.value.id;
-        console.log(this.props)
-
-        console.log(this.props)
     }
 
     ChangeSelectedStudent(e) {
@@ -65,18 +55,14 @@ class ModalWin1_3 extends React.Component {
         current.student.name = e.target.value.name;
         current.student.id = e.target.value.id;
         this.setState({current})
-
     }
 
     ChangeSelectedIncomingDate(e) {
         this.state.currentGroup.incomingDate = e.target.value;
-        console.log(this.state.currentGroup)
-
     }
 
     ChangeSelectedcheckingDate(e) {
         this.state.currentGroup.checkingDate = e.target.value;
-
     }
 
     ChangeSelectedResult(e) {
@@ -85,146 +71,135 @@ class ModalWin1_3 extends React.Component {
         } else if (e.target.value == 'к доработке') {
             this.setState({courseWorkResID: 2})
         } else return 3
-        console.log(this.props.onSubmit)
     }
 
 
     onSave = () => {
         if (this.state.courseWorkResID == '') {
-
             this.state.courseWorkResID = this.state.currentGroup.courseWorkResID;
         } else {
             console.log(1)
         }
-
-
-        const data = new FormData()
-        data.append('file', this.state.selectedFile)
-        axios.post("http://localhost:3001/upload", data, {})
-            .then(res => {
-                this.setState({nameFile: res.data.filename}, () => {
-                    axios.put(`http://localhost:3001/edit/courseworks/${this.state.currentGroup.id}`, {
-                        checkingDate: this.state.currentGroup.checkingDate,
-                        incomingDate: this.state.currentGroup.incomingDate,
-                        courseworkresult: this.state.courseWorkResID,
-                        filelink: this.state.nameFile,
-                        student: this.state.currentGroup.student.id,
-                        professor: this.state.currentGroup.professor.id
-                    }, () => {
-                        console.log(this.state.nameFile)
-                    })
-                        .then(res => {
-                            this.props.onSubmit();
-                        })
-                })
-            })
-        console.log(this.state.currentGroup)
-    }
-
-    onChangeHandler = event => {  // загрузка файла
-        this.setState({selectedFile: event.target.files[0]}, () => {
-            console.log(this.state.selectedFile)
+        axios.put(`http://localhost:3001/edit/practiceReport/${this.state.currentGroup.id}`, {
+            checkingDate: this.state.currentGroup.checkingDate,
+            incomingDate: this.state.currentGroup.incomingDate,
+            practiceRes: this.state.courseWorkResID,
+            student: this.state.currentGroup.student.id,
+            professor: this.state.currentGroup.professor.id
+        }).then(res => {
+            this.props.onSubmit();
+            this.props.close();
         })
-    }
-
-
-    componentDidMount() {
-
     }
 
 
     render() {
         return (
-            <div>
-                <div className='line row'>
-                    <div className='nameDepartment col-md-6'>
-                        <span>Кафедра информационных систем и технологий</span>
+            <Modal open={this.props.state} onClose={this.props.close}>
+                <div className='paper modalForm modal-content'>
+                    <div className="modal-header">
+                        <span className="modal-title">Окно редактирования</span>
+                        <img onClick={this.props.close} className='cursor' src={cross}/>
                     </div>
-                    <div className='listDoc col-md-6'>
-                        <span>Учет курсовых работ заочной формы обучения</span>
-                    </div>
-                </div>
-                <div className='lineBlack row'></div>
-                {this.state.pageLoaded ?
-                    <div>
-                        <form className='nav container main'>
-                            <div className="form-row row center-block form">
-                                <div className='col-md-4 pad'>
-                                    <Autocomplete
-                                        className='col-md-3'
-                                        className='bot'
-                                        value={this.state.fullDiscipline}
-                                        id="discipline"
-                                        getOptionLabel={(option) => option.name}
-                                        options={this.state.disciplines}
-                                        onChange={(e, v) => this.onAutoDis(v, "discipline", 'fullDiscipline')}
-                                        style={{width: 200}}
-                                        renderInput={(params) => <TextField {...params} label='Дисциплина'
-                                                                            variant="outlined"/>}
-                                    />
-                                </div>
-                                <div className='col-md-4'>
-                                    <Autocomplete
-                                        value={this.state.fullName}
-                                        id="studentName"
-                                        getOptionLabel={(option) => option.name}
-                                        onChange={(e, v) => this.onAutocompleteChange(v, "studentName", 'fullName')}
-                                        options={this.state.studentsName}
-                                        style={{width: 200}}
-                                        renderInput={(params) => <TextField  {...params} label='ФИО студента'
-                                                                             variant="outlined"/>}
-                                    />
-                                </div>
-                                <div className='col-md-1'></div>
-
-                                <div className='col-md-3'>
-                                    <div className='b m1'>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            className="btn btn-primary btnFind"
-                                            onClick={this.onSubmit} disabled={!this.state.discipline}>
-                                            <span>Найти</span>
-                                        </Button>
-                                    </div>
-                                </div>
+                    <div className='modal-body'>
+                        <div className='row modalRow'>
+                            <div className='col-6 titleModal v'>
+                                <span>ФИО студента:</span>
                             </div>
-                        </form>
-                        <div className='row  nav topTable'>
-                            <div className='col-md-12 pad padRig'>
-                                <Table1_1
-                                    disciplineName={this.state.disciplineName}
-                                    courseworks={this.state.courseworks}
-                                    onOpenModal={this.onOpenModal}
-                                    currentGroup={this.state.currentGroup}
-                                    verificationResult={this.state.verificationResult}
-                                    close={this.onCloseModal}
-                                    state={this.state.open}
-                                    handleChange={this.handleChange}
-                                    onSave={this.onSave}
-                                    print={this.onPrint}
-                                    printLoad={this.state.printLoad}
-                                    students={this.state.studentsName}/>
-                            </div>
-                            <div className='navs'>
-                                <Link to={'/'}><img src={main} className='cursor' title="Вернуться к документам"
-                                                    className='btnRight'/></Link>
-                                <Link to={'/2'}>
-                                    <div className='cursor btnRight1'><img src={top} title="Вернуться к документам"/>
-                                    </div>
-                                </Link>
-                                {!this.state.printLoad ?
-                                    <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> :
-                                    <img src={gif} className='wid'/>}
+                            <div className='col-6 v propsModal'>
+                                <FormControl className='formControl'>
+                                    <Select
+                                        value={this.state.currentGroup.student}
+                                        renderValue={(student) => student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}
+                                        onChange={(e) => this.ChangeSelectedStudent(e)}
+                                    >
+                                        {this.props.students.map(student => <MenuItem
+                                            value={student}> {student.name ? student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''} </MenuItem>)}
+                                    </Select>
+                                </FormControl>
                             </div>
                         </div>
-                    </div> : <img src={gif} className='gifCenter'/>
-                }
-            </div>
+                        <div className='row modalRow '>
+                            <div className='col-6 titleModal v'>
+                                <span>База практики:</span>
+                            </div>
+                            <div className='col-6 v propsModal'>
+                                <input className="form-control form-control-sm" type="text"
+                                       placeholder="Введите текст"/>
+                            </div>
+                        </div>
+                        <div className='row modalRow '>
+                            <div className='col-6 titleModal v'>
+                                <span>ФИО преподавателя:</span>
+                            </div>
+                            <div className='col-6 v propsModal'>
+                                <FormControl className='formControl'>
+                                    <Select
+                                        value={this.state.currentGroup.professor}
+                                        renderValue={(professor) => professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}
+                                        onChange={(e) => this.ChangeSelectedProfessor(e)}
+                                    >
+                                        {this.props.professors.map(professor => <MenuItem
+                                            value={professor}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}
 
+                                    </Select>
+                                </FormControl>
 
-        )
+                            </div>
+                        </div>
+                        <div className='row modalRow '>
+                            <div className='col-6 titleModal v'>
+                                <span>Дата поступления:</span>
+                            </div>
+                            <div className='col-6 v propsModal date'>
+                                <TextField
+                                    name="incomingDate"
+                                    type='date'
+                                    defaultValue={this.state.currentGroup.incomingDate}
+                                    onChange={(e) => this.ChangeSelectedIncomingDate(e)}
+                                />
+                            </div>
+                        </div>
+                        <div className='row modalRow date'>
+                            <div className='col-6 titleModal v'>
+                                <span className='v'>Дата проверки:</span>
+                            </div>
+                            <div className='col-6 v propsModal'>
+                                <TextField
+                                    name="checkingDate"
+                                    type='date'
+                                    defaultValue={this.state.currentGroup.checkingDate}
+                                    onChange={(e) => this.ChangeSelectedcheckingDate(e)}
+                                />
+                            </div>
+                        </div>
+                        <div className='row modalRow '>
+                            <div className='col-6 titleModal v'>
+                                <span>Результат проверки:</span>
+                            </div>
+                            <div className='col-6  v propsModal'>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    defaultValue={this.state.currentGroup.result}
+                                    onChange={(e) => this.ChangeSelectedResult(e)}
+                                >
+                                    <MenuItem value={'к защите'}>к защите</MenuItem>
+                                    <MenuItem value={'к доработке'}>к доработке</MenuItem>
+                                </Select>
+                            </div>
+                        </div>
+
+                        <div className={`${s.positionSave} f`}>
+                            <button type="button" className="btn btn-primary save block-center"
+                                    onClick={this.onSave}>Сохранить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+        );
     }
 }
 
-export default ModalWin1_3;
+export default ModalWin1_2;
