@@ -59,7 +59,7 @@ app.post('/upload',function(req, res) {
 console.log()
 });
 
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Тут идет проверка токена на каждый запрос
 app.use('*', (req,res, next) => {
