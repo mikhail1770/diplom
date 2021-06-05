@@ -32,7 +32,7 @@ class Header extends React.Component {
                     <div className='col-md-4'>
                         <div className={`row`}>
                             <div className={`${s.marName} col-md-12`}>
-                                <img className={`${s.iconUser}`} src={user}/> <div className={`${s.linkDoc}`}>{this.state.username}</div>
+                                <img className={`${s.iconUser}`} src={user}/> <div className={`${s.linkDoc}`}><span className={`${s.textLinkDoc}`}>{this.state.username.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</span></div>
                             </div>
                         </div>
                     </div>

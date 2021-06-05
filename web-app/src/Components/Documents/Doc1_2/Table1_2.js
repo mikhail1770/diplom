@@ -5,9 +5,8 @@ import edit from '../edit.svg';
 import plus from '../plus.svg';
 import delet from '../delete.svg';
 import moment from "moment"
-import {get} from "../axios";
 import ModalWinNew from "./ModalWinNew1_2"
-import axios from "axios";
+import {get, del} from '../axios.js'
 
 class Table1_2 extends React.Component {
 
@@ -48,7 +47,7 @@ class Table1_2 extends React.Component {
 
     onDelete = (id) => {
         console.log(id)
-        axios.delete(`http://localhost:3001/delete/courseworks/${id}`).then(res => { this.props.onSubmit()
+        del(`delete/courseworks/${id}`).then(res => { this.props.onSubmit()
         })
 
     }

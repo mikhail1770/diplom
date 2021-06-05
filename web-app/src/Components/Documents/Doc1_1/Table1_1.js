@@ -2,10 +2,9 @@ import React from "react";
 import '../../App.css'
 import edit from "../edit.svg";
 import ModalWin from "../Doc1_1/ModalWin1_1";
-import {get} from "../axios";
 import plus from "../plus.svg";
 import delet from "../delete.svg";
-import axios from "axios";
+import {get, del} from '../axios.js'
 import moment from "moment";
 import ModalWinNew from "../Doc1_1/ModalWinNew1_1";
 
@@ -26,7 +25,7 @@ class Table1_1 extends React.Component {
             const fileName = res.data;
             this.setState({fileName});
         }).then(res => {
-            console.log(this.state.fileName[0].filelink)
+            console.log(this.state.fileName)
             window.open('http://localhost:3001/' + this.state.fileName[0].filelink, '_blank').focus();
             this.setState({printLoad: false})
         })
@@ -46,7 +45,7 @@ class Table1_1 extends React.Component {
     }
     onDelete = (id) => {
         console.log(id)
-        axios.delete(`http://localhost:3001/delete/courseworkszaoch/${id}`).then(res => { this.props.onSubmit()
+        del(`delete/courseworkszaoch/${id}`).then(res => { this.props.onSubmit()
         })
 
     }

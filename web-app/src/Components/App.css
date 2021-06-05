@@ -227,6 +227,11 @@ html {
     font-family: Montserrat !important;
 }
 
+.MuiOutlinedInput-notchedOutline {
+    border-radius: 10px!important;
+}
+
+
 .PrivateNotchedOutline-legendLabelled-3 {
     width: auto;
     height: 11px;

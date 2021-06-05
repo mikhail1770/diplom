@@ -13,7 +13,6 @@ function get(url, params) {
           reject(err);
         });
       });
-
 }
 
 function post(url, obj) {
@@ -30,6 +29,33 @@ function post(url, obj) {
 
 }
 
+function put(url, obj) {
+    return axios.put(host + url, obj, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => {
+        return new Promise((resolve, rej) => {
+            resolve(res)
+        })
+    }).catch((err) => {
+        errorHandler(err);
+        return new Promise((resolve, reject) => {
+            reject(err);
+        });
+    });
+
+}
+
+function del(url) {
+    return axios.delete(host + url, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => {
+        return new Promise((resolve, rej) => {
+            resolve(res)
+        })
+    }).catch((err) => {
+        errorHandler(err);
+        return new Promise((resolve, reject) => {
+            reject(err);
+        });
+    });
+
+}
 
 function errorHandler(error, msg) {
     if (error.response.status === 401 && window.location.pathname !== '/login') {
@@ -47,5 +73,5 @@ function errorHandler(error, msg) {
     // }
   }
 
-export {get, post};
+export {get, post, put, del};
 

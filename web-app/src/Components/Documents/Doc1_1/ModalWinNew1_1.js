@@ -7,9 +7,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc1_1/Doc1_1.module.css";
-import axios from "axios";
+import {get, post, put} from '../axios.js'
 import moment from "moment";
-import Button from "@material-ui/core/Button";
+
 
 
 class ModalWinNew1_1 extends React.Component {
@@ -43,8 +43,10 @@ class ModalWinNew1_1 extends React.Component {
     }
 
     ChangeSelectedStudent(e) {
-        console.log(e.target.value.id)
-        this.setState({studentName: e.target.value.name, studentId: e.target.value.id, studentGroup:e.target.value.id})
+        console.log(e.target.value)
+        this.setState({studentName: e.target.value.name, studentId: e.target.value.id, studentGroup:e.target.value.gid})
+
+
     }
 
     ChangeSelectedResult(e) {
@@ -58,14 +60,14 @@ class ModalWinNew1_1 extends React.Component {
     onSave = () => {
         const data = new FormData()
         data.append('file', this.state.selectedFile)
-        axios.post("http://localhost:3001/upload", data, {})
+        post("upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
                     if (this.state.studentId !== '' ) {
-                        axios.post(`http://localhost:3001/add/courseworkszaoch/`, {
+                        post(`add/courseworkszaoch/`, {
                             incomingDate: this.state.incomingDate,
                             disciplines: this.props.disciplines,
-                            univGroups: '',
+                            univGroups: this.state.studentGroup,
                             student: this.state.studentId,
                             checkingDate: this.state.checkingDate,
                             courseworkresult: this.state.resultID,

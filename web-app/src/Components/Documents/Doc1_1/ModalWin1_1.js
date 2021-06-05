@@ -6,9 +6,10 @@ import Select from "@material-ui/core/Select";
 import cross from "../cross.svg";
 import MenuItem from "@material-ui/core/MenuItem";
 import s from './Doc1_1.module.css';
-import {post} from "../axios";
+import {get, post, put} from '../axios.js'
 import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
+
 
 class ModalWin1_1 extends React.Component {
 
@@ -67,10 +68,10 @@ class ModalWin1_1 extends React.Component {
 
         const data = new FormData()
         data.append('file', this.state.selectedFile)
-        axios.post("http://localhost:3001/upload", data, {})
+        post("upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
-                    axios.put(`http://localhost:3001/edit/courseworkszaoch/${this.state.currentGroup.id}`, {
+                    put(`edit/courseworkszaoch/${this.state.currentGroup.id}`, {
                         checkingDate: this.state.currentGroup.checkingDate,
                         incomingDate: this.state.currentGroup.incomingDate,
                         courseworkresult: this.state.courseWorkResID,

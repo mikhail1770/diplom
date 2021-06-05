@@ -32,7 +32,7 @@ class ModalWinNew1_2 extends React.Component {
 
     }
     ChangeSelectedBasePractic(e) {
-        console.log(e.target.value)
+        console.log(this.state.basePractic)
         this.setState({basePractic:e.target.value})
     }
     ChangeSelectedProfessor(e) {
@@ -58,6 +58,8 @@ class ModalWinNew1_2 extends React.Component {
             this.setState({resultID: 2})
         } else return
     }
+
+
 
     onSave = () => {
         const data = new FormData()
@@ -124,11 +126,8 @@ class ModalWinNew1_2 extends React.Component {
                                 <span>База практики:</span>
                             </div>
                             <div className='col-6 v propsModal'>
-                                <input
-                                    className="form-control form-control-sm"
-                                    type="text"
-                                    placeholder="Введите текст"
-                                    onChange={(e) => this.ChangeSelectedBasePractic(e)}/>
+                                <input className="form-control form-control-sm" type="text"
+                                       placeholder='Введите текст'  onChange={(e) => this.ChangeSelectedBasePractic(e)}/>
                             </div>
                         </div>
                         <div className='row modalRow '>
@@ -190,7 +189,7 @@ class ModalWinNew1_2 extends React.Component {
                         </div>
 
                         <div className={`${s.positionSave} f`}>
-                            <button type="button" className="btn btn-primary save block-center" disabled={!this.state.studentId || !this.state.professorId}
+                            <button type="button" className="btn btn-primary save block-center" disabled={!this.state.studentId || !this.state.professorId || !this.state.basePractic }
                                     onClick={this.onSave}>Сохранить
                             </button>
                         </div>

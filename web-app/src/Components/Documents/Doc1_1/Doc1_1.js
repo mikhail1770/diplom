@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css';
-import {get} from '../axios.js'
+import {get, post, put} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";

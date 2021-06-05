@@ -7,7 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc1_2/Doc1_2.module.css";
-import axios from "axios";
+import {get,post,put} from '../axios.js'
 import moment from "moment";
 import Button from "@material-ui/core/Button";
 
@@ -58,11 +58,11 @@ class ModalWinNew1_2 extends React.Component {
     onSave = () => {
         const data = new FormData()
         data.append('file', this.state.selectedFile)
-        axios.post("http://localhost:3001/upload", data, {})
+        post("upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
                     if (this.state.studentId !== '' && this.state.professorId !== '' && this.state.professorId !== '' && this.state.univGroups !== '' && this.state.course !== '' && this.state.disciplines !== '') {
-                        axios.post(`http://localhost:3001/add/courseworks/`, {
+                        post(`add/courseworks/`, {
                             incomingDate: this.state.incomingDate,
                             disciplines: this.props.disciplines,
                             univGroups: this.props.univGroups,

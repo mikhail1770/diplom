@@ -18,7 +18,7 @@ class ModalWin1_2 extends React.Component {
             currentGroup: {
                 checkingDate: this.props.currentGroup.checkingDate,
                 incomingDate: this.props.currentGroup.incomingDate,
-                basePractice:'',
+                basePractice:this.props.currentGroup.basePractic,
                 student: {
                     name: this.props.currentGroup.student.name,
                     id: this.props.currentGroup.student.id
@@ -48,6 +48,7 @@ class ModalWin1_2 extends React.Component {
         let current = this.state.currentGroup;
         current.professor.name = e.target.value.profName;
         current.professor.id = e.target.value.id;
+        console.log(this.state.currentGroup.basePractice)
     }
 
     ChangeSelectedStudent(e) {
@@ -73,6 +74,10 @@ class ModalWin1_2 extends React.Component {
         } else return 3
     }
 
+    ChangeSelectedBasePractic(e) {
+        this.state.currentGroup.basePractic = e.target.value;
+        console.log(this.state.currentGroup.basePractic)
+    }
 
     onSave = () => {
         if (this.state.courseWorkResID == '') {
@@ -85,7 +90,8 @@ class ModalWin1_2 extends React.Component {
             incomingDate: this.state.currentGroup.incomingDate,
             practiceRes: this.state.courseWorkResID,
             student: this.state.currentGroup.student.id,
-            professor: this.state.currentGroup.professor.id
+            professor: this.state.currentGroup.professor.id,
+            basePractic:  this.state.currentGroup.basePractic
         }).then(res => {
             this.props.onSubmit();
             this.props.close();
@@ -125,7 +131,7 @@ class ModalWin1_2 extends React.Component {
                             </div>
                             <div className='col-6 v propsModal'>
                                 <input className="form-control form-control-sm" type="text"
-                                       placeholder="Введите текст"/>
+                                       defaultValue={this.state.currentGroup.basePractice}  onChange={(e) => this.ChangeSelectedBasePractic(e)}/>
                             </div>
                         </div>
                         <div className='row modalRow '>
