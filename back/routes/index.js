@@ -71,6 +71,13 @@ connection.connect();
         res.json(results);
       });  
     })
+
+    router.get('/courseworkzaoch/filename/:id', function(req, res, next){ //запрос на получение списка дисциплин
+      connection.query('SELECT filelink FROM courseworkszaoch WHERE courseworkszaoch.id = ?',[req.params.id], function (error, results, fields) {
+        if (error) throw error;
+        res.json(results);
+      });  
+    })
   } 
 
 
@@ -485,6 +492,22 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
     }
   })
   
+  router.post('/registration/newUser/', function(req, res, next){
+    console.log(req.body.user)
+    if(req.body.length != 0){
+        var pattern = /^[a-z0-9]+$/i;
+        if (pattern.test(req.body.login) & pattern.test(req.body.password)) {
+          connection.query('INSERT INTO users(users.login, users.password, users.fio) VALUES(?,?,?);',
+          [req.body.login, req.body.password, req.body.fio],
+           function (err, results, fields){
+             if(err) throw err;    
+             res.json(results);
+          });
+        } else {
+          res.json('Только латинские символы и цифры');
+        }
+      }
+  });
 
 }
 module.exports = router;
