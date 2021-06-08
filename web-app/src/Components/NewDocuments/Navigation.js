@@ -33,26 +33,6 @@ function Navigation(props) {
             </div>
             <div className={`${s.categories} row`}>
                 <div className={`${s.category} col-md-4`}>
-                    <div><p>Учет учебной нагрузки</p></div>
-                </div>
-                <div className={`${s.listDoc} col-md-8`}>
-                    <ul>
-                        <li className={`${s.noPaddingTop}`}><Link to={'/4'}>Нагрузка преподавателей (плановая)</Link></li>
-                        <li><Link to={'/5'}>Нагрузка преподавателей-почасовиков</Link></li>
-                        <li><Link to={'/6'}>Нагрузка преподавателей, работающих на условиях
-                            договора об оказании услуг</Link></li>
-                        <li><Link to={'/7'}>Учет дополнительной учебной нагрузки
-                            преподавателей</Link></li>
-                        <li><Link to={'/8'}>Заявление о приеме (почас.оплата)</Link></li>
-                        <li><Link to={'/9'}>Заявление на оплату (почас.оплата)</Link></li>
-                        <li><Link to={'/10'}>Договор оказания услуг</Link></li>
-                        <li className={`${s.noPaddingBottoom}`}><Link to={'/11'} className={`${s.noBorder}`}>Отчет о выполнении дополнительного объема работ</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div className={`${s.categories} row`}>
-                <div className={`${s.category} col-md-4`}>
                     <div><p>Учет посещений мероприятий</p></div>
                 </div>
                 <div className={`${s.listDoc} col-md-8`}>
@@ -64,6 +44,26 @@ function Navigation(props) {
                     </ul>
                 </div>
             </div>
+            <div className={`${s.categories} row`}>
+                <div className={`${s.category} col-md-4`}>
+                    <div><p>Учет учебной нагрузки</p></div>
+                </div>
+                <div className={`${s.listDoc} col-md-8`}>
+                    <ul>
+                        <li className={`${s.noPaddingTop}`}><Link to={'/4'} >Договор оказания услуг</Link></li>
+                        <li ><Link to={'/5'}>Отчет о выполнении дополнительного объема работ</Link></li>
+                        <li><Link to={'/6'}>Нагрузка преподавателей-почасовиков</Link></li>
+                        <li><Link to={'/7'}>Нагрузка преподавателей, работающих на условиях
+                            договора об оказании услуг</Link></li>
+                        <li><Link to={'/8'}>Учет дополнительной учебной нагрузки
+                            преподавателей</Link></li>
+                        <li><Link to={'/9'}>Заявление о приеме (почас.оплата)</Link></li>
+                        <li><Link to={'/10'}>Заявление на оплату (почас.оплата)</Link></li>
+                        <li className={`${s.noPaddingBottoom}`}><Link to={'/11'} className={`${s.noBorder}`}>Нагрузка преподавателей (плановая)</Link></li>
+                    </ul>
+                </div>
+            </div>
+
             <div className={`${s.categories} ${s.shadowBelow} row`}>
                 <div className={`${s.category} col-md-4`}>
                     <div><p>Другое</p></div>

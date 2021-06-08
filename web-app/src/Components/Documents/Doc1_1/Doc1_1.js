@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css';
-import {get, post, put} from '../axios.js'
+import {get} from '../axios.js'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import main from "../main.svg";
 import printBig from "../printBig.svg";
 import gif from "../1.gif";
-import Table1_2 from "../Doc1_2/Table1_2";
+
 
 
 export default class Doc1_1 extends React.Component {

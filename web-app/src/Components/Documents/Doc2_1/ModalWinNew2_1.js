@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Modal from "@material-ui/core/Modal";
 import '../../App.css'
 import TextField from "@material-ui/core/TextField";
@@ -6,104 +6,87 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
-import s from "../Doc1_2/Doc1_2.module.css";
-import {put,post} from '../axios.js'
-import _ from "lodash"
+import s from "../Doc2_1/Doc2_1.module.css";
+import {post} from '../axios.js'
+import moment from "moment";
 
-class ModalWin1_2 extends React.Component {
+
+
+class ModalWinNew2_1 extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            currentGroup: {
-                checkingDate: this.props.currentGroup.checkingDate,
-                incomingDate: this.props.currentGroup.incomingDate,
-                student: {
-                    name: this.props.currentGroup.student.name,
-                    id: this.props.currentGroup.student.id
-                },
-                professor: {
-                    id: this.props.currentGroup.professor.id,
-                    name: this.props.currentGroup.professor.name
-                },
-                result: this.props.currentGroup.result,
-                id: this.props.currentGroup.id
-            },
-            courseWorkResID: '',
-            selectedFile: '',
-            number: '',
-            nameFile: this.props ? this.props.filelink : '',
-            fileSelected: 0,
-            profName: '',
-            idProf: '',
-            studentName: ''
+            studentName: '',
+            studentId: '',
+            studentGroup:'',
+            checkingDate: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
+            incomingDate: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
+            result: 'к защите',
+            resultID: '1',
+            nameFile: '',
+            professorId: '',
+            professorName: '',
+            fail:false,
+            groupId:''
         }
-        this.onChangeHandler = this.onChangeHandler.bind(this);
-        this.ChangeSelectedResult = this.ChangeSelectedResult.bind(this);
-    }
 
-    ChangeSelectedProfessor(e) {
-        let current = this.state.currentGroup;
-        current.professor.name = e.target.value.profName;
-        current.professor.id = e.target.value.id;
-    }
-
-    ChangeSelectedStudent(e) {
-        let current = this.state.currentGroup;
-        current.student.name = e.target.value.name;
-        current.student.id = e.target.value.id;
-        this.setState({current})
     }
 
     ChangeSelectedIncomingDate(e) {
-        this.state.currentGroup.incomingDate = e.target.value;
+        this.setState({incomingDate: e.target.value})
+        console.log(this.props.students)
     }
 
-    ChangeSelectedcheckingDate(e) {
-        this.state.currentGroup.checkingDate = e.target.value;
+    ChangeSelectedCheckingDate(e) {
+        this.setState({checkingDate: e.target.value})
+    }
+
+    ChangeSelectedStudent(e) {
+        console.log(e.target.value)
+        this.setState({studentName: e.target.value.name, studentId: e.target.value.id, studentGroup:e.target.value.gid})
+
+
     }
 
     ChangeSelectedResult(e) {
         if (e.target.value == 'к защите') {
-            this.setState({courseWorkResID: 1})
+            this.setState({resultID: 1})
         } else if (e.target.value == 'к доработке') {
-            this.setState({courseWorkResID: 2})
-        } else return 3
+            this.setState({resultID: 2})
+        } else return
     }
 
-
     onSave = () => {
-        if (this.state.courseWorkResID == '') {
-            this.state.courseWorkResID = this.state.currentGroup.courseWorkResID;
-        } else {
-            console.log(1)
-        }
-
         const data = new FormData()
         data.append('file', this.state.selectedFile)
         post("upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
-                    put(`edit/courseworks/${this.state.currentGroup.id}`, {
-                        checkingDate: this.state.currentGroup.checkingDate,
-                        incomingDate: this.state.currentGroup.incomingDate,
-                        courseworkresult: this.state.courseWorkResID,
-                        filelink: this.state.nameFile,
-                        student: this.state.currentGroup.student.id,
-                        professor: this.state.currentGroup.professor.id
-                    }, () => {
-                        console.log(this.state.nameFile)
-                    })
-                        .then(res => {
-                            this.props.onSubmit();
+                    if (this.state.studentId !== '' ) {
+                        post(`add/courseworkszaoch/`, {
+                            incomingDate: this.state.incomingDate,
+                            disciplines: this.props.disciplines,
+                            univGroups: this.state.studentGroup,
+                            student: this.state.studentId,
+                            checkingDate: this.state.checkingDate,
+                            courseworkresult: this.state.resultID,
+                            filelink: this.state.nameFile,
+                            regId:'1'
+                        }).then(res => {
+                            this.props.onSubmit()
+                            this.props.close()
                         })
+                    } else {
+                        alert("Заполните все поля")
+                    }
+
                 })
             })
-        console.log(this.state.currentGroup)
     }
 
     onChangeHandler = event => {  // загрузка файла
-        this.setState({selectedFile: event.target.files[0]})
+        this.setState({selectedFile: event.target.files[0], fail:true})
     }
 
     render() {
@@ -111,7 +94,7 @@ class ModalWin1_2 extends React.Component {
             <Modal open={this.props.state} onClose={this.props.close}>
                 <div className='paper modalForm modal-content'>
                     <div className="modal-header">
-                        <span className="modal-title">Окно редактирования</span>
+                        <span className="modal-title">Новая запись</span>
                         <img onClick={this.props.close} className='cursor' src={cross}/>
                     </div>
                     <div className='modal-body'>
@@ -122,8 +105,7 @@ class ModalWin1_2 extends React.Component {
                             <div className='col-6 v propsModal'>
                                 <FormControl className='formControl'>
                                     <Select
-                                        value={this.state.currentGroup.student}
-                                        renderValue={(student) => student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}
+                                        defaultValue={this.state.studentName}
                                         onChange={(e) => this.ChangeSelectedStudent(e)}
                                     >
                                         {this.props.students.map(student => <MenuItem
@@ -134,32 +116,13 @@ class ModalWin1_2 extends React.Component {
                         </div>
                         <div className='row modalRow '>
                             <div className='col-6 titleModal v'>
-                                <span>ФИО преподавателя:</span>
-                            </div>
-                            <div className='col-6 v propsModal'>
-                                <FormControl className='formControl'>
-                                    <Select
-                                        value={this.state.currentGroup.professor}
-                                        renderValue={(professor) => professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}
-                                        onChange={(e) => this.ChangeSelectedProfessor(e)}
-                                    >
-                                        {this.props.professors.map(professor => <MenuItem
-                                            value={professor}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}
-
-                                    </Select>
-                                </FormControl>
-
-                            </div>
-                        </div>
-                        <div className='row modalRow '>
-                            <div className='col-6 titleModal v'>
                                 <span>Дата поступления:</span>
                             </div>
                             <div className='col-6 v propsModal date'>
                                 <TextField
-                                    name="incomingDate"
+                                    name="checkingDate"
                                     type='date'
-                                    defaultValue={this.state.currentGroup.incomingDate}
+                                    defaultValue={this.state.incomingDate}
                                     onChange={(e) => this.ChangeSelectedIncomingDate(e)}
                                 />
                             </div>
@@ -172,8 +135,8 @@ class ModalWin1_2 extends React.Component {
                                 <TextField
                                     name="checkingDate"
                                     type='date'
-                                    defaultValue={this.state.currentGroup.checkingDate}
-                                    onChange={(e) => this.ChangeSelectedcheckingDate(e)}
+                                    defaultValue={this.state.checkingDate}
+                                    onChange={(e) => this.ChangeSelectedCheckingDate(e)}
                                 />
                             </div>
                         </div>
@@ -185,7 +148,7 @@ class ModalWin1_2 extends React.Component {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    defaultValue={this.state.currentGroup.result}
+                                    defaultValue={this.state.result}
                                     onChange={(e) => this.ChangeSelectedResult(e)}
                                 >
                                     <MenuItem value={'к защите'}>к защите</MenuItem>
@@ -202,15 +165,16 @@ class ModalWin1_2 extends React.Component {
                             </div>
                         </div>
                         <div className={`${s.positionSave} f`}>
-                            <button type="button" className="btn btn-primary save block-center"
+                            <button type="button" className="btn btn-primary save block-center" disabled={!this.state.studentId}
                                     onClick={this.onSave}>Сохранить
                             </button>
                         </div>
                     </div>
+
                 </div>
             </Modal>
         );
     }
 }
 
-export default ModalWin1_2;
+export default ModalWinNew2_1;

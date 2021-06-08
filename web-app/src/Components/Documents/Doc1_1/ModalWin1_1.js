@@ -82,6 +82,7 @@ class ModalWin1_1 extends React.Component {
                     })
                         .then(res => {
                             this.props.onSubmit();
+                            console.log(res)
                         })
                 })
             })

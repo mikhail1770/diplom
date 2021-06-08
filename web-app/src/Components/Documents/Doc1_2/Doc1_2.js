@@ -140,7 +140,6 @@ export default class Doc1_2 extends React.Component {
             this.onCloseModal()
             const courseworks = res.data;
             this.setState({courseworks, test: true});
-
         })
         this.state.disciplineName = this.state.disciplines.find(disName => disName.id == this.state.discipline).disName;
         this.setState({})
