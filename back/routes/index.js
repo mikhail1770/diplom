@@ -501,10 +501,10 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
           [req.body.login, req.body.password, req.body.fio],
            function (err, results, fields){
              if(err) throw err;    
-             res.json('Вы зарегистрированы');
+             res.json('Вы успешно зарегистрированы');
           });
         } else {
-          res.json('Только латинские символы и цифры');
+          res.json('Используйте только латинские символы');
         }
       }
   });

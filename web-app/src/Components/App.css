@@ -466,9 +466,24 @@ html {
 }
 
 .textReg{
-    width: 250px;
+    width: 350px;
     margin-right: auto;
     margin-left: auto;
     margin-top: 30px;
     color: #DFDEDE;
+    text-align: center!important;
+}
+.textRegRed{
+    width: 350px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    color: #e26666;
+    text-align: center!important;
+}
+
+.inputError  {
+background: #ffcfcf!important;
+
+
 }

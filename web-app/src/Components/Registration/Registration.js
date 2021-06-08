@@ -17,7 +17,8 @@ export default class Registration extends React.Component {
             patronymic:'',
             login:'',
             password:'',
-            repeatPassword:''
+            repeatPassword:'',
+            error:''
         };
     }
 
@@ -54,10 +55,11 @@ export default class Registration extends React.Component {
     onRegistration = e => {
         axios.post(`http://localhost:3001/registration/newUser/`, {
            login: this.state.login,
-            password: this.props.password,
-            fio: this.state.lastName + this.state.firstName + this.state.patronymic,
+            password: this.state.password,
+            fio: this.state.lastName + ' ' + this.state.firstName + ' ' + this.state.patronymic,
         }).then(res => {
             console.log(res.data)
+            this.setState({error: res.data})
         })
     }
 
@@ -80,12 +82,17 @@ export default class Registration extends React.Component {
                         placeholder="Имя"
                         onChange={(e) => this.onChangeFirstName(e)}/>
                     </div>
-                    <div><input
+                    <div>{this.state.error == 'Используйте только латинские символы' ? <input
                         type="text"
-                        className={`form-control ${s.w}`}
+                        className={`form-control ${s.w} inputError`}
                         id="exampleInputPassword1"
                         placeholder="Введите логин"
-                        onChange={(e) => this.onChangeLogin(e)}/>
+                        onChange={(e) => this.onChangeLogin(e)}/> : <input
+                        type="text"
+                        className={`form-control ${s.w}`}
+                        id="example"
+                        placeholder="Введите логин"
+                        onChange={(e) => this.onChangeLogin(e)}/>}
                     </div>
                 </div>
                 <div className={`row ${s.margin2}`}>
@@ -116,8 +123,7 @@ export default class Registration extends React.Component {
                         placeholder="Повторите пароль"
                         onChange={(e) => this.onChangeRepeatPassword(e)}/></div>
                 </div>
-
-                {false ? <div className={`row textReg`}>Вы успешно зарегистрированы! </div> :  <div className={`row textReg`}><p></p></div>}
+                {this.state.error == 'Используйте только латинские символы' ? <div className={`row `}><p className='textRegRed'>{this.state.error}</p> </div> : this.state.error == 'Вы успешно зарегистрированы' ? <div className={`row `}><p className='textReg'>{this.state.error}</p> </div> : <div className={`row `}><p ></p> </div>}
 
                 <div className={`row ${s.logIn}`}>
                     <div onClick={this.onRegistration} className={`${s.linkDoc}`}>Зарегистрироваться</div>

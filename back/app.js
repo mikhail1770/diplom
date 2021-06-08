@@ -63,7 +63,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Тут идет проверка токена на каждый запрос
 app.use('*', (req,res, next) => {
-  if(req.baseUrl == '/account/token' || req.baseUrl == '/registration/newUser/') {
+  if(req.baseUrl == '/account/token' || req.baseUrl == '/registration/newUser') {
     next();
     //next();
   }else{
