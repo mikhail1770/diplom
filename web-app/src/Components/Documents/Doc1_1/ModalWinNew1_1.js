@@ -7,7 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc1_1/Doc1_1.module.css";
-import {get, post, put} from '../axios.js'
+import {post} from '../axios.js'
 import moment from "moment";
 
 

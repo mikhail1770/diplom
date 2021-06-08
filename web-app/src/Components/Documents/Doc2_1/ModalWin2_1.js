@@ -1,16 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 import Modal from "@material-ui/core/Modal";
 import '../../App.css'
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
+import cross from "../cross.svg";
 import MenuItem from "@material-ui/core/MenuItem";
+import s from './Doc2_1.module.css';
+import {get, post, put} from '../axios.js'
+import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
-import cross from "../cross.svg"
-import s from "../Doc1_2/Doc1_2.module.css";
-import {put,post} from '../axios.js'
-import _ from "lodash"
 
-class ModalWin1_2 extends React.Component {
+
+class ModalWin2_1 extends React.Component {
 
     constructor(props) {
         super(props);
@@ -22,10 +23,6 @@ class ModalWin1_2 extends React.Component {
                     name: this.props.currentGroup.student.name,
                     id: this.props.currentGroup.student.id
                 },
-                professor: {
-                    id: this.props.currentGroup.professor.id,
-                    name: this.props.currentGroup.professor.name
-                },
                 result: this.props.currentGroup.result,
                 id: this.props.currentGroup.id
             },
@@ -34,18 +31,9 @@ class ModalWin1_2 extends React.Component {
             number: '',
             nameFile: this.props ? this.props.filelink : '',
             fileSelected: 0,
-            profName: '',
-            idProf: '',
             studentName: ''
-        }
-        this.onChangeHandler = this.onChangeHandler.bind(this);
-        this.ChangeSelectedResult = this.ChangeSelectedResult.bind(this);
-    }
 
-    ChangeSelectedProfessor(e) {
-        let current = this.state.currentGroup;
-        current.professor.name = e.target.value.profName;
-        current.professor.id = e.target.value.id;
+        }
     }
 
     ChangeSelectedStudent(e) {
@@ -60,7 +48,7 @@ class ModalWin1_2 extends React.Component {
     }
 
     ChangeSelectedcheckingDate(e) {
-        this.state.currentGroup.checkingDate = e.target.value;
+        this.state.currentGroup.chekingDate = e.target.value;
     }
 
     ChangeSelectedResult(e) {
@@ -70,7 +58,6 @@ class ModalWin1_2 extends React.Component {
             this.setState({courseWorkResID: 2})
         } else return 3
     }
-
 
     onSave = () => {
         if (this.state.courseWorkResID == '') {
@@ -84,13 +71,12 @@ class ModalWin1_2 extends React.Component {
         post("upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
-                    put(`edit/courseworks/${this.state.currentGroup.id}`, {
+                    put(`edit/courseworkszaoch/${this.state.currentGroup.id}`, {
                         checkingDate: this.state.currentGroup.checkingDate,
                         incomingDate: this.state.currentGroup.incomingDate,
                         courseworkresult: this.state.courseWorkResID,
                         filelink: this.state.nameFile,
-                        student: this.state.currentGroup.student.id,
-                        professor: this.state.currentGroup.professor.id
+                        student: this.state.currentGroup.student.id
                     }, () => {
                         console.log(this.state.nameFile)
                     })
@@ -106,9 +92,13 @@ class ModalWin1_2 extends React.Component {
         this.setState({selectedFile: event.target.files[0]})
     }
 
+
     render() {
         return (
-            <Modal open={this.props.state} onClose={this.props.close}>
+            <Modal
+                open={this.props.state}
+                onClose={this.props.close}
+            >
                 <div className='paper modalForm modal-content'>
                     <div className="modal-header">
                         <span className="modal-title">Окно редактирования</span>
@@ -132,30 +122,11 @@ class ModalWin1_2 extends React.Component {
                                 </FormControl>
                             </div>
                         </div>
-                        <div className='row modalRow '>
-                            <div className='col-6 titleModal v'>
-                                <span>ФИО преподавателя:</span>
-                            </div>
-                            <div className='col-6 v propsModal'>
-                                <FormControl className='formControl'>
-                                    <Select
-                                        value={this.state.currentGroup.professor}
-                                        renderValue={(professor) => professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}
-                                        onChange={(e) => this.ChangeSelectedProfessor(e)}
-                                    >
-                                        {this.props.professors.map(professor => <MenuItem
-                                            value={professor}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}
-
-                                    </Select>
-                                </FormControl>
-
-                            </div>
-                        </div>
-                        <div className='row modalRow '>
+                        <div className='row modalRow date'>
                             <div className='col-6 titleModal v'>
                                 <span>Дата поступления:</span>
                             </div>
-                            <div className='col-6 v propsModal date'>
+                            <div className='col-6 v propsModal'>
                                 <TextField
                                     name="incomingDate"
                                     type='date'
@@ -164,24 +135,11 @@ class ModalWin1_2 extends React.Component {
                                 />
                             </div>
                         </div>
-                        <div className='row modalRow date'>
-                            <div className='col-6 titleModal v'>
-                                <span className='v'>Дата проверки:</span>
-                            </div>
-                            <div className='col-6 v propsModal'>
-                                <TextField
-                                    name="checkingDate"
-                                    type='date'
-                                    defaultValue={this.state.currentGroup.checkingDate}
-                                    onChange={(e) => this.ChangeSelectedcheckingDate(e)}
-                                />
-                            </div>
-                        </div>
-                        <div className='row modalRow '>
+                        <div className='row modalRow'>
                             <div className='col-6 titleModal v'>
                                 <span>Результат проверки:</span>
                             </div>
-                            <div className='col-6  v propsModal'>
+                            <div className='col-6 v propsModal'>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -193,6 +151,19 @@ class ModalWin1_2 extends React.Component {
                                 </Select>
                             </div>
                         </div>
+                        <div className='row modalRow date'>
+                            <div className='col-6 titleModal v'>
+                                <span>Срок возврата:</span>
+                            </div>
+                            <div className='col-6 v propsModal'>
+                                <TextField
+                                    name="checkingDate"
+                                    type='date'
+                                    defaultValue={this.state.currentGroup.checkingDate}
+                                    onChange={(e) => this.ChangeSelectedcheckingDate(e)}
+                                />
+                            </div>
+                        </div>
                         <div className='row modalRow v'>
                             <div className='col-6 titleModal'>
                                 <span>Курсовая работа:</span>
@@ -202,8 +173,7 @@ class ModalWin1_2 extends React.Component {
                             </div>
                         </div>
                         <div className={`${s.positionSave} f`}>
-                            <button type="button" className="btn btn-primary save block-center"
-                                    onClick={this.onSave}>Сохранить
+                            <button type="button" className="btn btn-primary save block-center"  onClick={this.onSave}>Сохранить
                             </button>
                         </div>
                     </div>
@@ -211,6 +181,6 @@ class ModalWin1_2 extends React.Component {
             </Modal>
         );
     }
-}
 
-export default ModalWin1_2;
+}
+    export default ModalWin2_1;

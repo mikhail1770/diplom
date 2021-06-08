@@ -1,14 +1,14 @@
 import React from "react";
 import '../../App.css'
 import edit from "../edit.svg";
-import ModalWin from "../Doc1_1/ModalWin1_1";
+import ModalWin from "../Doc2_1/ModalWin2_1";
 import plus from "../plus.svg";
 import delet from "../delete.svg";
 import {get, del} from '../axios.js'
 import moment from "moment";
-import ModalWinNew from "../Doc1_1/ModalWinNew1_1";
+import ModalWinNew from "../Doc2_1/ModalWinNew2_1";
 
-class Table1_1 extends React.Component {
+class Table2_1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +20,7 @@ class Table1_1 extends React.Component {
     }
 
     onFile = event => {
-        get(`courseworkzaoch/filename/${event}`).then(res => {
+        get(`coursework/filename/${event}`).then(res => {
             console.log(res.data)
             const fileName = res.data;
             this.setState({fileName});
@@ -51,7 +51,7 @@ class Table1_1 extends React.Component {
     }
     render() {
 
-        if (this.props.courseworks.length > 0) {
+        if (true) {
             return (
                 <div>
                     <table className="table table-striped">
@@ -154,5 +154,5 @@ class Table1_1 extends React.Component {
     }
 }
 
-export default Table1_1;
+export default Table2_1;
 

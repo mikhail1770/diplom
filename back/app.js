@@ -53,7 +53,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Тут идет проверка токена на каждый запрос
 app.use('*', (req,res, next) => {
-  if(req.baseUrl != '/account/token'){
+  if(req.baseUrl == '/account/token' || req.baseUrl == '/registration/newUser') {
+    next();
+    //next();
+  }else{
     let token = req.headers.authorization.slice(7)
     connection.query('SELECT * FROM tokens WHERE token = ?', [token], (err, token) => {
       if(err) throw err;
@@ -62,9 +65,6 @@ app.use('*', (req,res, next) => {
         res.json({error: true, detail: 'Решил подменять токен в LocalStorage ??'})
       }
     })
-    //next();
-  }else{
-    next();
   }
   
 })

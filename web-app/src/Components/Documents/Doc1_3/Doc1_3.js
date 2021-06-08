@@ -10,7 +10,7 @@ import main from "../main.svg";
 import top from "../top.svg";
 import printBig from "../printBig.svg";
 import gif from "../1.gif";
-import Table1_1 from "../Doc1_1/Table1_1";
+
 
 
 export default class Doc1_3 extends React.Component {

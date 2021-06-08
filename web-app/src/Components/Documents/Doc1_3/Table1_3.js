@@ -6,7 +6,7 @@ import plus from '../plus.svg';
 import delet from '../delete.svg';
 import moment from "moment"
 import ModalWinNew from "./ModalWinNew1_3"
-import axios from "axios";
+import {del} from '../axios.js'
 
 class Table1_3 extends React.Component {
 
@@ -34,7 +34,7 @@ class Table1_3 extends React.Component {
 
     onDelete = (id) => {
         console.log(id)
-        axios.delete(`http://localhost:3001/delete/practiceReport/${id}`).then(res => { this.props.onSubmit()
+        del(`delete/practiceReport/${id}`).then(res => { this.props.onSubmit()
         })
 
     }

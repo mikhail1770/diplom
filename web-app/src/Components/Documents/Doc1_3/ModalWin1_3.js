@@ -7,8 +7,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc1_2/Doc1_2.module.css";
-import axios from "axios";
-import _ from "lodash"
+import {put} from '../axios.js'
+
 
 class ModalWin1_2 extends React.Component {
 
@@ -85,7 +85,7 @@ class ModalWin1_2 extends React.Component {
         } else {
             console.log(1)
         }
-        axios.put(`http://localhost:3001/edit/practiceReport/${this.state.currentGroup.id}`, {
+       put(`edit/practiceReport/${this.state.currentGroup.id}`, {
             checkingDate: this.state.currentGroup.checkingDate,
             incomingDate: this.state.currentGroup.incomingDate,
             practiceRes: this.state.courseWorkResID,

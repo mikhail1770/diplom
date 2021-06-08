@@ -508,6 +508,42 @@ router.get('/search/profInEvent/profName/:id', function(req, res, next){ //за�
        res.json(results);
     });
   });
+  
+  router.post('/account/token', (req,res) => {
+    if(req.body.login.length == 0 || req.body.password.length == 0){
+      res.status('401');
+      res.json({error: true, detail: 'Ошибока произошла некоторая, почему не указали логин или пароль? Ай-яй-яй, они не могут быть пустыми'})
+    }else{
+      connection.query('SELECT * FROM users WHERE login = ? AND password = ?', [req.body.login, req.body.password], (err, result) => {
+        if(err) throw err;
+        if(result.length == 0){
+          res.status('401');
+          res.json({error: true, detail: 'Неверный логин или пароль'})
+        }else{
+          let token = jwt.sign({ id: result[0].id, fio: result[0].fio }, 'sekretkey');
+          res.json({error : false, detail: token});
+          connection.query('INSERT INTO tokens (token, userid) VALUES(?,?)', [token, result[0].id], (err, token) => {if(err) throw err})
+        }
+      })
+    }
+  });
+  
+  router.post('/registration/newUser/', function(req, res, next){
+    console.log(req.body.user)
+    if(req.body.length != 0){
+        var pattern = /^[a-z0-9]+$/i;
+        if (pattern.test(req.body.login) & pattern.test(req.body.password)) {
+          connection.query('INSERT INTO users(users.login, users.password, users.fio) VALUES(?,?,?);',
+          [req.body.login, req.body.password, req.body.fio],
+           function (err, results, fields){
+             if(err) throw err;    
+             res.json('Вы успешно зарегистрированы');
+          });
+        } else {
+          res.json('Используйте только латинские символы');
+        }
+      }
+  })
 
   {/*авторизация и регистрация*/
     router.post('/account/token', (req,res) => {
@@ -527,7 +563,7 @@ router.get('/search/profInEvent/profName/:id', function(req, res, next){ //за�
           }
         })
       }
-    })
+    });
     
     router.post('/registration/newUser/', function(req, res, next){
       console.log(req.body.user)

@@ -38,8 +38,8 @@ class Authorization extends React.Component {
                 <div className={`row ${s.margin}`}>
                     <input type="password" onChange={e => this.setState({password: e.target.value})} className={`form-control ${s.w}`} id="exampleInputPassword1"
                            placeholder="Введите пароль"/>
-    
                 </div>
+
                 <div className={`row ${s.logIn}`}>
                     <div className={`${s.linkDoc} cursor`} onClick={this.onAuto}>Войти</div>
                 </div>
