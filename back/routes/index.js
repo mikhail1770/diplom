@@ -501,7 +501,7 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
           [req.body.login, req.body.password, req.body.fio],
            function (err, results, fields){
              if(err) throw err;    
-             res.json(results);
+             res.json('Вы зарегистрированы');
           });
         } else {
           res.json('Только латинские символы и цифры');
