@@ -23,11 +23,6 @@ var upload = multer({ storage: storage }).single('file');
 
 var app = express();
 
-
-
-
-
-
 const connection = mysql.createConnection({
   host: 'server9.hosting.reg.ru',
   user: 'u0856139_univdoc',
@@ -35,11 +30,6 @@ const connection = mysql.createConnection({
   database: 'u0856139_univdoc'
 });
 connection.connect();
-
-
-
-
-
 
 // view engine setup
 const cors = require('cors');
