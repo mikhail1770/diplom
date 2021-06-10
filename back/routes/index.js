@@ -375,21 +375,84 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
   });  
 })
 
-router.get('/search/profInEvent/profName/:id', function(req, res, next){ //запрос на получение списка...
-  connection.query('SELECT *, professor.id, professor.profName FROM profInEvent JOIN professor ON professor.id = profInEvent.profId WHERE profInEvent.profId = ?', [req.params.id], 
-  function (error, results, fields) {
+router.get('/search/profInEvent/profName/', function(req, res, next){ //запрос на получение списка...
+  let sql = 'SELECT *, professor.id AS pid, professor.profName FROM profInEvent JOIN professor ON professor.id = profInEvent.profId WHERE 1'
+  let params = []
+  if(req.query.profId != null){ //поиск по id преподавателя
+    sql = sql + ' AND profInEvent.profId = ?';
+    params.push(parseInt(req.query.profId))
+  }
+  connection.query(sql, params, function (error, results, fields) {
+    results.map((i, index) => { results[index].eventDate = moment(i.eventDate).format('YYYY-MM-DD')} ) //делаем нормальную дату
+    if(req.query.print == 1){ //запуск печати, если req.query.print=1
+      if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
+        discipline = results[0].name;
+        let params = "profEvent";
+        let alldata = results.map((i) => i)
+        let orientation = "Landscape";
+        let generator = new pdf(params,alldata,discipline,orientation)
+        generator.generate({}, (url) => {          
+          res.json({filename: url})
+          console.log(alldata)
+        });
+      }
+    }else{   let echoresult = [];
+      results.map(i => {
+        let ritem = {
+          id: i.id,
+          eventDate: i.eventDate,
+          eventName: i.eventName,
+          professor: {
+            id: i.pid,
+            name: i.profName
+          }
+        }
+        echoresult.push(ritem);
+      })
+      res.json(echoresult);
+    }
     if (error) throw error;
-    console.log(req.params)
-    res.json(results);
   });  
 })
 
-router.get('/search/profInEvent/profName/:id', function(req, res, next){ //запрос на получение списка...
-  connection.query('SELECT *, professor.id, professor.profName FROM event JOIN professor ON professor.id = event.profId WHERE profInEvent.profId = ?', [req.params.id], 
-  function (error, results, fields) {
+router.get('/search/profInEvent/profName/', function(req, res, next){ //запрос на получение списка...
+  let sql = 'SELECT *, professor.id AS pid, professor.profName FROM event JOIN professor ON professor.id = event.profId WHERE 1'
+  let params = []
+  if(req.query.profId != null){ //поиск по id преподавателя
+    sql = sql + ' AND event.profId = ?';
+    params.push(parseInt(req.query.profId))
+  }
+  connection.query(sql, params, function (error, results, fields) {
+    results.map((i, index) => { results[index].eventDate = moment(i.eventDate).format('YYYY-MM-DD')} ) //делаем нормальную дату
+    if(req.query.print == 1){ //запуск печати, если req.query.print=1
+      if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
+        discipline = results[0].name;
+        let params = "profEvent";
+        let alldata = results.map((i) => i)
+        let orientation = "Landscape";
+        let generator = new pdf(params,alldata,discipline,orientation)
+        generator.generate({}, (url) => {          
+          res.json({filename: url})
+          console.log(alldata)
+        });
+      }
+    }else{   let echoresult = [];
+      results.map(i => {
+        let ritem = {
+          id: i.id,
+          eventDate: i.eventDate,
+          eventTheme: i.theme,
+          professor: {
+            profRank: i.rank,
+            id: i.pid,
+            name: i.profName
+          }
+        }
+        echoresult.push(ritem);
+      })
+      res.json(echoresult);
+    }
     if (error) throw error;
-    console.log(req.params)
-    res.json(results);
   });  
 })
 
