@@ -376,7 +376,7 @@ router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //�
 })
 
 router.get('/search/profInEvent/profName/', function(req, res, next){ //запрос на получение списка...
-  let sql = 'SELECT *, professor.id AS pid, professor.profName FROM profInEvent JOIN professor ON professor.id = profInEvent.profId WHERE 1'
+  let sql = 'SELECT profInEvent.id, profInEvent.profId, profInEvent.eventName, profInEvent.eventDate, professor.id AS pid, professor.profName FROM profInEvent JOIN professor ON professor.id = profInEvent.profId WHERE 1'
   let params = []
   if(req.query.profId != null){ //поиск по id преподавателя
     sql = sql + ' AND profInEvent.profId = ?';
@@ -390,10 +390,11 @@ router.get('/search/profInEvent/profName/', function(req, res, next){ //запр
         let params = "profEvent";
         let alldata = results.map((i) => i)
         let orientation = "Landscape";
+        console.log(alldata)
         let generator = new pdf(params,alldata,discipline,orientation)
         generator.generate({}, (url) => {          
           res.json({filename: url})
-          console.log(alldata)
+          
         });
       }
     }else{   let echoresult = [];
@@ -415,8 +416,8 @@ router.get('/search/profInEvent/profName/', function(req, res, next){ //запр
   });  
 })
 
-router.get('/search/profInEvent/profName/', function(req, res, next){ //запрос на получение списка...
-  let sql = 'SELECT *, professor.id AS pid, professor.profName FROM event JOIN professor ON professor.id = event.profId WHERE 1'
+router.get('/search/event/profName/', function(req, res, next){ //запрос на получение списка...
+  let sql = 'SELECT event.id, event.eventDate, event.theme, event.rank, event.review, professor.id AS pid, professor.profName, rank.Rank FROM event JOIN professor ON professor.id = event.profId JOIN rank ON event.rank = rank.id WHERE 1'
   let params = []
   if(req.query.profId != null){ //поиск по id преподавателя
     sql = sql + ' AND event.profId = ?';
@@ -427,13 +428,14 @@ router.get('/search/profInEvent/profName/', function(req, res, next){ //запр
     if(req.query.print == 1){ //запуск печати, если req.query.print=1
       if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
         discipline = results[0].name;
-        let params = "profEvent";
+        let params = "event";
         let alldata = results.map((i) => i)
         let orientation = "Landscape";
+        console.log(alldata)
         let generator = new pdf(params,alldata,discipline,orientation)
         generator.generate({}, (url) => {          
           res.json({filename: url})
-          console.log(alldata)
+          
         });
       }
     }else{   let echoresult = [];

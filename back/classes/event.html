@@ -100,33 +100,35 @@ table.MsoTableGrid
   line-height:normal'><span style='font-size:12.0pt;'>Рецензия<o:p></o:p></span></p>
   </td>
  </tr>
- <tr style='height:419.2pt'>
+ {{#each alldata}}
+ <tr>
   <td width="6%" valign=top style='width:6.78%;border:solid windowtext 1.0pt;
-  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:419.2pt'>
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>&nbsp;</o:p></span></p>
+  line-height:150%;'><o:p>{{this.eventDate}}</o:p></span></p>
   </td>
   <td width="17%" valign=top style='width:17.52%;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:419.2pt'>
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>&nbsp;</o:p></span></p>
+  line-height:150%;'><o:p>{{this.profName}}</o:p></span></p>
   </td>
   <td width="19%" valign=top style='width:19.48%;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:419.2pt'>
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>&nbsp;</o:p></span></p>
+  line-height:150%;'><o:p>{{this.theme}}</o:p></span></p>
   </td>
   <td width="16%" valign=top style='width:16.64%;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:419.2pt'>
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>&nbsp;</o:p></span></p>
+  line-height:150%;'><o:p>{{this.Rank}}&nbsp;{{this.profName}}</o:p></span></p>
   </td>
   <td width="39%" valign=top style='width:39.58%;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:419.2pt'>
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>&nbsp;</o:p></span></p>
+  line-height:150%;'><o:p>{{this.review}}</o:p></span></p>
   </td>
  </tr>
+ {{/each}}
 </table>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>

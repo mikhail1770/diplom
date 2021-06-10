@@ -10,6 +10,7 @@ var templatestypes = {
     courseworksochlist : fs.readFileSync("./classes/courseworksochlist.html", "utf8"),
     practicereport : fs.readFileSync("./classes/practicereport.html","utf8"),
     profEvent : fs.readFileSync("./classes/profEvent.html","utf8"),
+    event : fs.readFileSync("./classes/event.html","utf8"),
 }
 
 

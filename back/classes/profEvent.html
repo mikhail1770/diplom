@@ -102,21 +102,22 @@ table.MsoTableGrid
   <span class=SpellE><span class=GramE>зав.кафедрой</span></span><o:p></o:p></span></p>
   </td>
  </tr>
+ {{#each alldata}}
  <tr>
   <td width=236 valign=top style='width:176.95pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>&nbsp;</o:p></span></p>
+  line-height:150%;'><o:p>{{this.profName}}</o:p></span></p>
   </td>
   <td width=397 valign=top style='width:297.7pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>&nbsp;</o:p></span></p>
+  line-height:150%;'><o:p>{{this.eventName}}</o:p></span></p>
   </td>
   <td width=115 valign=top style='width:86.15pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-indent:0cm'><span style='font-size:12.0pt;
-  line-height:150%;'><o:p>&nbsp;</o:p></span></p>
+  line-height:150%;'><o:p>{{this.eventDate}}</o:p></span></p>
   </td>
   <td width=114 valign=top style='width:85.5pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
@@ -129,6 +130,7 @@ table.MsoTableGrid
   line-height:150%;'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
+ {{/each}}
 </table>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
