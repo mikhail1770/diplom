@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.module.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1rC24f0jkiaZuiT2On0CQyVNRNk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web-app/src/Components" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Documents\Doc1_1" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Documents" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Header" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Nav" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components" />
+      <recent name="C:\Users\Екатерина\Documents\diplom\web-app\src\Components\Documents\Doc1_2" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="" />
+      <created>1618465561856</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618465561856</updated>
+      <workItem from="1618465573114" duration="212000" />
+      <workItem from="1618563851370" duration="9425000" />
+      <workItem from="1618651035436" duration="9248000" />
+      <workItem from="1618712212226" duration="18007000" />
+      <workItem from="1618894082817" duration="1794000" />
+      <workItem from="1618917495236" duration="2667000" />
+      <workItem from="1618923097389" duration="1377000" />
+      <workItem from="1618988039948" duration="4956000" />
+      <workItem from="1619151725749" duration="16774000" />
+      <workItem from="1619320946535" duration="13559000" />
+      <workItem from="1619337873080" duration="5529000" />
+      <workItem from="1619346557631" duration="5108000" />
+      <workItem from="1619357139821" duration="2084000" />
+      <workItem from="1619397943876" duration="2453000" />
+      <workItem from="1619406236435" duration="11900000" />
+      <workItem from="1619447346470" duration="4324000" />
+      <workItem from="1619495143833" duration="10696000" />
+      <workItem from="1619703068311" duration="3930000" />
+      <workItem from="1619761250877" duration="20447000" />
+      <workItem from="1619846937634" duration="22953000" />
+      <workItem from="1619933159375" duration="4446000" />
+      <workItem from="1619938295284" duration="5465000" />
+      <workItem from="1620020561051" duration="12287000" />
+      <workItem from="1620142818688" duration="4017000" />
+      <workItem from="1620203785897" duration="1208000" />
+      <workItem from="1620288402711" duration="17910000" />
+      <workItem from="1620360368019" duration="21715000" />
+      <workItem from="1620461414070" duration="28293000" />
+      <workItem from="1620535395105" duration="19492000" />
+      <workItem from="1620630339526" duration="586000" />
+      <workItem from="1620642065158" duration="9602000" />
+      <workItem from="1620654711111" duration="7007000" />
+      <workItem from="1620722617904" duration="22270000" />
+      <workItem from="1620810928700" duration="49336000" />
+      <workItem from="1621001758381" duration="10000" />
+      <workItem from="1621073275396" duration="1051000" />
+      <workItem from="1621083421984" duration="11604000" />
+      <workItem from="1621187037004" duration="3781000" />
+      <workItem from="1621223103231" duration="14379000" />
+      <workItem from="1621404196861" duration="10581000" />
+      <workItem from="1621481006036" duration="3967000" />
+      <workItem from="1621555716076" duration="3155000" />
+      <workItem from="1621575142524" duration="11756000" />
+      <workItem from="1621654017530" duration="16552000" />
+      <workItem from="1621769616723" duration="4955000" />
+      <workItem from="1621820653050" duration="19471000" />
+      <workItem from="1621932412321" duration="29500000" />
+      <workItem from="1622086557995" duration="7871000" />
+      <workItem from="1622096577628" duration="9353000" />
+      <workItem from="1622116285400" duration="5382000" />
+      <workItem from="1622172968642" duration="23099000" />
+      <workItem from="1622266280877" duration="8179000" />
+      <workItem from="1622348729503" duration="25735000" />
+      <workItem from="1622454655945" duration="16590000" />
+      <workItem from="1622517921144" duration="29479000" />
+      <workItem from="1622750484318" duration="584000" />
+      <workItem from="1622813832976" duration="10459000" />
+      <workItem from="1622853104662" duration="4250000" />
+      <workItem from="1622895022033" duration="5098000" />
+      <workItem from="1622975429657" duration="14585000" />
+      <workItem from="1623104861175" duration="11636000" />
+    </task>
+    <task id="LOCAL-00001" summary="-">
+      <created>1618563930188</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1618563930188</updated>
+    </task>
+    <task id="LOCAL-00002" summary="-">
+      <created>1618713485321</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618713485321</updated>
+    </task>
+    <task id="LOCAL-00003" summary="new comp">
+      <created>1618751059554</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1618751059554</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="-" />
+    <MESSAGE value="new comp" />
+    <option name="LAST_COMMIT_MESSAGE" value="new comp" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="586" y="198" key="#Inspections" timestamp="1622009850665">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="586" y="198" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1622009850665" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620818155699">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620818155699" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1622994373922">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1622994373922" />
+    <state x="807" y="433" key="VCS.ChangelistChooser" timestamp="1621824401784">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="807" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1621824401784" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618563899514">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1618563899514" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1623000108273">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1623000108273" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1621854073206">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1621854073206" />
+  </component>
+</project>

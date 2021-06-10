@@ -1,0 +1,489 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Vollkorn:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&display=swap');
+
+.App {
+    background-color: white;
+    min-height: 100vh;
+    padding: 0px;
+    font-size: 14px;
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    padding-bottom: 50px;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+html {
+    position: relative; /*чтобы прижать футер*/
+}
+
+.row {
+    margin: 0px 0px;
+}
+
+.nav { /*отступы главной страницы*/
+    padding: 0px 70px;
+
+}
+
+.padRig {
+    padding-right: 0px !important;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.pad {
+    padding-left: 0px !important;
+}
+
+.main {
+    margin-top: 50px;
+}
+
+/*Модальное окно*/
+
+
+.date .MuiInputBase-root {
+    padding: 0px;
+    color: #5E5E5E !important;
+    width: 120px !important;
+}
+
+.modal-header {
+    background-color: #2D2A35;
+    padding: 20px;
+}
+
+.MuiListItem-root {
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-size: 14px !important;
+
+}
+
+.modal-title { /*заголовок окна*/
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    line-height: 22px !important;
+    text-transform: capitalize;
+    padding-left: 50px;
+    color: #ffffff;
+}
+
+.titleModal { /*названия слева*/
+    color: #2D2A35;
+    border-right: 1px solid #C9C9C9;
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 13.5px !important;
+}
+
+.modalRow {
+    background: #FFFFFF;
+    box-shadow: inset 0px -0.5px 1px rgba(0, 0, 0, 0.25), inset 0px 1px 2px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 10px 50px;
+    padding: 5px 0px;
+    font-family: Montserrat !important;
+    height: 45px;
+
+}
+
+.v { /*текст в полях по центру*/
+    display: flex;
+    align-items: center;
+}
+
+.propsModal {
+    font-family: Montserrat !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    color: #5E5E5E !important;
+    text-align: left;
+}
+
+.fontSize {
+    font-family: Montserrat !important;
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    line-height: 15px;
+    color: #5E5E5E;
+}
+
+.paper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    background-color: white;
+}
+
+.paper input {
+    font-family: Montserrat !important;
+    font-size: 12px !important;
+    width: 200px !important;
+}
+
+.modalForm {
+    background: linear-gradient(180deg, #F4F4F4 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF;
+    box-shadow: 0px 0px 20px #2d2a35;
+    border-radius: 10px;
+    border: none;
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    line-height: 17px !important;
+    color: #DFDEDE;
+
+}
+
+/*Кнопки библиотеки*/
+.MuiInput-underline:before {
+    border-bottom: none !important;
+}
+
+
+.MuiSelect-select.MuiSelect-select {
+    color: #5E5E5E !important;
+    font-size: 12px;
+}
+
+.btn-primary:disabled {
+    background-color: #eee !important;
+}
+
+.btn-primary {
+    background: #2D2A35 !important;
+    border-radius: 10px !important;
+    width: 100px;
+    height: 51px;
+
+}
+
+.PrivateNotchedOutline-root-1 { /*Цвет обводки полей фильтра*/
+
+    border-radius: 10px !important;
+    border-color: rgba(0, 0, 0, 0.51) !important;
+}
+
+.MuiInputBase-root {
+
+    cursor: text;
+    display: inline-flex;
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    line-height: 11px;
+    color: #2D2A35;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.MuiFormLabel-root {
+    font-family: Montserrat !important;
+
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+}
+
+.MuiButton-label {
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 11px !important;
+    line-height: 15px !important;
+}
+
+.MuiButton-containedPrimary {
+    text-transform: none !important;
+}
+
+
+
+.MuiInputLabel-outlined {
+    z-index: 1;
+    transform: translate(14px, 20px) scale(1);
+    pointer-events: none;
+    color: #282c34 !important;
+}
+
+.MuiInputBase-input {
+    font-family: Montserrat !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+    border-radius: 10px!important;
+}
+
+
+.PrivateNotchedOutline-legendLabelled-3 {
+    width: auto;
+    height: 11px;
+    display: block;
+    padding: 0;
+    font-size: 0.75em;
+    max-width: 0.01px;
+    text-align: left;
+    transition: max-width 50ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+    visibility: hidden;
+    color: rgba(55, 59, 69, 0.75) !important;
+}
+
+.MuiButton-contained.Mui-disabled {
+    color: #5e5c5c !important;
+}
+
+/*Таблица*/
+.topTable {
+    margin-top: 20px;
+}
+
+.table {
+    background: linear-gradient(180deg, #F4F4F4 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF;
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 5px 15px 6px rgba(34, 60, 80, 0.2);
+    overflow: hidden;
+    border-radius: 10px;
+    color: #5E5E5E;
+    font-size: 12px !important;
+    margin-top: 30px;
+}
+
+.titleTab {
+    font-size: 22px;
+
+}
+
+.headTable {
+    font-family: Montserrat !important;
+    background-color: #2D2A35;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 12px;
+    color: #DFDEDE;
+}
+
+.block { /*Надпись вместо таблицы*/
+    margin: auto !important;
+    width: 300px;
+    padding-top: 20px;
+    text-align: center;
+
+}
+
+.table-striped tbody tr:nth-of-type(odd) { /*Цвет полосы в таблице*/
+    background-color: #EBE8F3;
+}
+
+
+.w {
+    width: 120px;
+}
+
+.b {
+    margin-left: 200px;
+
+}
+
+/*Подшапка страницы*/
+
+.line {
+    background: url("./line.png");
+    width: 1140px;
+    height: 59px;
+}
+
+.nameDepartment {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 20px 0px;
+    color: #2D2A35;
+    padding-left: 70px;
+}
+
+.lineBlack {
+    width: 1140px;
+    height: 20px;
+    margin-bottom: 40px;
+    background: #2D2A35;
+}
+
+.listDoc { /*правая надпись (название документа)*/
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: right;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    padding-right: 70px;
+    color: #DFDEDE;
+}
+
+.save {
+    width: 108px;
+    height: 38px;
+    background: #60259A !important;
+    border-color: #60259A!important;
+    font-family: Montserrat Alternates;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    color: #ffffff;
+}
+
+.wid{
+    width: 25px;
+    height: 25px;
+}
+
+.add {
+    position: sticky;
+    top: 20px;
+    right: 0px;
+}
+
+
+.modal-backdrop{opacity: 0 !important;}
+
+
+.block-right{
+    float: right;
+    margin-right: 10px;
+
+}
+.block-right2{
+    margin-left: 10px;
+
+}
+.bot2{
+    margin-bottom: 0px; /*отступ от кнопки плюсик у таблицы*/
+}
+
+.btnRight{
+   padding: 11px 0px 11px 0px;
+    margin-left: 60px;
+    margin-right: 40px;
+    display: inline-block!important;
+    width: 25px;
+}
+.btnRight1{
+    padding: 11px 0px 11px 0px;
+    margin-right: 40px;
+    display: inline-block!important;
+    width: 20px;
+}
+.r{
+    position: fixed!important;
+    bottom: 500px!important;
+    right: 30px!important;
+    cursor: pointer!important;
+    transitionDuration: 0.2s!important;
+    transitionTimingFunction: linear!important;
+    transitionDelay: 0s!important;
+}
+
+.navs{
+    position: fixed;
+    margin-left: 350px;
+    bottom: 0;
+    width: 280px;
+    height: 50px;
+    background: linear-gradient(180deg, #F4F4F4 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 20px 20px 0px 0px;
+
+}
+
+.q{
+    display: inline-block!important;
+    width: 50px;
+}
+
+.m{
+    margin-left: 315px;
+}
+.m1{
+    margin-left: 275px;
+}
+.colorOpen:hover{
+    font-size: 13px;
+}
+.colorOpen{
+    color: #60259A;
+}
+.gifCenter{
+    width: 30px;
+    margin-left: 48%;
+    margin-top: 150px;
+
+}
+.form-control{
+    border: none !important;
+}
+.cope_text {
+    overflow: hidden;
+    line-height: 20px;
+    text-overflow: ellipsis;
+}
+.cope_text p {
+    margin: 0 0 0 0;
+}
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.opac{
+    opacity: 0.3;
+}
+
+.f .btn-primary:disabled{
+    background-color: #60259A!important;
+}
+
+.textReg{
+    width: 350px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    color: #DFDEDE;
+    text-align: center!important;
+}
+.textRegRed{
+    width: 350px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    color: #e26666;
+    text-align: center!important;
+}
+
+.inputError  {
+background: #ffcfcf!important;
+
+
+}

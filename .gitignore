@@ -103,3 +103,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+#Ignor Files
+back/public/printdocs
+public/printdocs
