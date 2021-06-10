@@ -384,6 +384,15 @@ router.get('/search/profInEvent/profName/:id', function(req, res, next){ //за�
   });  
 })
 
+router.get('/search/profInEvent/profName/:id', function(req, res, next){ //запрос на получение списка...
+  connection.query('SELECT *, professor.id, professor.profName FROM event JOIN professor ON professor.id = event.profId WHERE profInEvent.profId = ?', [req.params.id], 
+  function (error, results, fields) {
+    if (error) throw error;
+    console.log(req.params)
+    res.json(results);
+  });  
+})
+
 
 }
 
@@ -430,6 +439,15 @@ router.get('/search/profInEvent/profName/:id', function(req, res, next){ //за�
       console.log(req.body)
     });
   })
+
+  router.put('/edit/event/:id', (req,res,next) => { //запрос на обновление данных в таблице с учет участия профессорско-преподавательского состава в мероприятиях
+    connection.query('UPDATE event SET ? WHERE profId = ?', [req.body, req.params.id], 
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+      console.log(req.body)
+    });
+  })
 }
 
 {/* DELETE запросы */
@@ -459,6 +477,14 @@ router.get('/search/profInEvent/profName/:id', function(req, res, next){ //за�
 
   router.delete('/delete/profInEvent/:id', function(req, res, next){
     connection.query('DELETE FROM profInEvent WHERE id = ?',[req.params.id], 
+    function (error, results, fields){
+      if (error) throw error;
+      res.json(results);
+    });
+  })
+
+  router.delete('/delete/profInEvent/:id', function(req, res, next){
+    connection.query('DELETE FROM event WHERE id = ?',[req.params.id], 
     function (error, results, fields){
       if (error) throw error;
       res.json(results);
@@ -503,6 +529,16 @@ router.get('/search/profInEvent/profName/:id', function(req, res, next){ //за�
     console.log(req.body)
     connection.query('INSERT INTO `profInEvent` (profId, eventName, eventDate) VALUES (?,?,?);',
     [req.body.profId, req.body.eventName, req.body.eventDate],
+     function (err, results, fields){
+       if(err) throw err;    
+       res.json(results);
+    });
+  });
+
+  router.post('/add/event/', function(req, res, next){
+    console.log(req.body)
+    connection.query('INSERT INTO event (profId, theme, rank, review, eventDate) VALUES (?,?,?,?,?);',
+    [req.body.profId, req.body.theme, req.body.rank, req.body.review, req.body.eventDate],
      function (err, results, fields){
        if(err) throw err;    
        res.json(results);
