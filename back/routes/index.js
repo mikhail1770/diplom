@@ -639,7 +639,7 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
             [req.body.login, req.body.password, req.body.fio],
             function (err, results, fields){
               if(err) throw err;    
-              res.json(results);
+              res.json('Вы успешно зарегистрированы');
             });
           } else {
             res.json('Только латинские символы и цифры');
