@@ -1,6 +1,6 @@
 import React from "react";
 import '../App.css';
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import s from './Authorization.module.css';
 import univDoc from "../Header/UnivDoc.svg";
 
@@ -19,7 +19,6 @@ class Authorization extends React.Component {
 
     onAuto() {
         if (this.state.login !== '' && this.state.password !== '') {
-            this.setState({error: this.props.error })
                 this.props.onAuto(this.state);
         }
         else {
@@ -33,9 +32,9 @@ class Authorization extends React.Component {
         return (
             <div className={`${s.background} container App`}>
                 <div className="row">
-                    <img className={`${s.univDoc}`} src={univDoc}/>
+                    <img className={`${s.univDoc}`} src={univDoc} alt="Логотип"/>
                 </div>
-    
+
                 <div className={`row ${s.margin}`}>
                     <span className={`row ${s.title}`}>Выполнить вход</span>
                 </div>
@@ -58,9 +57,8 @@ class Authorization extends React.Component {
                     <div className={`${s.linkDoc} cursor`} onClick={this.onAuto}>Войти</div>
                 </div>
                 <div className={`row ${s.signIn}`}>
-                    <div><NavLink to='/registration' className={`${s.linkDoc}`}>Регистрация</NavLink></div>
+                    <div><Link to='/registration' className={`${s.linkDoc}`}>Регистрация</Link></div>
                 </div>
-    
             </div>
         );
     }
