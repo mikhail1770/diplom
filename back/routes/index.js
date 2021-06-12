@@ -65,6 +65,13 @@ connection.connect();
       });  
     })
 
+    router.get('/disciplines/courseworks', function(req, res, next){ //запрос на получение списка дисциплин
+      connection.query('SELECT * FROM disciplines WHERE disciplines.iscoursework = 1', function (error, results, fields) {
+        if (error) throw error;
+        res.json(results);
+      });  
+    })
+
     router.get('/coursework/filename/:id', function(req, res, next){ //запрос на получение списка дисциплин
       connection.query('SELECT filelink FROM courseworks WHERE courseworks.id = ?',[req.params.id], function (error, results, fields) {
         if (error) throw error;
@@ -216,7 +223,7 @@ router.get('/search/studnets/disciplines/formOfStudy/', function(req, res, next)
 })
 
 router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next){ //запрос на получение списка курсовых
-  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId, univgroups.groupName, courseworks.filelink, univgroups.id as gid, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, students.id as sid, professor.profName, professor.id as pid FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1'
+  let sql = 'SELECT disciplines.name, courseworks.id, courseworks.regId, univgroups.groupName, courseworks.filelink, univgroups.id as gid, courseworks.checkingDate, courseworks.incomingDate, univgroups.course, courseworkresult.result,courseworkresult.id AS courseWorkResID, students.Name, students.id as sid, professor.profName, professor.id as pid FROM courseworks JOIN univgroups ON courseworks.univGroups=univgroups.id JOIN students ON courseworks.student=students.id JOIN disciplines ON courseworks.disciplines=disciplines.id JOIN professor ON courseworks.professor=professor.id JOIN courseworkresult ON courseworks.courseworkresult=courseworkresult.id WHERE univgroups.formOfStudy=1 AND disciplines.iscoursework = 1'
   let params = []
   if(req.query.byGroupID != null){ //поиск по id группы
     sql = sql + ' AND univgroups.id=?';
@@ -417,7 +424,7 @@ router.get('/search/profInEvent/profName/', function(req, res, next){ //запр
 })
 
 router.get('/search/event/profName/', function(req, res, next){ //запрос на получение списка...
-  let sql = 'SELECT event.id, event.eventDate, event.theme, event.rank, event.review, professor.id AS pid, professor.profName, rank.Rank FROM event JOIN professor ON professor.id = event.profId JOIN rank ON event.rank = rank.id WHERE 1'
+  let sql = 'SELECT event.id, event.eventDate, event.theme, event.rank, event.review, professor.id AS pid, professor.profName, rank.Rank, typeofoccupation.id AS tid, typeofoccupation.typename FROM event JOIN professor ON professor.id = event.profId JOIN rank ON event.rank = rank.id JOIN typeofoccupation ON typeofoccupation.id = event.typeofoccupation WHERE 1'
   let params = []
   if(req.query.profId != null){ //поиск по id преподавателя
     sql = sql + ' AND event.profId = ?';
@@ -434,8 +441,7 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
         console.log(alldata)
         let generator = new pdf(params,alldata,discipline,orientation)
         generator.generate({}, (url) => {          
-          res.json({filename: url})
-          
+          res.json({filename: url}) 
         });
       }
     }else{   let echoresult = [];
@@ -444,8 +450,11 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
           id: i.id,
           eventDate: i.eventDate,
           eventTheme: i.theme,
+          typename: i.typename,
+          typeofocupation: i.tid,
+          review: i.review,
           professor: {
-            profRank: i.rank,
+            profRank: i.Rank,
             id: i.pid,
             name: i.profName
           }
@@ -602,8 +611,8 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
 
   router.post('/add/event/', function(req, res, next){
     console.log(req.body)
-    connection.query('INSERT INTO event (profId, theme, rank, review, eventDate) VALUES (?,?,?,?,?);',
-    [req.body.profId, req.body.theme, req.body.rank, req.body.review, req.body.eventDate],
+    connection.query('INSERT INTO event (profId, theme, typeofoccupation, rank, review, eventDate) VALUES (?,?,?,?,?,?);',
+    [req.body.profId, req.body.theme, req.body.typeofocupation, req.body.rank, req.body.review, req.body.eventDate],
      function (err, results, fields){
        if(err) throw err;    
        res.json(results);

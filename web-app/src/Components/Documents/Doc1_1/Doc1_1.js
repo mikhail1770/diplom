@@ -138,7 +138,7 @@ export default class Doc1_1 extends React.Component {
     }
 
     componentDidMount() {
-        get('disciplines/').then(res => {
+        get('disciplines/courseworks').then(res => {
             const disciplines = res.data;
             this.setState({disciplines});
             console.log(disciplines)
