@@ -35,7 +35,7 @@ html {
 }
 
 .cursor {
-    cursor: pointer;
+    cursor: pointer!important;
 }
 
 .pad {
@@ -472,6 +472,7 @@ html {
     margin-top: 30px;
     color: #DFDEDE;
     text-align: center!important;
+    font-size: 12px;
 }
 .textRegRed{
     width: 350px;
@@ -480,10 +481,45 @@ html {
     margin-top: 30px;
     color: #e26666;
     text-align: center!important;
+    font-size: 12px;
 }
 
 .inputError  {
 background: #ffcfcf!important;
 
 
+}
+
+.borderFilter{
+    border-radius: 10px !important;
+    border-color: rgba(0, 0, 0, 0.51) !important;
+    border-style: solid;
+    border-width: 1px;
+    width: 182px!important;
+    height: 51px!important;
+    padding: 13px 20px;
+    float: right;
+    margin-left: -50px;
+
+}
+
+.margi{
+   margin-left: 345px;
+}
+
+.textFilter{
+    float: left;
+    padding: 17px 20px;
+    margin-left:80px;
+}
+
+.textFilter1{
+    float: left;
+    padding: 17px 20px;
+    margin-left:0px;
+
+}
+
+.o{
+margin-left: 165px;
 }

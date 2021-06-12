@@ -23,10 +23,9 @@ function Navigation(props) {
                 </div>
                 <div className={`${s.listDoc} col-md-8`}>
                     <ul>
-                        <li className={`${s.noPaddingTop}`}><Link to={'/1'}> Учет контрольных и курсовых работ студентов заочной
-                            формы обучения</Link></li>
-                        <li><Link to={'/2'}>Учет курсовых работ студентов очной формы обучения</Link>
-                        </li>
+                        <li className={`${s.noPaddingTop}`}><Link to={'/2'}>Учет курсовых работ студентов очной формы обучения</Link></li>
+                        <li ><Link to={'/1'}> Учет контрольных и курсовых работ студентов заочной формы обучения</Link></li>
+
                         <li className={`${s.noPaddingBottoom}`}><Link to={'/3'} className={`${s.noBorder}`}>Учет отчетов по практике</Link></li>
                     </ul>
                 </div>

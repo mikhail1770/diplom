@@ -21,11 +21,25 @@
   <component name="ChangeListManager">
     <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/ModalWin1_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/ModalWin1_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/Doc3_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/Doc3_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/Doc3_1.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/Doc3_1.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/ModalWin3_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/ModalWin3_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/Table3_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/Table3_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Doc3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Doc3_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Doc3_2.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Doc3_2.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/ModalWin3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/ModalWin3_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Table3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Table3_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +155,13 @@
       <workItem from="1622853104662" duration="4250000" />
       <workItem from="1622895022033" duration="5098000" />
       <workItem from="1622975429657" duration="14585000" />
-      <workItem from="1623104861175" duration="11636000" />
+      <workItem from="1623104861175" duration="19626000" />
+      <workItem from="1623135708438" duration="12518000" />
+      <workItem from="1623172510300" duration="5498000" />
+      <workItem from="1623194940797" duration="4580000" />
+      <workItem from="1623371102199" duration="605000" />
+      <workItem from="1623381477123" duration="13215000" />
+      <workItem from="1623458819952" duration="14067000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618563930188</created>
@@ -216,5 +236,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1621854073206" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/ModalWinNew1_3.js</url>
+          <line>53</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

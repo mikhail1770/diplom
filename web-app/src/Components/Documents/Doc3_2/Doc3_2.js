@@ -10,8 +10,8 @@ import top from "../top.svg";
 import printBig from "../printBig.svg";
 import {Link} from "react-router-dom";
 import gif from '../1.gif';
-import ScrollToTop from 'react-scroll-up'
-import s from "./Doc3_2.module.css";
+import Table3_1 from "../Doc3_1/Table3_1";
+
 
 export default class Doc1_2 extends React.Component {
     constructor(props) {
@@ -23,8 +23,11 @@ export default class Doc1_2 extends React.Component {
             professor: '',
             professors: [],
             printLoad: false,
-            profName:''       //id препода
-
+            profName: '',
+            profInEvents: [],
+            professorName: '',
+            currentGroup: [],
+            test:false
         };
         this.handleChange = this.handleChange.bind(this);
         this.onAutocompleteChange = this.onAutocompleteChange.bind(this);
@@ -32,7 +35,7 @@ export default class Doc1_2 extends React.Component {
 
     }
 
-    handleChange = event => { //для того, чтобы использовать несколько input
+    handleChange = event => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -67,11 +70,9 @@ export default class Doc1_2 extends React.Component {
 
     onPrint = event => {
         this.setState({printLoad: true})
-        get('search/courseworks/disciplines/univGroup/?print=1', {
+        get('search/event/profName/?print=1', {
             params: {
-                byGroupID: this.state.group,
-                byDiscipline: this.state.discipline,
-                byStudent: this.state.studentName
+                profId: this.state.profName
             }
         }).then(res => {
             console.log(res)
@@ -82,25 +83,21 @@ export default class Doc1_2 extends React.Component {
 
     onSubmit = event => {
 
-        get('search/courseworks/disciplines/univGroup', {
+        get(`search/event/profName/`, {
             params: {
-                byGroupID: this.state.group,
-                byDiscipline: this.state.discipline,
-                byStudent: this.state.studentName,
+                profId: this.state.profName,
                 sortIncomingDate: 'ASC'
-            }
-        }).then(res => {  //получение дисциплин
-            const courseworks = res.data;
-            this.setState({courseworks});
-            console.log(courseworks)
+            }}).then(res => {  //получение дисциплин
+            const profInEvents = res.data;
+            this.setState({profInEvents, test: true});
+            console.log(profInEvents)
             this.onCloseModal()
         })
-        this.state.professorName = this.state.professors.find(profName => profName.id == this.state.name).profName;
+
         this.setState({})
     }
 
     componentDidMount() {
-
         get('professor').then(res => {
             const professors = res.data;
             this.setState({professors});
@@ -113,7 +110,6 @@ export default class Doc1_2 extends React.Component {
         return (
             <div>
                 <div className='line row'>
-
                     <div className='nameDepartment col-md-6'>
                         <span>Кафедра информационных систем и технологий</span>
                     </div>
@@ -123,9 +119,8 @@ export default class Doc1_2 extends React.Component {
                 </div>
                 <div className='lineBlack row'></div>
                 <form className='nav container main'>
-
                     <div className='form-row row center-block form'>
-                        <div className='col-md-11 pad'>
+                        <div className='col-md-2 pad'>
                             <Autocomplete
                                 className='bot'
                                 value={this.state.fullNameProf}
@@ -138,10 +133,29 @@ export default class Doc1_2 extends React.Component {
                                                                     variant="outlined"/>}
                             />
                         </div>
+                        <div className='col-md-4 '>
+                            <div className='textFilter'>От: </div>
+                         <div className='borderFilter'>
+                      <TextField
+                          name="beginate"
+                      type='date'
+                       onChange={(e) => this.handleChange(e)} />
+
+                        </div>
+                    </div>
+                   <div className='col-md-3 '>
+                        <div className='textFilter1'>До: </div>
+                      <div className='borderFilter'>
+
+                      <TextField
+                          name="endDate"
+                        type='date'
+                        onChange={(e) => this.handleChange(e)}/>
+                       </div>
+                    </div>
                         <div className='col-md-1'>
-                            <div className='b m'>
+                            <div className='o'>
                                 <Button
-                                    className='b'
                                     variant="contained"
                                     color="primary"
                                     className="btn btn-primary btnFind"
@@ -155,11 +169,9 @@ export default class Doc1_2 extends React.Component {
                 <div className='row topTable nav'>
                     <div className='col-md-12 pad padRig'>
                         <Table3_2
-                            disciplineName={this.state.disciplineName}
-                            courseworks={this.state.courseworks}
+                            profInEvents={this.state. profInEvents}
                             onOpenModal={this.onOpenModal}
                             currentGroup={this.state.currentGroup}
-                            verificationResult={this.state.verificationResult}
                             close={this.onCloseModal}
                             state={this.state.open}
                             handleChange={this.handleChange}
@@ -167,8 +179,9 @@ export default class Doc1_2 extends React.Component {
                             print={this.onPrint}
                             printLoad={this.state.printLoad}
                             professors={this.state.professors}
-                            students={this.state.studentsName}
-                            onSubmit={this.onSubmit}/>
+                            onSubmit={this.onSubmit}
+                            profId={this.state.profName}
+                            test={this.state.test}/>
                     </div>
                     <div className='navs'>
                         <Link to={'/'} ><img src={main} className='cursor' title="Вернуться к документам" className='btnRight'/></Link>

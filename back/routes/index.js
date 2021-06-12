@@ -497,7 +497,7 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
   })
 
   router.put('/edit/profInEvent/:id', (req,res,next) => { //запрос на обновление данных в таблице с учет участия профессорско-преподавательского состава в мероприятиях
-    connection.query('UPDATE profInEvent SET ? WHERE profId = ?', [req.body, req.params.id], 
+    connection.query('UPDATE profInEvent SET ? WHERE id = ?', [req.body, req.params.id],
     function (error, results, fields) {
       if (error) throw error;
       res.json(results);
@@ -506,7 +506,7 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
   })
 
   router.put('/edit/event/:id', (req,res,next) => { //запрос на обновление данных в таблице с учет участия профессорско-преподавательского состава в мероприятиях
-    connection.query('UPDATE event SET ? WHERE profId = ?', [req.body, req.params.id], 
+    connection.query('UPDATE event SET ? WHERE id = ?', [req.body, req.params.id],
     function (error, results, fields) {
       if (error) throw error;
       res.json(results);
@@ -548,7 +548,7 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
     });
   })
 
-  router.delete('/delete/profInEvent/:id', function(req, res, next){
+  router.delete('/delete/event/:id', function(req, res, next){
     connection.query('DELETE FROM event WHERE id = ?',[req.params.id], 
     function (error, results, fields){
       if (error) throw error;
@@ -642,7 +642,7 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
               res.json(results);
             });
           } else {
-            res.json('Только латинские символы и цифры');
+            res.json('Используйте только латинские символы');
           }
         }
     });

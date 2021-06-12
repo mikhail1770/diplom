@@ -12,8 +12,9 @@ import {Link} from "react-router-dom";
 import gif from '../1.gif';
 import ScrollToTop from 'react-scroll-up'
 import s from "./Doc3_1.module.css";
+import Table1_2 from "../Doc1_2/Table1_2";
 
-export default class Doc1_2 extends React.Component {
+export default class Doc3_1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,8 +24,11 @@ export default class Doc1_2 extends React.Component {
             professor: '',
             professors: [],
             printLoad: false,
-            profName:''       //id препода
-
+            profName: '',
+            profInEvents: [],
+            professorName: '',
+            currentGroup: [],
+            test:false
         };
         this.handleChange = this.handleChange.bind(this);
         this.onAutocompleteChange = this.onAutocompleteChange.bind(this);
@@ -67,11 +71,9 @@ export default class Doc1_2 extends React.Component {
 
     onPrint = event => {
         this.setState({printLoad: true})
-        get('search/courseworks/disciplines/univGroup/?print=1', {
+        get('search/profInEvent/profName/?print=1', {
             params: {
-                byGroupID: this.state.group,
-                byDiscipline: this.state.discipline,
-                byStudent: this.state.studentName
+                profId: this.state.profName
             }
         }).then(res => {
             console.log(res)
@@ -82,20 +84,17 @@ export default class Doc1_2 extends React.Component {
 
     onSubmit = event => {
 
-        get('search/courseworks/disciplines/univGroup', {
+        get(`search/profInEvent/profName/`, {
             params: {
-                byGroupID: this.state.group,
-                byDiscipline: this.state.discipline,
-                byStudent: this.state.studentName,
-                sortIncomingDate: 'ASC'
-            }
-        }).then(res => {  //получение дисциплин
-            const courseworks = res.data;
-            this.setState({courseworks});
-            console.log(courseworks)
+                profId: this.state.profName,
+                    sortIncomingDate: 'ASC'
+            }}).then(res => {  //получение дисциплин
+            const profInEvents = res.data;
+            this.setState({profInEvents, test: true});
+            console.log(profInEvents)
             this.onCloseModal()
         })
-        this.state.professorName = this.state.professors.find(profName => profName.id == this.state.name).profName;
+
         this.setState({})
     }
 
@@ -125,7 +124,7 @@ export default class Doc1_2 extends React.Component {
                 <form className='nav container main'>
 
                     <div className='form-row row center-block form'>
-                        <div className='col-md-11 pad'>
+                        <div className='col-md-10 pad'>
                             <Autocomplete
                                 className='bot'
                                 value={this.state.fullNameProf}
@@ -138,10 +137,10 @@ export default class Doc1_2 extends React.Component {
                                                                     variant="outlined"/>}
                             />
                         </div>
-                        <div className='col-md-1'>
-                            <div className='b m'>
+
+                        <div className='col-md-2'>
+                            <div className='margi'>
                                 <Button
-                                    className='b'
                                     variant="contained"
                                     color="primary"
                                     className="btn btn-primary btnFind"
@@ -155,11 +154,9 @@ export default class Doc1_2 extends React.Component {
                 <div className='row topTable nav'>
                     <div className='col-md-12 pad padRig'>
                         <Table3_1
-                            disciplineName={this.state.disciplineName}
-                            courseworks={this.state.courseworks}
+                            profInEvents={this.state. profInEvents}
                             onOpenModal={this.onOpenModal}
                             currentGroup={this.state.currentGroup}
-                            verificationResult={this.state.verificationResult}
                             close={this.onCloseModal}
                             state={this.state.open}
                             handleChange={this.handleChange}
@@ -167,8 +164,9 @@ export default class Doc1_2 extends React.Component {
                             print={this.onPrint}
                             printLoad={this.state.printLoad}
                             professors={this.state.professors}
-                            students={this.state.studentsName}
-                            onSubmit={this.onSubmit}/>
+                            onSubmit={this.onSubmit}
+                            profId={this.state.profName}
+                            test={this.state.test}/>
                     </div>
                     <div className='navs'>
                         <Link to={'/'} ><img src={main} className='cursor' title="Вернуться к документам" className='btnRight'/></Link>

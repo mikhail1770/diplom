@@ -162,7 +162,7 @@ class ModalWin1_2 extends React.Component {
                                     name="incomingDate"
                                     type='date'
                                     defaultValue={this.state.currentGroup.incomingDate}
-                                    onChange={(e) => this.ChangeSelectedIncomingDate(e)}
+
                                 />
                             </div>
                         </div>
@@ -175,7 +175,7 @@ class ModalWin1_2 extends React.Component {
                                     name="checkingDate"
                                     type='date'
                                     defaultValue={this.state.currentGroup.checkingDate}
-                                    onChange={(e) => this.ChangeSelectedcheckingDate(e)}
+
                                 />
                             </div>
                         </div>

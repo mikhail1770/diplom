@@ -20,7 +20,7 @@
 }
 
 .positionSave{
-    margin: 50px auto 25px auto;
+    margin: 40px auto 25px auto;
     width: 110px;
 }
 .paper {
@@ -29,6 +29,6 @@
     top: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    height: 400px;
+    height: 300px;
     background-color: white;
 }

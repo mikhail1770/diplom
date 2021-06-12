@@ -8,29 +8,16 @@ import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc3_1/Doc3_1.module.css";
 import axios from "axios";
-import {get, put} from "../axios";
+import {post} from "../axios";
+import moment from "moment"
 
 class ModalWin3_1 extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            currentGroup: {
-                eventDate: this.props.currentGroup.eventDate,
-                eventName: this.props.currentGroup.eventName,
-                professor: {
-                   name: 'Чуйко Ольга Игоревна',
-                    id: this.props.currentGroup.professor.id
-                },
-                id: this.props.currentGroup.id
-            },
-            selectedFile: '',
-            number: '',
-            nameFile: this.props ? this.props.filelink : '',
-            fileSelected: 0,
-            profName: '',
-            idProf: '',
-            studentName: ''
+            date: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
+            eventName: '',
         }
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -39,23 +26,15 @@ class ModalWin3_1 extends React.Component {
 
 
 
-    ChangeSelectedProfessor(e) {
-        console.log(this.state.currentGroup.professor.name)
-        let current = this.state.currentGroup;
-        current.professor.name = e.target.value.profName;
-        current.professor.id = 123;
-
-    }
-
     ChangeSelectedDate(e) {     // Для даты
-        this.state.currentGroup.eventDate = e.target.value;
-        console.log(this.props.currentGroup.id)
+        this.state.date = e.target.value;
+        console.log(this.state.date)
 
     }
 
     ChangeSelectedEventName(e){     // Для даты
-        this.state.currentGroup.eventName = e.target.value;
-        console.log(this.state.currentGroup.eventName)
+        this.state.eventName = e.target.value;
+        console.log(this.state.eventName)
 
 
     }
@@ -64,9 +43,10 @@ class ModalWin3_1 extends React.Component {
 
     onSave = () => {
 
-        put(`edit/profInEvent/${this.state.currentGroup.id}`, {
-            eventDate: this.state.currentGroup.eventDate,
-            eventName: this.state.currentGroup.eventName,
+       post(`add/profInEvent`, {
+            eventDate: this.state.date,
+            eventName: this.state.eventName,
+            profId: this.props.profId
         }).then(res => {
             this.props.onSubmit();
             this.props.close();
@@ -112,7 +92,7 @@ class ModalWin3_1 extends React.Component {
                                 <TextField
                                     name="incomingDate"
                                     type='date'
-                                    defaultValue={this.state.currentGroup.eventDate}
+                                    defaultValue={this.state.date}
                                     onChange={(e) => this.ChangeSelectedDate(e)}
                                 />
                             </div>
@@ -123,7 +103,7 @@ class ModalWin3_1 extends React.Component {
                             </div>
                             <div className='col-6 v propsModal'>
                                 <input className="form-control form-control-sm" type="text"
-                                       defaultValue={this.state.currentGroup.eventName}  onChange={(e) => this.ChangeSelectedEventName(e)}/>
+                                       onChange={(e) => this.ChangeSelectedEventName(e)}/>
                             </div>
                         </div>
                         <div className={`${s.positionSave} f`}>

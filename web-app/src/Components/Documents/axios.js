@@ -17,10 +17,12 @@ function get(url, params) {
 
 function post(url, obj) {
     return axios.post(host + url, obj, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => {
+        console.log(res)
         return new Promise((resolve, rej) => {
             resolve(res)
         })
     }).catch((err) => {
+        console.log(err)
         errorHandler(err);
         return new Promise((resolve, reject) => {
           reject(err);
