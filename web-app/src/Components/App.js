@@ -7,6 +7,7 @@ import DocumentRender from "./DocumentRender";
 import Authorization from "./Authorization/Authorization";
 import Registration from "./Registration/Registration";
 import {post} from "../Components/Documents/axios"
+import axios from "axios";
 
 
 class App extends React.Component {
@@ -15,6 +16,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             isLogin: false,
+            error: ''
+
 
         }
         this.onAuthorization = this.onAuthorization.bind(this);
@@ -31,13 +34,20 @@ class App extends React.Component {
 
     onAuthorization = (data) => {
         console.log('отправляем на сервер', data)
-        post(`account/token`, data).then(res => { 
-            //console.log(res.data.detail) 
+        axios.post(`http://localhost:3001/account/token` , data, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => {
+            console.log(res)
             localStorage.setItem('token', res.data.detail);
             window.location.reload();
-        })
-        //this.setState({isLogin: true})
-        //console.log(this.state.isLogin);
+            return new Promise((resolve, rej) => {
+                resolve(res)
+            })
+        }).catch((err) => {
+            console.log(err)
+            this.setState({error:err.response.data.detail})
+            return new Promise((resolve, reject) => {
+                reject(err);
+            });
+        });
 
     }
 
@@ -64,10 +74,10 @@ class App extends React.Component {
                     <div className="container App">
                         <Header onExit={this.onExit}/>
                         <div className="content">
-                            
+
                                <Route exact path="/" component={Navigation}/>
                                 <Route exact path="/:documentId" component={DocumentRender}/>
-                            
+
                         </div>
 
                     </div>
@@ -77,7 +87,7 @@ class App extends React.Component {
             return (
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path="/" render={(props) => <Authorization onAuto={this.onAuthorization} {...props}/>}/>
+                        <Route exact path="/" render={(props) => <Authorization onAuto={this.onAuthorization} error={this.state.error}{...props}/>}/>
                         <Route exact path="/registration"  component={Registration}/>}/>
                     </Switch>
                 </BrowserRouter>

@@ -10,7 +10,7 @@ import top from "../top.svg";
 import printBig from "../printBig.svg";
 import {Link} from "react-router-dom";
 import gif from '../1.gif';
-import ScrollToTop from 'react-scroll-up'
+
 
 export default class Doc1_2 extends React.Component {
     constructor(props) {

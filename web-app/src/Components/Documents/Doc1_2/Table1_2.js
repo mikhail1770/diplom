@@ -14,8 +14,7 @@ class Table1_2 extends React.Component {
         super(props);
         this.state = {
             fileName: '',
-            open: false,
-
+            open: false
         }
     }
 

@@ -3,69 +3,55 @@ import Modal from "@material-ui/core/Modal";
 import '../../App.css'
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc3_2/Doc3_2.module.css";
 import axios from "axios";
-import {put} from "../axios";
+import {post} from "../axios";
+import moment from "moment"
 
 class ModalWin3_2 extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            currentGroup: {
-                eventDate: this.props.currentGroup.eventDate,
-                eventTheme: this.props.currentGroup.eventTheme,
-                professor: {
-                    name: 'Чуйко Ольга Игоревна',
-                    id: this.props.currentGroup.professor.id
-                },
-                id: this.props.currentGroup.id,
-                review:''
-            },
-            selectedFile: '',
-            number: '',
-            nameFile: this.props ? this.props.filelink : '',
-            fileSelected: 0,
-            profName: '',
-            idProf: '',
-            studentName: ''
+            date: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
+            eventTheme: '',
+            review:'',
+            typeOfActivity:''
         }
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
 
     }
 
-    ChangeSelectedProfessor(e) {
-        console.log(this.state.currentGroup.professor.name)
-        let current = this.state.currentGroup;
-        current.professor.name = e.target.value.profName;
-        current.professor.id = 123;
 
-    }
 
     ChangeSelectedDate(e) {     // Для даты
-        this.state.currentGroup.eventDate = e.target.value;
-        console.log(this.props.currentGroup.id)
+        this.state.date = e.target.value;
+        console.log(this.state.date)
 
     }
 
     ChangeSelectedEventTheme(e){     // Для даты
-        this.state.currentGroup.eventTheme = e.target.value;
-        console.log(this.state.currentGroup.eventTheme)
-
+        this.state.eventName = e.target.value;
+        console.log(this.state.eventName)
     }
+
     ChangeSelectedReview(e){     // Для даты
-        this.state.currentGroup.review = e.target.value;
-        console.log(this.state.currentGroup.review)
-
+        this.state.eventreview = e.target.value;
+        console.log(this.state.eventreview)
     }
-
+    ChangeSelectedTypeOfActivity(e){     // Для даты
+        this.state.typeOfActivity = e.target.value;
+        console.log(this.state.typeOfActivity)
+    }
     onSave = () => {
-        put(`edit/event/${this.state.currentGroup.id}`, {
-            eventDate: this.state.currentGroup.eventDate,
-            theme: this.state.currentGroup.eventTheme,
+       post(`add/event`, {
+            eventDate: this.state.date,
+            eventTheme: this.state.eventTheme,
+            profId: this.props.profId
         }).then(res => {
             this.props.onSubmit();
             this.props.close();
@@ -82,6 +68,7 @@ class ModalWin3_2 extends React.Component {
     }
 
     onChangeHandler = event => {
+
         this.setState({selectedFile: event.target.files[0]})
     }
 
@@ -105,9 +92,9 @@ class ModalWin3_2 extends React.Component {
                             </div>
                             <div className='col-6 v propsModal date'>
                                 <TextField
-                                    name="incomingDate"
+                                    name="checkingDate"
                                     type='date'
-                                    defaultValue={this.state.currentGroup.eventDate}
+                                    defaultValue={this.state.date}
                                     onChange={(e) => this.ChangeSelectedDate(e)}
                                 />
                             </div>
@@ -118,7 +105,7 @@ class ModalWin3_2 extends React.Component {
                             </div>
                             <div className='col-6 v propsModal'>
                                 <input className="form-control form-control-sm" type="text"
-                                       defaultValue={this.state.currentGroup.eventTheme}  onChange={(e) => this.ChangeSelectedEventTheme(e)}/>
+                                       defaultValue={this.state.eventTheme}  onChange={(e) => this.ChangeSelectedEventTheme(e)}/>
                             </div>
                         </div>
                         <div className='row modalRow '>
@@ -130,7 +117,7 @@ class ModalWin3_2 extends React.Component {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        onChange={(e) => this.ChangeSelectedProffesor(e)}
+                                        onChange={(e) => this.ChangeSelectedTypeOfActivity(e)}
                                     >
                                         {/*{this.props.professors.map(professor => <MenuItem*/}
                                         {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
@@ -162,7 +149,7 @@ class ModalWin3_2 extends React.Component {
                             </div>
                             <div className='col-6 v propsModal'>
                                 <input className="form-control form-control-sm" type="text"
-                                       defaultValue={this.state.currentGroup.eventName}  onChange={(e) => this.ChangeSelectedReview(e)}/>
+                                       defaultValue={this.state.review}  onChange={(e) => this.ChangeSelectedReview(e)}/>
                             </div>
                         </div>
                         <div className={`${s.positionSave} f`}>
@@ -170,12 +157,10 @@ class ModalWin3_2 extends React.Component {
                             </button>
                         </div>
                     </div>
-
                 </div>
             </Modal>
         );
     }
-
 }
 
 export default ModalWin3_2;
