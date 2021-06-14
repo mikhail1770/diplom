@@ -65,7 +65,7 @@ connection.connect();
       });  
     })
 
-    router.get('/typeofocupation', function(req, res, next){ //запрос на получение списка дисциплин
+    router.get('/typeofocupation', function(req, res, next){ //запрос на получение списка 
       connection.query('SELECT * FROM typeofocupation', function (error, results, fields) {
         if (error) throw error;
         res.json(results);
@@ -185,7 +185,7 @@ connection.query(sql, params, function (error, results, fields) {
 })
 
 router.get('/search/disciplines/univGroup/:id', function(req, res, next){ //запрос на получение списка дисциплин группы
-  connection.query('SELECT disciplines.name AS disName, disciplines.id FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.id JOIN univgroups ON studyPlan.groupId=univgroups.id WHERE univgroups.id=?', 
+  connection.query('SELECT disciplines.name AS disName, disciplines.id FROM disciplines JOIN studyPlan ON studyPlan.disciplineID=disciplines.id JOIN univgroups ON studyPlan.groupId=univgroups.id WHERE univgroups.id=? AND disciplines.iscoursework = 1', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
     console.log(req.params)
