@@ -6,19 +6,15 @@ import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 import DocumentRender from "./DocumentRender";
 import Authorization from "./Authorization/Authorization";
 import Registration from "./Registration/Registration";
-import {post} from "../Components/Documents/axios"
 import axios from "axios";
 
 
 class App extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             isLogin: false,
             error: ''
-
-
         }
         this.onAuthorization = this.onAuthorization.bind(this);
     }
@@ -33,9 +29,8 @@ class App extends React.Component {
     }
 
     onAuthorization = (data) => {
-        console.log('отправляем на сервер', data)
-        axios.post(`http://localhost:3001/account/token` , data, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => {
-            console.log(res)
+        axios.post(`http://localhost:3001/account/token`, data,
+            {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => {
             localStorage.setItem('token', res.data.detail);
             window.location.reload();
             return new Promise((resolve, rej) => {
@@ -48,14 +43,12 @@ class App extends React.Component {
                 reject(err);
             });
         });
-
     }
 
     onExit = () => {
         this.setState({isLogin: false})
         localStorage.removeItem('token');
         console.log(this.state.isLogin);
-
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -67,19 +60,15 @@ class App extends React.Component {
 
 
     render() {
-
-        if (this.state.isLogin == true) {
+        if (this.state.isLogin === true) {
             return (
                 <BrowserRouter>
                     <div className="container App">
                         <Header onExit={this.onExit}/>
                         <div className="content">
-
                                <Route exact path="/" component={Navigation}/>
-                                <Route exact path="/:documentId" component={DocumentRender}/>
-
+                               <Route exact path="/:documentId" component={DocumentRender}/>
                         </div>
-
                     </div>
                 </BrowserRouter>
             );
