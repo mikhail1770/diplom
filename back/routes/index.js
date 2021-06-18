@@ -140,7 +140,9 @@ connection.query(sql, params, function (error, results, fields) {
   results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('YYYY-MM-DD')} )
   console.log(results)
   if(req.query.print == 1){ //запуск печати, если req.query.print=1
-    if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
+    if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу конец
+      results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
+      results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
       let params = "practicereport";
       let alldata = results.map((i) => i)
       let orientation = "Landscape";
@@ -202,7 +204,7 @@ router.get('/search/disciplines/formOfStudy/:id', function(req, res, next){ //з
   });  
 })
 
-router.get('/search/studnets/univGroup/:id', function(req, res, next){ //запрос на получение списка студентов группы
+router.get('/search/studnets/univGroup/:id', function(req, res, next){ //
   connection.query('SELECT students.name, students.id FROM students JOIN univgroups ON students.univGroup=univgroups.id WHERE univgroups.id=?', 
   [req.params.id], function (error, results, fields) {
     if (error) throw error;
@@ -260,7 +262,9 @@ router.get('/search/courseworks/disciplines/univGroup/', function(req, res, next
     results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('YYYY-MM-DD')} ) //делаем нормальную дату
     results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('YYYY-MM-DD')} )
     if(req.query.print == 1){ //запуск печати, если req.query.print=1
-      if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
+      if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу конец
+        results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
+        results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
         discipline = results[0].name;
         let params = "courseworksochlist";
         let alldata = results.map((i) => i)
@@ -336,7 +340,9 @@ router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res,
     results.map((i, index) => {results[index].incomingDate = moment(i.incomingDate).format('YYYY-MM-DD')} ) //делаем нормальную дату
     results.map((i, index) => {results[index].checkingDate = moment(i.checkingDate).format('YYYY-MM-DD')} )
     if(req.query.print == 1){ //запуск печати, если req.query.print=1
-      if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу кабзда
+      if(results.length != 0){ //проверка на то чтобы массив не был пустым, иначе серверу конец
+        results.map((i, index) => { results[index].incomingDate = moment(i.incomingDate).format('DD-MM-YYYY')} ) //делаем нормальную дату
+        results.map((i, index) => { results[index].checkingDate = moment(i.checkingDate).format('DD-MM-YYYY')} )
         discipline = results[0].name;
         let params = "courseworkszaochlist";
         let alldata = results.map((i) => i)
@@ -381,7 +387,7 @@ router.get('/search/courseworkszaoch/disciplines/univGroup/', function(req, res,
   });  
 })
 
-router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ //бесполезное говно, которое и делать то и не надо было запрос на получение списка дисциплин группы по форме обучения (очка, заочка..)
+router.get('/searchg/disciplines/formOfStudy/:id', function(req, res, next){ 
   connection.query('SELECT disciplines.Name, univgroups.GroupName, formOfStudy.formOfStudy, univgroups.id , disciplines.disID FROM studyPlan JOIN univgroups ON studyPlan.GroupId=univgroups.id JOIN disciplines ON studyPlan.disciplineID=disciplines.disID JOIN formOfStudy ON univgroups.formOfStudy=formOfStudy.formOfStudyId WHERE formOfStudy.formOfStudyId=?', 
   [req.params.id],  function (error, results, fields) {
     if (error) throw error;
@@ -575,8 +581,6 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
   })
 }
 
-
-
 {/* POST запросы */
   router.post('/add/courseworks/', function(req, res, next){
     console.log(req.body)
@@ -642,7 +646,7 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
           }else{
             let token = jwt.sign({ id: result[0].id, fio: result[0].fio }, 'sekretkey');
             res.json({error : false, detail: token});
-            connection.query('INSERT INTO tokens (token, userid) VALUES(?,?)', [token, result[0].id], (err, token) => {if(err) throw err})
+            connection.query('INSERT INTO tokens (token, userid,tokenTime) VALUES(?,?,NOW()~)', [token, result[0].id], (err, token) => {if(err) throw err})
           }
         })
       }
