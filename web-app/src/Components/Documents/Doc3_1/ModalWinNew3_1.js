@@ -18,6 +18,7 @@ class ModalWin3_1 extends React.Component {
         this.state = {
             date: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
             eventName: '',
+
         }
 
         this.onChangeHandler = this.onChangeHandler.bind(this);

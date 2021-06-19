@@ -45,7 +45,7 @@ class Table3_2 extends React.Component {
                         <thead className='headTable'>
                         <tr>
                             <th className='text-center'>Дата</th>
-                            <th className='text-center'>Преподаватель, проводивший занятий</th>
+                            <th className='text-center' >Преподаватель, проводивший занятий</th>
                             <th className='text-center'>Тема занятия</th>
                             <th className='text-center'>Вид занятия</th>
                             <th className='text-center'>Преподаватель, посетивший занятий</th>
@@ -59,10 +59,10 @@ class Table3_2 extends React.Component {
                         {this.props.profInEvents.map((profInEvent) => (
                             <tr>
                                 <td className='text-center align-middle' >{moment(moment(profInEvent.eventDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
-                                <td className='text-center align-middle' width='100px'>{profInEvent.professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
+                                <td className='text-center align-middle' width='150px'>{profInEvent.professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
                                 <td className='text-center align-middle'>{profInEvent.eventTheme}</td>
                                 <td className='text-center align-middle' width='80px'>{profInEvent.typename}</td>
-                                <td className='text-center align-middle' width='100px'></td>
+                                <td className='text-center align-middle' width='150px'>{profInEvent.professor.pname.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
                                 <td className='text-center align-middle' >{profInEvent.professor.profRank}</td>
                                 <td className='text-center'>{profInEvent.review}</td>
                                 <td width='50px' className='text-center align-middle'>
@@ -86,7 +86,9 @@ class Table3_2 extends React.Component {
                                 currentGroup={this.props.currentGroup}
                                 professors={this.props.professors}
                                 onSubmit={this.props.onSubmit}
-                                profId={this.props.profId}/>
+                                profId={this.props.profId}
+                                typeofocupations={this.props.typeofocupations}
+                            />
                         }
                     </table>
                     <div className='bot2'>
@@ -102,6 +104,7 @@ class Table3_2 extends React.Component {
                             course={this.props.course}
                             test={this.state.test}
                             profId={this.props.profId}
+                            typeofocupations={this.props.typeofocupations}
                         />
                     </div>
                 </div>
@@ -120,6 +123,7 @@ class Table3_2 extends React.Component {
                                 onSubmit={this.props.onSubmit}
                                 univGroups={this.props.univGroups}
                                 profId={this.props.profId}
+                                typeofocupations={this.props.typeofocupations}
                             />
                         </div> : ''
                         }

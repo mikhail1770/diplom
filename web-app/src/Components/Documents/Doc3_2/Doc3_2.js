@@ -27,7 +27,8 @@ export default class Doc1_2 extends React.Component {
             profInEvents: [],
             professorName: '',
             currentGroup: [],
-            test:false
+            test:false,
+            typeofocupations:[]
         };
         this.handleChange = this.handleChange.bind(this);
         this.onAutocompleteChange = this.onAutocompleteChange.bind(this);
@@ -103,6 +104,7 @@ export default class Doc1_2 extends React.Component {
             this.setState({professors});
             console.log(professors)
         })
+
 
     }
 
@@ -181,7 +183,8 @@ export default class Doc1_2 extends React.Component {
                             professors={this.state.professors}
                             onSubmit={this.onSubmit}
                             profId={this.state.profName}
-                            test={this.state.test}/>
+                            test={this.state.test}
+                            typeofocupations={this.state.typeofocupations}/>
                     </div>
                     <div className='navs'>
                         <Link to={'/'} ><img src={main} className='cursor' title="Вернуться к документам" className='btnRight'/></Link>

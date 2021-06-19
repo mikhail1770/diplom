@@ -8,6 +8,7 @@ import cross from "../cross.svg"
 import s from "../Doc3_2/Doc3_2.module.css";
 import axios from "axios";
 import {put} from "../axios";
+import MenuItem from "@material-ui/core/MenuItem";
 
 class ModalWin3_2 extends React.Component {
 
@@ -20,7 +21,9 @@ class ModalWin3_2 extends React.Component {
                 professor: {
                     name: 'Чуйко Ольга Игоревна',
                     id: this.props.currentGroup.professor.id,
-                    profRank: this.props.currentGroup.professor.profRank
+                    profRank: this.props.currentGroup.professor.profRank,
+                    pname:this.props.currentGroup.professor.pname,
+                    prof2:this.props.currentGroup.professor.prof2
                 },
                 id: this.props.currentGroup.id,
                 review:this.props.currentGroup.review,
@@ -37,10 +40,11 @@ class ModalWin3_2 extends React.Component {
     }
 
     ChangeSelectedProfessor(e) {
-        console.log(this.state.currentGroup.professor.name)
+        console.log(e.target.value.profName)
+        console.log(this.state.currentGroup.professor.prof2)
         let current = this.state.currentGroup;
-        current.professor.name = e.target.value.profName;
-        current.professor.id = 123;
+        current.professor.pname = e.target.value.profName;
+        current.professor.prof2 = e.target.value.id;
 
     }
 
@@ -65,7 +69,8 @@ class ModalWin3_2 extends React.Component {
         put(`edit/event/${this.state.currentGroup.id}`, {
             eventDate: this.state.currentGroup.eventDate,
             theme: this.state.currentGroup.eventTheme,
-            review: this.state.currentGroup.review
+            review: this.state.currentGroup.review,
+            profId2: this.state.currentGroup.professor.prof2
         }).then(res => {
             this.props.onSubmit();
             this.props.close();
@@ -100,7 +105,7 @@ class ModalWin3_2 extends React.Component {
                     </div>
                     <div className='modal-body'>
                         <div className='row modalRow '>
-                            <div className='col-6 titleModal v'>
+                            <div className='col-6 titleModal v '>
                                 <span>Дата:</span>
                             </div>
                             <div className='col-6 v propsModal date'>
@@ -126,14 +131,16 @@ class ModalWin3_2 extends React.Component {
                                 <span>Вид занятия:</span>
                             </div>
                             <div className='col-6 v propsModal'>
-                                <FormControl className='formControl'>
+                                <FormControl className='formControl '>
                                     <Select
+                                        value={this.state.currentGroup}
+                                        renderValue={(currentGroup) => currentGroup.typename}
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         onChange={(e) => this.ChangeSelectedProfessor(e)}
                                     >
-                                        {/*{this.props.professors.map(professor => <MenuItem*/}
-                                        {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
+                                        {this.props.professors.map(professor => <MenuItem
+                                           value={professor.profName}> {professor.profName} </MenuItem>)}
                                     </Select>
                                 </FormControl>
 
@@ -146,18 +153,18 @@ class ModalWin3_2 extends React.Component {
                             <div className='col-6 v propsModal'>
                                 <FormControl className='formControl'>
                                     <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        onChange={(e) => this.ChangeSelectedProffesor(e)}
+                                        value={this.state.currentGroup.professor}
+                                        renderValue={(professor) => professor.pname.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}
+                                        onChange={(e) => this.ChangeSelectedProfessor(e)}
                                     >
-                                        {/*{this.props.professors.map(professor => <MenuItem*/}
-                                        {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
+                                        {this.props.professors.map(professor => <MenuItem
+                                        value={professor}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}
                                     </Select>
                                 </FormControl>
                             </div>
                         </div>
                         <div className='row modalRow '>
-                            <div className='col-6 titleModal v'>
+                        <div className='col-6 titleModal v'>
                                 <span>Рецензия:</span>
                             </div>
                             <div className='col-6 v propsModal'>

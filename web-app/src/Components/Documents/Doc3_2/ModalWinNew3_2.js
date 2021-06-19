@@ -50,8 +50,13 @@ class ModalWin3_2 extends React.Component {
     onSave = () => {
        post(`add/event`, {
             eventDate: this.state.date,
-            eventTheme: this.state.eventTheme,
-            profId: this.props.profId
+            theme: this.state.eventTheme,
+            profId: this.props.profId,
+           review:this.props.review,
+           professor: 1,
+           typeofoccupation: 1,
+           rank: 1
+
         }).then(res => {
             this.props.onSubmit();
             this.props.close();
