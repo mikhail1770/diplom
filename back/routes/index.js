@@ -65,8 +65,12 @@ connection.connect();
       });  
     })
 
+
     router.get('/typeofocupation', function(req, res, next){ //запрос на получение списка
       connection.query('SELECT * FROM typeofocupation', function (error, results, fields) {
+    router.get('/typeofocupation', function(req, res, next){ //запрос на получение списка 
+      connection.query('SELECT * FROM typeofoccupation', function (error, results, fields) {
+
         if (error) throw error;
         res.json(results);
       });  
@@ -646,7 +650,7 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
           }else{
             let token = jwt.sign({ id: result[0].id, fio: result[0].fio }, 'sekretkey');
             res.json({error : false, detail: token});
-            connection.query('INSERT INTO tokens (token, userid,tokenTime) VALUES(?,?,NOW()~)', [token, result[0].id], (err, token) => {if(err) throw err})
+            connection.query('INSERT INTO tokens (token, userid,tokenTime) VALUES(?,?,NOW())', [token, result[0].id], (err, token) => {if(err) throw err})
           }
         })
       }
