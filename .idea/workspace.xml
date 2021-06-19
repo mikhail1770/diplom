@@ -20,13 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp">
-      <change beforePath="$PROJECT_DIR$/back/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/ModalWinNew3_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_1/ModalWinNew3_1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Doc3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Doc3_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/ModalWin3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/ModalWin3_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/ModalWinNew3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/ModalWinNew3_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Table3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Table3_2.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +151,7 @@
       <workItem from="1623805340590" duration="2230000" />
       <workItem from="1623891778180" duration="2412000" />
       <workItem from="1623929989066" duration="855000" />
-      <workItem from="1624063930624" duration="9586000" />
+      <workItem from="1624063930624" duration="10264000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618563930188</created>

@@ -66,8 +66,6 @@ connection.connect();
     })
 
 
-    router.get('/typeofocupation', function(req, res, next){ //запрос на получение списка
-      connection.query('SELECT * FROM typeofocupation', function (error, results, fields) {
     router.get('/typeofocupation', function(req, res, next){ //запрос на получение списка 
       connection.query('SELECT * FROM typeofoccupation', function (error, results, fields) {
 
@@ -96,7 +94,7 @@ connection.connect();
         res.json(results);
       });  
     })
-  } 
+  }
 
 
 router.get('/search/univGroups/formOfStudy', function(req, res, next){ //запрос на получение списка групп 

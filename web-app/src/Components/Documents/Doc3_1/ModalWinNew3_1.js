@@ -8,7 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc3_1/Doc3_1.module.css";
 import axios from "axios";
-import {post} from "../axios";
+import {get, post} from "../axios";
 import moment from "moment"
 
 class ModalWin3_1 extends React.Component {
@@ -68,7 +68,15 @@ class ModalWin3_1 extends React.Component {
         this.setState({selectedFile: event.target.files[0]})
     }
 
+    componentDidMount() {
+        get('professor').then(res => {
+            const professors = res.data;
+            this.setState({professors});
+            console.log(professors)
+        })
 
+
+    }
 
 
 
