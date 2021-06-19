@@ -66,7 +66,7 @@ connection.connect();
     })
 
 
-    router.get('/typeofocupation', function(req, res, next){ //запрос на получение списка 
+    router.get('/typeofocupation', function(req, res, next){ //запрос на получение списка
       connection.query('SELECT * FROM typeofoccupation', function (error, results, fields) {
 
         if (error) throw error;
@@ -626,8 +626,8 @@ router.get('/search/event/profName/', function(req, res, next){ //запрос �
 
   router.post('/add/event/', function(req, res, next){
     console.log(req.body)
-    connection.query('INSERT INTO event (profId, theme, typeofoccupation, rank, review, eventDate) VALUES (?,?,?,?,?,?);',
-    [req.body.profId, req.body.theme, req.body.typeofoccupation, req.body.rank, req.body.review, req.body.eventDate],
+    connection.query('INSERT INTO event (profId, profId2, theme, typeofoccupation, rank, review, eventDate) VALUES (?,?,?,?,?,?,?);',
+    [req.body.profId, req.body.profId2, req.body.theme, req.body.typeofoccupation, req.body.rank, req.body.review, req.body.eventDate],
      function (err, results, fields){
        if(err) throw err;    
        res.json(results);

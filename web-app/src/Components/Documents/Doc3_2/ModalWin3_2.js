@@ -27,7 +27,8 @@ class ModalWin3_2 extends React.Component {
                 },
                 id: this.props.currentGroup.id,
                 review:this.props.currentGroup.review,
-                typename:this.props.currentGroup.typename
+                typename:this.props.currentGroup.typename,
+                typenameId:""
             },
             number: '',
             profName: '',
@@ -46,6 +47,13 @@ class ModalWin3_2 extends React.Component {
         current.professor.pname = e.target.value.profName;
         current.professor.prof2 = e.target.value.id;
 
+    }
+
+    ChangeSelectedOcupation(e) {
+        console.log(e.target.value)
+        console.log(this.state.currentGroup.typename)
+        this.state.currentGroup.typename = e.target.value.typename;
+        this.state.currentGroup.typenameId = e.target.value.id;
     }
 
     ChangeSelectedDate(e) {     // Для даты
@@ -70,7 +78,8 @@ class ModalWin3_2 extends React.Component {
             eventDate: this.state.currentGroup.eventDate,
             theme: this.state.currentGroup.eventTheme,
             review: this.state.currentGroup.review,
-            profId2: this.state.currentGroup.professor.prof2
+            profId2: this.state.currentGroup.professor.prof2,
+            typeofoccupation: this.state.currentGroup.typenameId
         }).then(res => {
             this.props.onSubmit();
             this.props.close();
@@ -137,10 +146,10 @@ class ModalWin3_2 extends React.Component {
                                         renderValue={(currentGroup) => currentGroup.typename}
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        onChange={(e) => this.ChangeSelectedProfessor(e)}
+                                        onChange={(e) => this.ChangeSelectedOcupation(e)}
                                     >
-                                        {this.props.professors.map(professor => <MenuItem
-                                           value={professor.profName}> {professor.profName} </MenuItem>)}
+                                        {this.props.typeofocupations.map(typeofocupation => <MenuItem
+                                           value={typeofocupation}> {typeofocupation.typename} </MenuItem>)}
                                     </Select>
                                 </FormControl>
 

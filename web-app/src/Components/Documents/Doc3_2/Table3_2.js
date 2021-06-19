@@ -105,6 +105,7 @@ class Table3_2 extends React.Component {
                             test={this.state.test}
                             profId={this.props.profId}
                             typeofocupations={this.props.typeofocupations}
+                            professors={this.props.professors}
                         />
                     </div>
                 </div>
@@ -124,6 +125,7 @@ class Table3_2 extends React.Component {
                                 univGroups={this.props.univGroups}
                                 profId={this.props.profId}
                                 typeofocupations={this.props.typeofocupations}
+                                professors={this.props.professors}
                             />
                         </div> : ''
                         }

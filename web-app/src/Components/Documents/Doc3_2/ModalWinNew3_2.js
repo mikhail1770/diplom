@@ -8,7 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import cross from "../cross.svg"
 import s from "../Doc3_2/Doc3_2.module.css";
 import axios from "axios";
-import {post} from "../axios";
+import {get, post} from "../axios";
 import moment from "moment"
 
 class ModalWin3_2 extends React.Component {
@@ -19,14 +19,24 @@ class ModalWin3_2 extends React.Component {
             date: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
             eventTheme: '',
             review:'',
-            typeOfActivity:''
+            typename:'',
+            typenameId:'',
+            professor:'',
+            professorId:''
         }
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
 
     }
 
+    ChangeSelectedProfessor(e) {
+        console.log(e.target.value)
+        console.log( this.state.professorId)
+        this.state.professor = e.target.value.profName;
+        this.state.professorId = e.target.value.id;
+        this.state.rank=e.target.value.rank
 
+    }
 
     ChangeSelectedDate(e) {     // Для даты
         this.state.date = e.target.value;
@@ -40,22 +50,24 @@ class ModalWin3_2 extends React.Component {
     }
 
     ChangeSelectedReview(e){     // Для даты
-        this.state.eventreview = e.target.value;
+        this.state.review = e.target.value;
         console.log(this.state.eventreview)
     }
     ChangeSelectedTypeOfActivity(e){     // Для даты
-        this.state.typeOfActivity = e.target.value;
-        console.log(this.state.typeOfActivity)
+        console.log(e.target.value)
+        console.log(this.state.typename)
+        this.state.typename = e.target.value.typename;
+        this.state.typenameId = e.target.value.id;
     }
     onSave = () => {
        post(`add/event`, {
-            eventDate: this.state.date,
-            theme: this.state.eventTheme,
-            profId: this.props.profId,
-           review:this.props.review,
-           professor: 1,
-           typeofoccupation: 1,
-           rank: 1
+           eventDate: this.state.date,
+           theme: this.state.eventTheme,
+           review:this.state.review,
+           profId2: this.state.professorId,
+           typeofoccupation: this.state.typenameId,
+           rank: this.state.rank,
+           profId:1,
 
         }).then(res => {
             this.props.onSubmit();
@@ -76,7 +88,6 @@ class ModalWin3_2 extends React.Component {
 
         this.setState({selectedFile: event.target.files[0]})
     }
-
 
     render() {
         return (
@@ -120,12 +131,11 @@ class ModalWin3_2 extends React.Component {
                             <div className='col-6 v propsModal'>
                                 <FormControl className='formControl'>
                                     <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
+                                        defaultValue={this.state.typename}
                                         onChange={(e) => this.ChangeSelectedTypeOfActivity(e)}
                                     >
-                                        {/*{this.props.professors.map(professor => <MenuItem*/}
-                                        {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
+                                        {this.props.typeofocupations.map(typeofocupation => <MenuItem
+                                            value={typeofocupation}> {typeofocupation.typename} </MenuItem>)}
                                     </Select>
                                 </FormControl>
 
@@ -138,12 +148,11 @@ class ModalWin3_2 extends React.Component {
                             <div className='col-6 v propsModal'>
                                 <FormControl className='formControl'>
                                     <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        onChange={(e) => this.ChangeSelectedProffesor(e)}
+                                        defaultValue={this.state.professor}
+                                        onChange={(e) => this.ChangeSelectedProfessor(e)}
                                     >
-                                        {/*{this.props.professors.map(professor => <MenuItem*/}
-                                        {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
+                                        {this.props.professors.map(professor => <MenuItem
+                                            value={professor}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}
                                     </Select>
                                 </FormControl>
                             </div>

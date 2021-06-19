@@ -18,6 +18,7 @@ class ModalWin3_1 extends React.Component {
         this.state = {
             date: moment(moment(new Date().toLocaleDateString(), 'DD.MM.YYYY')).format('YYYY-MM-DD'),
             eventName: '',
+            typeofocupation: []
 
         }
 
@@ -68,15 +69,6 @@ class ModalWin3_1 extends React.Component {
         this.setState({selectedFile: event.target.files[0]})
     }
 
-    componentDidMount() {
-        get('professor').then(res => {
-            const professors = res.data;
-            this.setState({professors});
-            console.log(professors)
-        })
-
-
-    }
 
 
 

@@ -27,8 +27,8 @@ export default class Doc1_2 extends React.Component {
             profInEvents: [],
             professorName: '',
             currentGroup: [],
-            test:false,
-            typeofocupations:[]
+            test: false,
+            typeofocupations: []
         };
         this.handleChange = this.handleChange.bind(this);
         this.onAutocompleteChange = this.onAutocompleteChange.bind(this);
@@ -88,7 +88,8 @@ export default class Doc1_2 extends React.Component {
             params: {
                 profId: this.state.profName,
                 sortIncomingDate: 'ASC'
-            }}).then(res => {  //получение дисциплин
+            }
+        }).then(res => {  //получение дисциплин
             const profInEvents = res.data;
             this.setState({profInEvents, test: true});
             console.log(profInEvents)
@@ -99,11 +100,19 @@ export default class Doc1_2 extends React.Component {
     }
 
     componentDidMount() {
+        get('typeofocupation').then(res => {
+            const typeofocupations = res.data;
+            this.setState({typeofocupations});
+            console.log(typeofocupations)
+        })
+
         get('professor').then(res => {
             const professors = res.data;
             this.setState({professors});
             console.log(professors)
         })
+
+
 
 
     }
@@ -136,25 +145,25 @@ export default class Doc1_2 extends React.Component {
                             />
                         </div>
                         <div className='col-md-4 '>
-                            <div className='textFilter'>От: </div>
-                         <div className='borderFilter'>
-                      <TextField
-                          name="beginate"
-                      type='date'
-                       onChange={(e) => this.handleChange(e)} />
+                            <div className='textFilter'>От:</div>
+                            <div className='borderFilter'>
+                                <TextField
+                                    name="beginate"
+                                    type='date'
+                                    onChange={(e) => this.handleChange(e)}/>
 
+                            </div>
                         </div>
-                    </div>
-                   <div className='col-md-3 '>
-                        <div className='textFilter1'>До: </div>
-                      <div className='borderFilter'>
+                        <div className='col-md-3 '>
+                            <div className='textFilter1'>До:</div>
+                            <div className='borderFilter'>
 
-                      <TextField
-                          name="endDate"
-                        type='date'
-                        onChange={(e) => this.handleChange(e)}/>
-                       </div>
-                    </div>
+                                <TextField
+                                    name="endDate"
+                                    type='date'
+                                    onChange={(e) => this.handleChange(e)}/>
+                            </div>
+                        </div>
                         <div className='col-md-1'>
                             <div className='o'>
                                 <Button
@@ -171,7 +180,7 @@ export default class Doc1_2 extends React.Component {
                 <div className='row topTable nav'>
                     <div className='col-md-12 pad padRig'>
                         <Table3_2
-                            profInEvents={this.state. profInEvents}
+                            profInEvents={this.state.profInEvents}
                             onOpenModal={this.onOpenModal}
                             currentGroup={this.state.currentGroup}
                             close={this.onCloseModal}
@@ -187,9 +196,14 @@ export default class Doc1_2 extends React.Component {
                             typeofocupations={this.state.typeofocupations}/>
                     </div>
                     <div className='navs'>
-                        <Link to={'/'} ><img src={main} className='cursor' title="Вернуться к документам" className='btnRight'/></Link>
-                        <Link to={'/2'} ><div className='cursor btnRight1'><img src={top} title="Вернуться к документам" /></div></Link>
-                        {!this.state.printLoad ? <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> : <img src={gif} className='wid' />}
+                        <Link to={'/'}><img src={main} className='cursor' title="Вернуться к документам"
+                                            className='btnRight'/></Link>
+                        <Link to={'/2'}>
+                            <div className='cursor btnRight1'><img src={top} title="Вернуться к документам"/></div>
+                        </Link>
+                        {!this.state.printLoad ?
+                            <div className='cursor q' onClick={this.onPrint}><img src={printBig}/></div> :
+                            <img src={gif} className='wid'/>}
                     </div>
                 </div>
             </div>
