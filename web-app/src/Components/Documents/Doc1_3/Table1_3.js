@@ -61,19 +61,19 @@ class Table1_3 extends React.Component {
                         <tbody className='fontSize'>
                         {this.props.reports.map((report, index) => (
                             <tr>
-                                <td>{index + 1}</td>
-                                <td width='190px'>{report.student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
-                                <td className='text-center' width='50px'>{report.group.name}</td>
-                                <td className='text-center' width='20px'>{report.course}</td>
+                                <td className='align-middle'>{index + 1}</td>
+                                <td width='190px'  className='align-middle'>{report.student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
+                                <td className='text-center  align-middle' width='50px'>{report.group.name}</td>
+                                <td className='text-center  align-middle' width='20px'>{report.course}</td>
                                 <td width='150px'>{report.basePractic}</td>
-                                <td className='w text-center' width='50px'>{moment(moment(report.incomingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')} </td>
-                                <td  className='text-center' width='160px'>{report.professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
-                                <td className='w text-center'>{moment(moment(report.checkingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
-                                <td className='w' >{report.result}</td>
-                                <td>
-                                    <div onClick={() => this.props.onOpenModal(report)} className='cursor'><img src={edit}/></div>
+                                <td className='w text-center  align-middle' width='50px'>{moment(moment(report.incomingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')} </td>
+                                <td  className='text-center  align-middle' width='160px'>{report.professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
+                                <td className='w text-center  align-middle'>{moment(moment(report.checkingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
+                                <td className='w  align-middle' >{report.result}</td>
+                                <td className='text-center align-middle'>
+                                    <div onClick={() => this.props.onOpenModal(report)} className='cursor  align-middle'><img src={edit}/></div>
                                 </td>
-                                <td className='text-center'>
+                                <td className='align-middle'>
                                     <div onClick={() => this.onDelete(report.id)}   className='cursor'><img src={delet}/></div>
                                 </td>
                             </tr>

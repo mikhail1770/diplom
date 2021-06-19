@@ -39,7 +39,6 @@ export default class Doc1_2 extends React.Component {
             professor: '',
             fileLink: '',
             currentGroup: [],
-            name: 'rere[f',
             professors: [],
             printLoad: false,
             test:false
@@ -64,7 +63,7 @@ export default class Doc1_2 extends React.Component {
         if (!value) {
             return this.setState({[name]: null});
         } else {
-            if (value.id != '') {
+            if (value.id !== '') {
                 this.setState({
                     [name]: value.id,
                     fullDiscipline: null,
@@ -74,13 +73,13 @@ export default class Doc1_2 extends React.Component {
                     course: value.course,
                     test:false
                 });
-                get(`search/disciplines/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+                get(`search/disciplines/univGroup/${value.id}`).then(res => {
                     const disciplines = res.data;
                     this.setState({disciplines});
                     console.log(value)
                     this.setState({pageLoaded: true})
                 })
-                get(`search/studnets/univGroup/${value.id}`).then(res => {  //Запрос на получение дисциплин определенной группы
+                get(`search/studnets/univGroup/${value.id}`).then(res => {
                     const studentsName = res.data;
                     this.setState({studentsName});
                 })
@@ -136,12 +135,12 @@ export default class Doc1_2 extends React.Component {
                 byStudent: this.state.studentName,
                 sortIncomingDate: 'ASC'
             }
-        }).then(res => {  //получение дисциплин
+        }).then(res => {
             this.onCloseModal()
             const courseworks = res.data;
             this.setState({courseworks, test: true});
         })
-        this.state.disciplineName = this.state.disciplines.find(disName => disName.id == this.state.discipline).disName;
+        this.state.disciplineName = this.state.disciplines.find(disName => disName.id === this.state.discipline).disName;
         this.setState({})
     }
 
@@ -150,11 +149,12 @@ export default class Doc1_2 extends React.Component {
             params: {
                 formOfStudy: 1
             }
-        }).then(res => { //получение очных групп
+        }).then(res => {
             const groups = res.data;
             this.setState({groups});
             this.setState({pageLoaded: true})
         })
+
         get('professor').then(res => {
             const professors = res.data;
             this.setState({professors});
@@ -177,10 +177,8 @@ export default class Doc1_2 extends React.Component {
                 {this.state.pageLoaded ?
                     <div>
                         <form className='nav container main'>
-
                             <div className='form-row row center-block form'>
                                 <div className='col-md-3 pad'>
-
                                     <Autocomplete
                                         id="group"
                                         getOptionLabel={(option) => option.groupName}
@@ -190,7 +188,6 @@ export default class Doc1_2 extends React.Component {
                                         renderInput={(params) => <TextField  {...params} label='Группа'
                                                                              variant="outlined"/>}
                                     />
-
                                 </div>
                                 <div className='col-md-3'>
                                     <Autocomplete
@@ -202,8 +199,7 @@ export default class Doc1_2 extends React.Component {
                                         options={this.state.disciplines}
                                         onChange={(e, v) => this.onAutocompleteChange(v, "discipline", 'fullDiscipline')}
                                         style={{width: 200}}
-                                        renderInput={(params) => <TextField {...params} label='Дисциплина'
-                                                                            variant="outlined"/>}
+                                        renderInput={(params) => <TextField {...params} label='Дисциплина' variant="outlined"/>}
                                     />
                                 </div>
                                 <div className='col-md-3'>
@@ -221,7 +217,6 @@ export default class Doc1_2 extends React.Component {
                                 <div className='col-md-3'>
                                     <div className='b'>
                                         <Button
-                                            className='b'
                                             variant="contained"
                                             color="primary"
                                             className="btn btn-primary btnFind"

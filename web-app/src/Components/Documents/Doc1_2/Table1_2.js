@@ -74,12 +74,12 @@ class Table1_2 extends React.Component {
                         {this.props.courseworks.map((coursework, index) => (
                             <tr>
                                 <td>{index + 1}</td>
-                                <td width='160px'>{coursework.student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
+                                <td width='160px'>{coursework.student.name.split(' ').map((item, index) => index !== 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
                                 <td className='text-center'>{coursework.course}</td>
                                 <td className='text-center'>{coursework.group.name}</td>
                                 <td className='w text-center'>{moment(moment(coursework.incomingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')} </td>
                                 <td width='130px'
-                                    className='text-center'>{coursework.professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
+                                    className='text-center'>{coursework.professor.name.split(' ').map((item, index) => index !== 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
                                 <td className='w text-center'>{moment(moment(coursework.checkingDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
                                 <td className='w'>{coursework.result}</td>
                                 <td>
@@ -90,8 +90,6 @@ class Table1_2 extends React.Component {
                                 <td width='50px'>
                                     <div onClick={() => this.props.onOpenModal(coursework)} className='cursor'><img
                                         src={edit}/></div>
-
-
                                 </td>
                                 <td className='text-center'>
                                     <div onClick={() => this.onDelete(coursework.id)}  className='cursor'><img

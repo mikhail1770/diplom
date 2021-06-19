@@ -11,8 +11,6 @@ class Authorization extends React.Component {
             login: '',
             password: '',
             error: this.props.error,
-            isLogin: true,
-            error2:''
         }
         this.onAuto = this.onAuto.bind(this);
     }
@@ -62,7 +60,7 @@ class Authorization extends React.Component {
             </div>
         );
     }
-    
+
 }
 
 export default Authorization;

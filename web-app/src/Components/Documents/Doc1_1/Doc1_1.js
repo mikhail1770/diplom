@@ -177,7 +177,6 @@ export default class Doc1_1 extends React.Component {
                             <div className="form-row row center-block form">
                                 <div className='col-md-4 pad'>
                                     <Autocomplete
-                                        className='col-md-3'
                                         className='bot'
                                         value={this.state.fullDiscipline}
                                         id="discipline"

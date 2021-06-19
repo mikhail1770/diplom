@@ -21,9 +21,23 @@
   <component name="ChangeListManager">
     <list default="true" id="f3176f10-f627-420b-a169-d85e3e09b6e3" name="Default Changelist" comment="new comp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Authorization/Authorization.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_1/Doc1_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Doc1_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/ModalWin1_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_2/Table1_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/ModalWinNew1_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/ModalWinNew1_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/Table1_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/Table1_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/ModalWin3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/ModalWin3_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Table3_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/Doc3_2/Table3_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Documents/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Documents/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/NewDocuments/Navigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/Components/Registration/Registration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +68,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/web-app/src/Components" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -145,7 +160,13 @@
       <workItem from="1623194940797" duration="4580000" />
       <workItem from="1623371102199" duration="605000" />
       <workItem from="1623381477123" duration="13215000" />
-      <workItem from="1623458819952" duration="20787000" />
+      <workItem from="1623458819952" duration="24742000" />
+      <workItem from="1623540164580" duration="16140000" />
+      <workItem from="1623640061968" duration="11206000" />
+      <workItem from="1623716822597" duration="9691000" />
+      <workItem from="1623805340590" duration="2230000" />
+      <workItem from="1623891778180" duration="2412000" />
+      <workItem from="1623929989066" duration="855000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618563930188</created>
@@ -204,6 +225,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1622994373922" />
+    <state x="414" y="281" key="SettingsEditor" timestamp="1623677243241">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="281" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1623677243241" />
     <state x="807" y="433" key="VCS.ChangelistChooser" timestamp="1621824401784">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -220,16 +245,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1621854073206" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web-app/src/Components/Documents/Doc1_3/ModalWinNew1_3.js</url>
-          <line>53</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

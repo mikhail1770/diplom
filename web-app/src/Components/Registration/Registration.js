@@ -3,7 +3,6 @@ import '../App.css';
 import s from "../Registration/Registration.module.css";
 import univDoc from "../Header/UnivDoc.svg";
 import {NavLink} from "react-router-dom";
-import {post} from "../Documents/axios";
 import axios from "axios";
 
 
@@ -24,12 +23,10 @@ export default class Registration extends React.Component {
 
     onChangeLastName = e => {
         this.setState({lastName:e.target.value})
-        console.log(this.state.lastName)
     }
 
     onChangeFirstName = e => {
         this.setState({firstName:e.target.value})
-        console.log(this.state.firstName)
     }
 
     onChangePatronymic = e => {
@@ -101,13 +98,12 @@ export default class Registration extends React.Component {
                     <img className={`${s.univDoc}`} src={univDoc}/>
 
                 </div>
-
                 <div className={`row ${s.margin2}`}>
                     <span className={`row ${s.title}`}>Введите данные для регистрации</span>
                 </div>
-<form>
                 <div className={`row ${s.margin2}`}>
-                    <div>{this.state.firstName == ''   ? <input
+                    <div>{this.state.firstName === ''   ?
+                        <input
                         type="text"
                         className={`form-control ${s.w} inputError`}
                         placeholder="Имя"
@@ -118,10 +114,10 @@ export default class Registration extends React.Component {
                             placeholder="Имя"
                             onChange={(e) => this.onChangeFirstName(e)}/>}
                     </div>
-                    <div>{this.state.login === '' || this.state.error === 'Используйте только латинские символы'  ? <input
+                    <div>{this.state.login === '' || this.state.error === 'Используйте только латинские символы'  ?
+                        <input
                         type="text"
                         className={`form-control ${s.w} inputError`}
-                        id="exampleInputPassword1"
                         placeholder="Введите логин"
                         onChange={(e) => this.onChangeLogin(e)}/> : <input
                         type="text"
@@ -132,10 +128,10 @@ export default class Registration extends React.Component {
                     </div>
                 </div>
                 <div className={`row ${s.margin2}`}>
-                    <div>{this.state.lastName === ''   ? <input
+                    <div>{this.state.lastName === ''   ?
+                        <input
                         type="text"
                         className={`form-control ${s.w} inputError`}
-                        id="exampleInputPassword1"
                         placeholder="Фамилия"
                         onChange={(e) => this.onChangeLastName(e)}/>: <input
                         type="text"
@@ -143,7 +139,8 @@ export default class Registration extends React.Component {
                         id="exampleInputPassword1"
                         placeholder="Фамилия"
                         onChange={(e) => this.onChangeLastName(e)}/>}</div>
-                    <div>{this.state.password === ''   ?<input
+                    <div>{this.state.password === ''   ?
+                        <input
                         type="password"
                         className={`form-control ${s.w} inputError`}
                         id="exampleInputPassword1"
@@ -156,7 +153,8 @@ export default class Registration extends React.Component {
                         onChange={(e) => this.onChangePassword(e)}/>}</div>
                 </div>
                 <div className={`row ${s.margin2}`}>
-                    <div>{this.state.patronymic === ''   ?<input
+                    <div>{this.state.patronymic === ''   ?
+                        <input
                         type="Text"
                         className={`form-control ${s.w} inputError`}
                         id="exampleInputPassword1"
@@ -167,7 +165,8 @@ export default class Registration extends React.Component {
                         id="exampleInputPassword1"
                         placeholder="Отчество"
                         onChange={(e) => this.onChangePatronymic(e)}/>}</div>
-                    <div>{this.state.repeatPassword === ''   ?<input
+                    <div>{this.state.repeatPassword === ''   ?
+                        <input
                         type="password"
                         className={`form-control ${s.w} inputError`}
                         id="exampleInputPassword1"
@@ -179,7 +178,6 @@ export default class Registration extends React.Component {
                         placeholder="Повторите пароль"
                         onChange={(e) => this.onChangeRepeatPassword(e)}/>} </div>
                 </div>
-</form>
                 {this.state.error === 'Используйте только латинские символы' ? <div className={`row `}><p className='textRegRed'>{this.state.error}</p> </div> : this.state.error == 'Вы успешно зарегистрированы' ? <div className={`row `}><p className='textReg'>{this.state.error}</p> </div> :
                     this.state.error === 'Заполните все поля' ? <div className={`row `}><p className='textRegRed'>{this.state.error}</p> </div> :  this.state.error == 'Пароли не совпадают' ? <div className={`row `}><p className='textRegRed'>{this.state.error}</p> </div> : <div className={`row `}><p ></p> </div>}
 

@@ -19,18 +19,17 @@ class ModalWin3_2 extends React.Component {
                 eventTheme: this.props.currentGroup.eventTheme,
                 professor: {
                     name: 'Чуйко Ольга Игоревна',
-                    id: this.props.currentGroup.professor.id
+                    id: this.props.currentGroup.professor.id,
+                    profRank: this.props.currentGroup.professor.profRank
                 },
                 id: this.props.currentGroup.id,
-                review:''
+                review:this.props.currentGroup.review,
+                typename:this.props.currentGroup.typename
             },
-            selectedFile: '',
             number: '',
-            nameFile: this.props ? this.props.filelink : '',
-            fileSelected: 0,
             profName: '',
             idProf: '',
-            studentName: ''
+
         }
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -66,6 +65,7 @@ class ModalWin3_2 extends React.Component {
         put(`edit/event/${this.state.currentGroup.id}`, {
             eventDate: this.state.currentGroup.eventDate,
             theme: this.state.currentGroup.eventTheme,
+            review: this.state.currentGroup.review
         }).then(res => {
             this.props.onSubmit();
             this.props.close();
@@ -130,7 +130,7 @@ class ModalWin3_2 extends React.Component {
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        onChange={(e) => this.ChangeSelectedProffesor(e)}
+                                        onChange={(e) => this.ChangeSelectedProfessor(e)}
                                     >
                                         {/*{this.props.professors.map(professor => <MenuItem*/}
                                         {/*    value={professor.profName}> {professor.profName.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')} </MenuItem>)}*/}
@@ -162,7 +162,7 @@ class ModalWin3_2 extends React.Component {
                             </div>
                             <div className='col-6 v propsModal'>
                                 <input className="form-control form-control-sm" type="text"
-                                       defaultValue={this.state.currentGroup.eventName}  onChange={(e) => this.ChangeSelectedReview(e)}/>
+                                       defaultValue={this.state.currentGroup.review}  onChange={(e) => this.ChangeSelectedReview(e)}/>
                             </div>
                         </div>
                         <div className={`${s.positionSave} f`}>

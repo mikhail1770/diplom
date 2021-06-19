@@ -73,7 +73,7 @@ class ModalWin1_2 extends React.Component {
 
 
     onSave = () => {
-        if (this.state.courseWorkResID == '') {
+        if (this.state.courseWorkResID === '') {
             this.state.courseWorkResID = this.state.currentGroup.courseWorkResID;
         } else {
             console.log(1)
@@ -81,8 +81,7 @@ class ModalWin1_2 extends React.Component {
 
         const data = new FormData()
         data.append('file', this.state.selectedFile)
-        post("upload", data, {})
-            .then(res => {
+        post("upload", data, {}).then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
                     put(`edit/courseworks/${this.state.currentGroup.id}`, {
                         checkingDate: this.state.currentGroup.checkingDate,
@@ -132,11 +131,11 @@ class ModalWin1_2 extends React.Component {
                                 </FormControl>
                             </div>
                         </div>
-                        <div className='row modalRow '>
+                        <div className='row modalRow'>
                             <div className='col-6 titleModal v'>
                                 <span>ФИО преподавателя:</span>
                             </div>
-                            <div className='col-6 v propsModal'>
+                            <div className='col-6 propsModal v'>
                                 <FormControl className='formControl'>
                                     <Select
                                         value={this.state.currentGroup.professor}

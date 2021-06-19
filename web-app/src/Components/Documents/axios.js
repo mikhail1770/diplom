@@ -28,7 +28,6 @@ function post(url, obj) {
           reject(err);
         });
       });
-
 }
 
 function put(url, obj) {

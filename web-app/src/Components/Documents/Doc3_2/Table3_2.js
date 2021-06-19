@@ -45,10 +45,10 @@ class Table3_2 extends React.Component {
                         <thead className='headTable'>
                         <tr>
                             <th className='text-center'>Дата</th>
-                            <th className='text-center'>ФИО преподавателя, проводившего занятие</th>
+                            <th className='text-center'>Преподаватель, проводивший занятий</th>
                             <th className='text-center'>Тема занятия</th>
                             <th className='text-center'>Вид занятия</th>
-                            <th className='text-center'>ФИО преподавателя, посетившего занятие</th>
+                            <th className='text-center'>Преподаватель, посетивший занятий</th>
                             <th className='text-center'>Должность</th>
                             <th className='text-center'>Рецензия</th>
                             <th></th>
@@ -58,18 +58,18 @@ class Table3_2 extends React.Component {
                         <tbody className='fontSize'>
                         {this.props.profInEvents.map((profInEvent) => (
                             <tr>
-                                <td className='text-center'>{moment(moment(profInEvent.eventDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
-                                <td className='text-center'>{profInEvent.professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
-                                <td className='text-center'>{profInEvent.eventTheme}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td width='50px'>
+                                <td className='text-center align-middle' >{moment(moment(profInEvent.eventDate, 'YYYY-MM-DD')).format('DD.MM.YYYY')}</td>
+                                <td className='text-center align-middle' width='100px'>{profInEvent.professor.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ')}</td>
+                                <td className='text-center align-middle'>{profInEvent.eventTheme}</td>
+                                <td className='text-center align-middle' width='80px'>{profInEvent.typename}</td>
+                                <td className='text-center align-middle' width='100px'></td>
+                                <td className='text-center align-middle' >{profInEvent.professor.profRank}</td>
+                                <td className='text-center'>{profInEvent.review}</td>
+                                <td width='50px' className='text-center align-middle'>
                                     <div onClick={() => this.props.onOpenModal(profInEvent)} className='cursor'><img
                                         src={edit}/></div>
                                 </td>
-                                <td className='text-center'>
+                                <td className='text-center align-middle'>
                                     <div className='cursor' onClick={() => this.onDelete(profInEvent.id)}><img
                                         src={delet}/></div>
                                 </td>

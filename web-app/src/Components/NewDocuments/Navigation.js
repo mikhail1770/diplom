@@ -3,7 +3,7 @@ import '../App.css';
 import s from './Navigation.module.css';
 import {Link} from "react-router-dom";
 
-function Navigation(props) {
+function Navigation() {
     return (
         <div>
             <div className='line row'>

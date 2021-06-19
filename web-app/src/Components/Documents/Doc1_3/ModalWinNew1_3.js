@@ -67,7 +67,8 @@ class ModalWinNew1_2 extends React.Component {
         post("upload", data, {})
             .then(res => {
                 this.setState({nameFile: res.data.filename}, () => {
-                    if (this.state.studentId !== '' && this.state.professorId !== '' && this.state.professorId !== '' && this.state.univGroups !== '' && this.state.course !== '' && this.state.disciplines !== '') {
+                    if (this.state.studentId !== '' && this.state.professorId !== '' && this.state.professorId !== ''
+                        && this.state.univGroups !== '' && this.state.course !== '' && this.state.disciplines !== '') {
                         post(`add/practiceReport/`, {
                             incomingDate: this.state.incomingDate,
                             disciplines: this.props.disciplines,
@@ -116,7 +117,8 @@ class ModalWinNew1_2 extends React.Component {
                                         onChange={(e) => this.ChangeSelectedStudent(e)}
                                     >
                                         {this.props.students.map(student => <MenuItem
-                                            value={student}> {student.name ? student.name.split(' ').map((item, index) => index != 0 ? item.substring(0, 1) + "." : item).join(' ') : ''} </MenuItem>)}
+                                            value={student}> {student.name ? student.name.split(' ').map((item, index) => index != 0 ?
+                                            item.substring(0, 1) + "." : item).join(' ') : ''} </MenuItem>)}
                                     </Select>
                                 </FormControl>
                             </div>
